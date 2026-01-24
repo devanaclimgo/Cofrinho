@@ -8,7 +8,14 @@ Rails.application.routes.draw do
       resources :transactions, only: [:index, :create]
 
       # Analytics routes
-      get "analytics/monthly", to: "analytics#monthly"
+      resources :analytics, only: [] do
+        collection do
+          get :weekly
+          get :monthly
+          get :yearly
+          get :by_category
+        end
+      end
     end
   end
 end
