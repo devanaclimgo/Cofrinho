@@ -6,6 +6,9 @@ Rails.application.routes.draw do
 
       # Transactions routes
       resources :transactions, only: [:index, :create]
+
+      # Analytics routes
+      get "analytics/monthly", to: "analytics#monthly"
     end
   end
 end
