@@ -39,4 +39,13 @@ class Api::V1::AnalyticsController < Api::V1::BaseController
 
     render json: data
   end
+
+  def month_comparison
+    data = Analytics::MonthComparisonService.new(
+      user: @current_user,
+      transaction_type: params[:type]
+    ).call
+
+    render json: data
+  end
 end
