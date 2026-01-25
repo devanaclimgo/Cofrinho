@@ -18,6 +18,8 @@ Rails.application.routes.draw do
       end
 
       get "analytics/month_comparison", to: "analytics#month_comparison"
+
+      get "analytics/daily_budget", to: "analytics#daily_budget"
     end
   end
 end
