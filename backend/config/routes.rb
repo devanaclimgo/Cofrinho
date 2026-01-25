@@ -16,6 +16,8 @@ Rails.application.routes.draw do
           get :by_category
         end
       end
+
+      get "analytics/month_comparison", to: "analytics#month_comparison"
     end
   end
 end
