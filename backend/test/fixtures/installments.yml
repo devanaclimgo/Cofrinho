@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  card_purchase: one
+  amount: 9.99
+  month: 2026-01-25
+
+two:
+  card_purchase: two
+  amount: 9.99
+  month: 2026-01-25
