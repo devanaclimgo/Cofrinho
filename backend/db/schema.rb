@@ -10,9 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_25_204600) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_25_204836) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "card_purchases", force: :cascade do |t|
+    t.bigint "card_id", null: false
+    t.datetime "created_at", null: false
+    t.string "description"
+    t.integer "installments_count"
+    t.decimal "interest_rate"
+    t.date "purchased_on"
+    t.decimal "total_amount"
+    t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_card_purchases_on_card_id"
+  end
 
   create_table "cards", force: :cascade do |t|
     t.integer "closing_day"
@@ -49,6 +61,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_25_204600) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "card_purchases", "cards"
   add_foreign_key "cards", "users"
   add_foreign_key "transactions", "users"
 end
