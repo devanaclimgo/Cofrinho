@@ -48,4 +48,12 @@ class Api::V1::AnalyticsController < Api::V1::BaseController
 
     render json: data
   end
+
+  def daily_budget
+    data = Analytics::DailyBudgetService.new(
+      user: @current_user
+    ).call
+
+    render json: data
+  end
 end
