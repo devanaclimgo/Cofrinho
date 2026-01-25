@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_25_204836) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_25_205923) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -35,6 +35,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_25_204836) do
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_cards_on_user_id"
+  end
+
+  create_table "installments", force: :cascade do |t|
+    t.decimal "amount"
+    t.bigint "card_purchase_id", null: false
+    t.datetime "created_at", null: false
+    t.date "month"
+    t.datetime "updated_at", null: false
+    t.index ["card_purchase_id"], name: "index_installments_on_card_purchase_id"
   end
 
   create_table "transactions", force: :cascade do |t|
@@ -63,5 +72,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_25_204836) do
 
   add_foreign_key "card_purchases", "cards"
   add_foreign_key "cards", "users"
+  add_foreign_key "installments", "card_purchases"
   add_foreign_key "transactions", "users"
 end
