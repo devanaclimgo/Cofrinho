@@ -20,6 +20,11 @@ Rails.application.routes.draw do
       get "analytics/month_comparison", to: "analytics#month_comparison"
 
       get "analytics/daily_budget", to: "analytics#daily_budget"
+
+      # Cards routes
+      resources :cards, only: [:index, :create] do
+        resources :card_purchases, only: [:create]
+      end
     end
   end
 end
