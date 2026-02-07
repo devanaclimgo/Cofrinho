@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_25_205923) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_07_235550) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "alerts", force: :cascade do |t|
+    t.string "alert_type"
+    t.datetime "created_at", null: false
+    t.string "message"
+    t.boolean "read"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_alerts_on_user_id"
+  end
 
   create_table "card_purchases", force: :cascade do |t|
     t.bigint "card_id", null: false
@@ -70,6 +80,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_25_205923) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "alerts", "users"
   add_foreign_key "card_purchases", "cards"
   add_foreign_key "cards", "users"
   add_foreign_key "installments", "card_purchases"
