@@ -25,6 +25,9 @@ Rails.application.routes.draw do
       resources :cards, only: [:index, :create] do
         resources :card_purchases, only: [:create]
       end
+
+      # Purchase validation route
+      post "purchase_validations", to: "purchase_validations#validate"
     end
   end
 end
