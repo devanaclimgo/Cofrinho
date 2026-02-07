@@ -28,6 +28,13 @@ Rails.application.routes.draw do
 
       # Purchase validation route
       post "purchase_validations", to: "purchase_validations#validate"
+
+      # Alerts routes
+      resources :alerts, only: [:index] do
+        member do
+          post :mark_as_read
+        end
+      end
     end
   end
 end
