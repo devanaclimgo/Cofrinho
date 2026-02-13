@@ -446,3 +446,35 @@ FOREIGN KEY ("user_id")
   [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO "$user", public /*application='Backend'*/[0m
   [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO public /*application='Backend'*/[0m
   [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO "$user", public /*application='Backend'*/[0m
+Started GET "/" for ::1 at 2026-02-13 18:44:46 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (4.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Backend'*/[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/anaclimgo/.local/share/mise/installs/ruby/3.4.7/lib/ruby/gems/3.4.0/gems/railties-8.1.2/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/anaclimgo/.local/share/mise/installs/ruby/3.4.7/lib/ruby/gems/3.4.0/gems/railties-8.1.2/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 7ms (Views: 1.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/icon.png" for ::1 at 2026-02-13 18:44:46 -0300
+  
+ActionController::RoutingError (No route matches [GET] "/icon.png"):
+  
+Started GET "/icon.png" for ::1 at 2026-02-13 18:44:46 -0300
+  
+ActionController::RoutingError (No route matches [GET] "/icon.png"):
+  
+Started GET "/apple-touch-icon-precomposed.png" for ::1 at 2026-02-13 18:44:46 -0300
+  
+ActionController::RoutingError (No route matches [GET] "/apple-touch-icon-precomposed.png"):
+  
+Started GET "/apple-touch-icon.png" for ::1 at 2026-02-13 18:44:46 -0300
+  
+ActionController::RoutingError (No route matches [GET] "/apple-touch-icon.png"):
+  
+Started GET "/icon.png" for ::1 at 2026-02-13 18:44:46 -0300
+  
+ActionController::RoutingError (No route matches [GET] "/icon.png"):
+  
+Started GET "/favicon.ico" for ::1 at 2026-02-13 18:44:46 -0300
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
