@@ -478,3 +478,8 @@ Started GET "/favicon.ico" for ::1 at 2026-02-13 18:44:46 -0300
   
 ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
   
+Started POST "/login" for ::1 at 2026-02-14 11:25:15 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (2.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Backend'*/[0m
+  
+ActionController::RoutingError (No route matches [POST] "/login"):
+  
