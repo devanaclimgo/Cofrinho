@@ -46,6 +46,8 @@ Rails.application.routes.draw do
         controllers: {
           sessions: 'api/v1/sessions'
         }
+
+      get "me", to: "users#me"
     end
   end
 end
