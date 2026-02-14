@@ -40,11 +40,13 @@ Rails.application.routes.draw do
       devise_for :users,
         path: '',
         path_names: {
-          sign_in: 'login',
-          sign_out: 'logout'
+          sign_in: 'users/sign_in',
+          sign_out: 'users/sign_out',
+          registration: 'users'
         },
         controllers: {
-          sessions: 'api/v1/sessions'
+          sessions: 'api/v1/sessions',
+          registrations: 'api/v1/registrations'
         }
 
       get "me", to: "users#me"
