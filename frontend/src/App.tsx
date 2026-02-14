@@ -1,12 +1,14 @@
-import { AppLayout } from "./components/layout/AppLayout";
-import { Dashboard } from "./pages/Dashboard";
+import { Routes, Route } from "react-router-dom"
+import { Dashboard } from "./pages/Dashboard"
+import { Login } from "./pages/Login"
 
 function App() {
   return (
-    <AppLayout>
-      <Dashboard />
-    </AppLayout>
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/" element={<Dashboard />} />
+    </Routes>
   )
 }
 
-export default App;
+export default App
