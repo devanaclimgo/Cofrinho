@@ -483,3 +483,10 @@ Started POST "/login" for ::1 at 2026-02-14 11:25:15 -0300
   
 ActionController::RoutingError (No route matches [POST] "/login"):
   
+Started POST "/api/v1/users/sign_in" for ::1 at 2026-02-14 11:42:28 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Backend'*/[0m
+Processing by Api::V1::SessionsController#create as */*
+  Parameters: {"user" => {"email" => "[FILTERED]", "password" => "[FILTERED]"}, "session" => {"user" => {"email" => "[FILTERED]", "password" => "[FILTERED]"}}}
+Completed 401 Unauthorized in 5ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
