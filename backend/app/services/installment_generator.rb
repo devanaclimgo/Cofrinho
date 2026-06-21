@@ -7,7 +7,7 @@ class InstallmentGenerator
     total_installments.times do |i|
 
       Installment.create!(
-        transaction: transaction,
+        financial_transaction: transaction,
         amount: value,
         current_installment: i + 1,
         total_installments: total_installments,
@@ -17,5 +17,4 @@ class InstallmentGenerator
     end
 
   end
-
 end
