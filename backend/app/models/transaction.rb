@@ -1,6 +1,6 @@
 class Transaction < ApplicationRecord
   belongs_to :user
-  belongs_to :card, optional:true
+  belongs_to :card, optional: true
 
   enum kind: {
     expense: 0,
