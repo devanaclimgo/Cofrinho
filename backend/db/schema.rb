@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_19_225640) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_21_215747) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -31,10 +31,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_19_225640) do
     t.datetime "created_at", null: false
     t.integer "current_installment"
     t.date "due_date"
+    t.bigint "financial_transaction_id"
     t.integer "total_installments"
-    t.bigint "transaction_id"
     t.datetime "updated_at", null: false
-    t.index ["transaction_id"], name: "index_installments_on_transaction_id"
+    t.index ["financial_transaction_id"], name: "index_installments_on_financial_transaction_id"
   end
 
   create_table "purchase_simulations", force: :cascade do |t|
