@@ -1,7 +1,7 @@
 module FinancialAnalysis
   class ExpenseCalculator
     
-    def self.all(user)
+    def self.call(user)
       user.transactions
           .expense
           .average(:amount)
