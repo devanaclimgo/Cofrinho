@@ -5,7 +5,7 @@ class Api::V1::TransactionsController < ApplicationController
 
     authorize transaction
 
-    render json: transaction
+    render json: TransactionSerializer.new(transaction)
   end
 
 end
