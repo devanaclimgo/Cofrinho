@@ -1,29 +1,31 @@
-class DashboardService
-  
-  def self.call(user)
-    income = IncomeCalculator.call(user)
+module FinancialAnalysis
+  class DashboardService
+    
+    def self.call(user)
+      income = IncomeCalculator.call(user)
 
-    expenses = ExpenseCalculator.call(user)
+      expenses = ExpenseCalculator.call(user)
 
-    {
-      monthly_income: income,
+      {
+        monthly_income: income,
 
-      monthly_expenses: expenses,
+        monthly_expenses: expenses,
 
-      remaining_balance: income-expenses,
+        remaining_balance: income-expenses,
 
-      expenses_growth: 0,
+        expenses_growth: 0,
 
-      top_category: most_used_category(user)
-    }
+        top_category: most_used_category(user)
+      }
+    end
+
+    def self.most_used_category(user)
+      user.transactions
+          .group(:category)
+          .count
+          .max_by(&:last)
+          &.first
+    end
+
   end
-
-  def self.most_used_category(user)
-    user.transactions
-        .group(:category)
-        .count
-        .max_by(&:last)
-        &.first
-  end
-
 end

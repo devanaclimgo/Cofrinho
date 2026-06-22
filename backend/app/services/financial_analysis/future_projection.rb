@@ -1,34 +1,36 @@
-class FutureProjection
-  
-  def self.call(
-    income:,
-    expenses:,
-    installments:,
-    amount:
-    )
+module FinancialAnalysis
+  class FutureProjection
+    
+    def self.call(
+      income:,
+      expenses:,
+      installments:,
+      amount:
+      )
 
-    installment_value = amount/installments
+      installment_value = amount/installments
 
-    projections=[]
+      projections=[]
 
-    installments.times do |month|
-      balance = income - expenses - installment_value
+      installments.times do |month|
+        balance = income - expenses - installment_value
 
-      projections << {
-        month: month + 1,
-        balance: balance,
-        status: status(balance)
-      }
+        projections << {
+          month: month + 1,
+          balance: balance,
+          status: status(balance)
+        }
+      end
+
+      projections
     end
 
-    projections
+    def self.status(balance)
+      return "red" if balance < 0
+      return "yellow" if balance < 500
+
+      "green"
+    end
+
   end
-
-  def self.status(balance)
-    return "red" if balance < 0
-    return "yellow" if balance < 500
-
-    "green"
-  end
-
 end
