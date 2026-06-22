@@ -9,9 +9,9 @@ Rails.application.routes.draw do
       resources :transactions
       resources :cards
 
-      get "/dashboard"
+      get "/dashboard",
       to:"dashboard#index"
-      
+
     end
   end
 end
