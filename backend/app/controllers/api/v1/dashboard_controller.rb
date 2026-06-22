@@ -2,7 +2,7 @@ class Api::V1::DashboardController < ApplicationController
 
   def index
     data =
-      DashboardService.call(
+      FinancialAnalysis::DashboardService.call(
         current_user
       )
     
