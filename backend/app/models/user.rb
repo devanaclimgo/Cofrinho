@@ -7,6 +7,7 @@ class User < ApplicationRecord
 
   include Devise::JWT::RevocationStrategies::JTIMatcher
 
-  has_many :transactions
-  has_many :cards
+  has_many :transactions, dependent: :destroy
+  has_many :cards, dependent: :destroy
+  belongs_to :user, optional: true
 end
