@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_21_215747) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_23_195808) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -35,6 +35,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_21_215747) do
     t.integer "total_installments"
     t.datetime "updated_at", null: false
     t.index ["financial_transaction_id"], name: "index_installments_on_financial_transaction_id"
+  end
+
+  create_table "jwt_denylists", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "exp"
+    t.string "jti"
+    t.datetime "updated_at", null: false
+    t.index ["jti"], name: "index_jwt_denylists_on_jti"
   end
 
   create_table "purchase_simulations", force: :cascade do |t|
