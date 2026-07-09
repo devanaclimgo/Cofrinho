@@ -10,6 +10,8 @@ Devise.setup do |config|
 
   config.skip_session_storage = [:http_auth]
 
+  config.navigational_formats = []
+
   config.stretches = Rails.env.test? ? 1 : 12
 
   config.reconfirmable = true
