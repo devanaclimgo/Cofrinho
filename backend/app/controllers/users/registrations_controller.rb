@@ -3,6 +3,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   private
 
+  def sign_up(resource_name, resource)
+    sign_in(resource_name, resource, store: false)
+  end
+
   def respond_with(resource, _opts = {})
     render json: {
       status: {
