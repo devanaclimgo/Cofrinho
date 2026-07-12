@@ -1,58 +1,74 @@
-import type { ReactNode } from "react"
-import { Link } from "react-router-dom"
-import { Sparkles, TrendingUp, ShieldCheck, Check } from "lucide-react"
-import { useI18n } from "../../i18n/I18nContext"
-import { Logo } from "../../components/shared/Logo"
-import { ThemeToggle } from "../../components/shared/ThemeToggle"
-import { LanguageSwitcher } from "../../components/shared/LanguageSwitcher"
+import type { ReactNode } from "react";
+import { Logo } from "../../components/shared/Logo";
+import { LanguageSwitcher } from "../../components/shared/LanguageSwitcher";
+import { ThemeToggle } from "../../components/shared/ThemeToggle";
+import { PiggyBank, Sparkles, ShieldCheck } from "lucide-react";
 
-export function AuthShell({ children }: { children: ReactNode }) {
-  const { t } = useI18n()
+export function AuthShell({
+  title,
+  subtitle,
+  children,
+}: {
+  title: string;
+  subtitle: string;
+  children: ReactNode;
+}) {
   return (
-    <div className="flex min-h-screen bg-background">
-      {/* Left brand panel */}
-      <div className="relative hidden w-1/2 flex-col justify-between overflow-hidden bg-primary p-12 text-primary-foreground lg:flex">
-        <div className="pointer-events-none absolute inset-0 bg-grid-pattern opacity-10" />
-        <Link to="/" className="relative">
-          <Logo inverted />
-        </Link>
-        <div className="relative">
-          <Sparkles className="h-8 w-8" />
-          <h2 className="mt-6 text-balance text-3xl font-bold leading-tight">{t("landing.hero.title")}</h2>
-          <p className="mt-4 max-w-sm text-pretty leading-relaxed text-primary-foreground/80">{t("landing.hero.subtitle")}</p>
-          <div className="mt-8 space-y-3">
-            {[
-              { icon: TrendingUp, text: t("landing.features.forecast.title") },
-              { icon: ShieldCheck, text: t("landing.features.simulation.title") },
-              { icon: Check, text: t("landing.features.tracking.title") },
-            ].map((item) => (
-              <div key={item.text} className="flex items-center gap-3 text-sm">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-foreground/15">
-                  <item.icon className="h-4 w-4" />
-                </div>
-                {item.text}
+    <div className="min-h-dvh bg-background lg:grid lg:grid-cols-2">
+      {/* Illustration side (desktop) */}
+      <div className="relative hidden overflow-hidden bg-primary lg:block">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.15),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_80%,rgba(255,255,255,0.10),transparent_50%)]" />
+        <div className="relative z-10 flex h-full flex-col p-12 text-primary-foreground">
+          <div className="flex items-center gap-2 font-semibold">
+            <span className="grid h-8 w-8 place-items-center rounded-xl bg-white/15 backdrop-blur">
+              <PiggyBank className="h-4 w-4" />
+            </span>
+            <span>Cofrinho</span>
+          </div>
+          <div className="mt-auto space-y-6">
+            <div className="animate-float rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur-md">
+              <div className="text-xs text-white/70">Balance</div>
+              <div className="mt-1 text-3xl font-semibold">$5,240.80</div>
+              <div className="mt-4 flex gap-2">
+                {[35, 55, 40, 70, 60, 85, 90].map((h, i) => (
+                  <div key={i} className="h-16 flex-1 rounded-md bg-white/20" style={{ height: `${h}%` }} />
+                ))}
               </div>
-            ))}
+            </div>
+            <blockquote className="max-w-md text-lg font-medium leading-relaxed">
+              “The purchase simulator turned my anxious shopping decisions into calm, confident ones.”
+            </blockquote>
+            <div className="flex items-center gap-2 text-sm text-white/80">
+              <Sparkles className="h-4 w-4" />
+              <span>Loved by 24,000+ mindful spenders</span>
+            </div>
           </div>
         </div>
-        <p className="relative text-sm text-primary-foreground/70">© 2026 Cofrinho</p>
       </div>
 
-      {/* Right form panel */}
-      <div className="flex w-full flex-col lg:w-1/2">
-        <div className="flex items-center justify-between p-6">
-          <Link to="/" className="lg:hidden">
+      {/* Form side */}
+      <div className="flex min-h-dvh flex-col">
+        <header className="flex items-center justify-between px-6 py-5 lg:px-10">
+          <div className="lg:hidden">
             <Logo />
-          </Link>
+          </div>
           <div className="ml-auto flex items-center gap-2">
             <LanguageSwitcher />
             <ThemeToggle />
           </div>
-        </div>
-        <div className="flex flex-1 items-center justify-center px-6 pb-12">
-          <div className="w-full max-w-sm animate-fade-up">{children}</div>
-        </div>
+        </header>
+        <main className="flex flex-1 items-center justify-center px-6 pb-10">
+          <div className="w-full max-w-sm">
+            <h1 className="text-2xl font-semibold tracking-tight text-foreground">{title}</h1>
+            <p className="mt-1.5 text-sm text-muted-foreground">{subtitle}</p>
+            <div className="mt-8">{children}</div>
+            <div className="mt-8 flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
+              <ShieldCheck className="h-3.5 w-3.5 text-success" /> Secured with end-to-end encryption
+            </div>
+          </div>
+        </main>
       </div>
     </div>
-  )
+  );
 }
