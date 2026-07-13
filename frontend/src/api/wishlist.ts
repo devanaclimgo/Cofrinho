@@ -1,3 +1,4 @@
+import type { WishlistItem } from "../types/wishlist";
 import { api } from "./axios";
 
 export function createWishlist(data: { name: string }) {
@@ -5,7 +6,7 @@ export function createWishlist(data: { name: string }) {
 }
 
 export function getWishlist() {
-  return api.get("/api/v1/wishlist");
+  return api.get<WishlistItem[]>("/api/v1/wishlist");
 }
 
 export function updateWishlist(id: string, data: { name: string }) {
