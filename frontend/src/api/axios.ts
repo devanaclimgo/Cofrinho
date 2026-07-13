@@ -1,20 +1,19 @@
-import axios from "axios"
-import { API_URL } from "../lib/constants"
-import { storage } from "../lib/storage"
+import axios from "axios";
+import { storage } from "../lib/storage";
 
 export const api = axios.create({
-  baseURL: API_URL,
+  baseURL: "http://localhost:3000/api/v1",
   headers: {
     "Content-Type": "application/json",
   },
-})
+});
 
 api.interceptors.request.use((config) => {
-  const token = storage.getToken()
+  const token = storage.getToken();
 
   if (token) {
-    config.headers.Authorization = `Bearer ${token}`
+    config.headers.Authorization = `Bearer ${token}`;
   }
 
-  return config
-})
+  return config;
+});
