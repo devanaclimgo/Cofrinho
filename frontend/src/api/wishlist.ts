@@ -4,7 +4,7 @@ export function createWishlist(data: { name: string }) {
   return api.post("/api/v1/wishlist", data);
 }
 
-export function getWishlists() {
+export function getWishlist() {
   return api.get("/api/v1/wishlist");
 }
 
