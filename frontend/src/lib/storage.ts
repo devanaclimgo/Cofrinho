@@ -1,15 +1,15 @@
-const TOKEN_KEY = "cofrinho_token"
+const TOKEN_KEY = "cofrinho_token";
 
 export const storage = {
   getToken() {
-    return localStorage.getItem(TOKEN_KEY)
+    return localStorage.getItem(TOKEN_KEY);
   },
 
   setToken(token: string) {
-    localStorage.setItem(TOKEN_KEY, token)
+    localStorage.setItem(TOKEN_KEY, token);
   },
 
   removeToken() {
-    localStorage.removeItem(TOKEN_KEY)
+    localStorage.removeItem(TOKEN_KEY);
   },
-}
+};
