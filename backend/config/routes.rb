@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       get "/dashboard",
       to:"dashboard#index"
 
+      get :me, to: "users#me"
     end
   end
 end
