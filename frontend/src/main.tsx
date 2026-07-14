@@ -5,7 +5,6 @@ import "./index.css";
 import { App } from "./App";
 import { ThemeProvider } from "./lib/ThemeContext";
 import { I18nProvider } from "./i18n/I18nContext";
-import { CurrencyProvider } from "./lib/CurrencyContext";
 import { AppStateProvider } from "./lib/AppStateContext";
 import { QueryProvider } from "./providers/QueryProvider";
 
@@ -14,13 +13,11 @@ createRoot(document.getElementById("root")!).render(
     <QueryProvider>
       <ThemeProvider>
         <I18nProvider>
-          <CurrencyProvider>
             <AppStateProvider>
               <BrowserRouter>
                 <App />
               </BrowserRouter>
             </AppStateProvider>
-          </CurrencyProvider>
         </I18nProvider>
       </ThemeProvider>
     </QueryProvider>
