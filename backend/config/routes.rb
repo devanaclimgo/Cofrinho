@@ -23,6 +23,9 @@ Rails.application.routes.draw do
       get "/dashboard",
       to:"dashboard#index"
 
+      post "/simulate",
+      to: "simulations#create"
+
       get :me, to: "users#me"
     end
   end
