@@ -1,5 +1,8 @@
+import type { PurchaseSimulationRequest } from "../hooks/useSimulation";
 import { api } from "./axios";
 
-export function simulateTransaction(transaction: { price: number; months: string, cardId: string }) {
-  return api.post("/api/v1/simulate", transaction)
+export async function simulateTransaction(body: PurchaseSimulationRequest) {
+  const { data } = await api.post("/api/v1/simulate", body);
+
+  return data;
 }
