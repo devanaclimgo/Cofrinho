@@ -1,19 +1,21 @@
 import { useMutation } from "@tanstack/react-query";
 import { simulateTransaction } from "../api/simulator";
-
-export type PurchaseSimulationRequest = {
-    price: number;
-    months: string;
-    cardId: string;
-};
+import type {
+  PurchaseSimulationRequest,
+  PurchaseSimulationResponse,
+} from "../types/simulation";
 
 async function simulatePurchase(body: PurchaseSimulationRequest) {
-    const data = await simulateTransaction(body);
-    return data;
+  const data = await simulateTransaction(body);
+  return data as PurchaseSimulationResponse;
 }
 
 export function usePurchaseSimulation() {
-    return useMutation({
-        mutationFn: simulatePurchase,
-    })
+  return useMutation<
+    PurchaseSimulationResponse,
+    Error,
+    PurchaseSimulationRequest
+  >({
+    mutationFn: simulatePurchase,
+  });
 }
