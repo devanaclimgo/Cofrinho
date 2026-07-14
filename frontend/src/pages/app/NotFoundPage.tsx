@@ -8,8 +8,6 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { type ReactNode } from "react";
-
-import appCss from "../styles.css?url";
 import { ThemeProvider } from "../../lib/ThemeContext";
 import { I18nProvider, useI18n } from "../../i18n/I18nContext";
 
@@ -104,7 +102,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:title", content: "Cofrinho — Plan before you spend" },
     ],
     links: [
-      { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
