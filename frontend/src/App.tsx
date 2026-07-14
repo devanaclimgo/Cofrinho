@@ -27,17 +27,17 @@ export function App() {
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       <Route path="/onboarding" element={<OnboardingPage />} />
       <Route path="/app" element={<AppRouteOutlet title="Cofrinho" />}>
-        <Route path="dashboard" element={<DashboardPage />} />
-        <Route path="transactions" element={<TransactionsPage />} />
-        <Route path="wallets" element={<WalletsPage />} />
-        <Route path="wishlist" element={<WishlistPage />} />
-        <Route path="simulator" element={<SimulatorPage />} />
-        <Route path="analytics" element={<AnalyticsPage />} />
-        <Route path="goals" element={<GoalsPage />} />
-        <Route path="calendar" element={<CalendarPage />} />
-        <Route path="profile" element={<FinancialProfilePage />} />
-        <Route path="settings" element={<SettingsPage />} />
-        <Route path="faq" element={<FaqPage />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/transactions" element={<TransactionsPage />} />
+        <Route path="/wallets" element={<WalletsPage />} />
+        <Route path="/wishlist" element={<WishlistPage />} />
+        <Route path="/simulator" element={<SimulatorPage />} />
+        <Route path="/analytics" element={<AnalyticsPage />} />
+        <Route path="/goals" element={<GoalsPage />} />
+        <Route path="/calendar" element={<CalendarPage />} />
+        <Route path="/profile" element={<FinancialProfilePage />} />
+        <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/faq" element={<FaqPage />} />
       </Route>
       <Route path="*" element={<NotFoundComponent />} />
     </Routes>
