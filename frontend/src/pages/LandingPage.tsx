@@ -1,354 +1,537 @@
-import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link } from "@tanstack/react-router";
+import { useI18n } from "../i18n/I18nContext";
+import { Logo } from "../components/shared/Logo";
+import { LanguageSwitcher } from "../components/shared/LanguageSwitcher";
+import { ThemeToggle } from "../components/shared/ThemeToggle";
+import { Button } from "../components/ui/button";
+import { Badge } from "../components/ui/badge";
 import {
-  Sparkles,
-  Calculator,
-  TrendingUp,
-  Wallet,
-  Heart,
-  BarChart3,
-  LineChart,
-  Check,
   ArrowRight,
-  Menu,
-  X,
+  Sparkles,
   ShieldCheck,
-  Star,
-} from "lucide-react"
-import { useI18n } from "../i18n/I18nContext"
-import { useCurrency } from "../lib/CurrencyContext"
-import { Button } from "../components/ui/button"
-import { Logo } from "../components/shared/Logo"
-import { ThemeToggle } from "../components/shared/ThemeToggle"
-import { LanguageSwitcher } from "../components/shared/LanguageSwitcher"
-import { testimonials } from "../lib/data"
-import { cn } from "../lib/utils"
+  Wallet,
+  Calculator,
+  BarChart3,
+  Heart,
+  LineChart as LineChartIcon,
+  Layers,
+  Play,
+  Check,
+} from "lucide-react";
+import {
+  AreaChart,
+  Area,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  Line,
+  LineChart,
+} from "recharts";
+import { forecastData, faqs } from "../lib/mock-data";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../components/ui/accordion";
 
-export function LandingPage() {
-  const { t } = useI18n()
-  const { fmt } = useCurrency()
-  const [mobileOpen, setMobileOpen] = useState(false)
-  const [yearly, setYearly] = useState(false)
-
-  const features = [
-    { icon: Calculator, title: t("landing.features.simulation.title"), desc: t("landing.features.simulation.desc") },
-    { icon: LineChart, title: t("landing.features.forecast.title"), desc: t("landing.features.forecast.desc") },
-    { icon: TrendingUp, title: t("landing.features.tracking.title"), desc: t("landing.features.tracking.desc") },
-    { icon: Heart, title: t("landing.features.wishlist.title"), desc: t("landing.features.wishlist.desc") },
-    { icon: BarChart3, title: t("landing.features.analytics.title"), desc: t("landing.features.analytics.desc") },
-    { icon: Wallet, title: t("landing.features.wallets.title"), desc: t("landing.features.wallets.desc") },
-  ]
-
-  const plans = [
-    {
-      name: t("landing.pricing.free.name"),
-      desc: t("landing.pricing.free.desc"),
-      price: 0,
-      features: ["1 carteira", "50 transações/mês", "Simulador básico", "1 meta"],
-      cta: t("landing.pricing.cta"),
-      popular: false,
-    },
-    {
-      name: t("landing.pricing.pro.name"),
-      desc: t("landing.pricing.pro.desc"),
-      price: yearly ? 23 : 29,
-      features: ["Carteiras ilimitadas", "Transações ilimitadas", "Simulador avançado", "Metas ilimitadas", "Análises detalhadas", "Previsão de fluxo de caixa"],
-      cta: t("landing.pricing.ctaPro"),
-      popular: true,
-    },
-    {
-      name: t("landing.pricing.business.name"),
-      desc: t("landing.pricing.business.desc"),
-      price: yearly ? 47 : 59,
-      features: ["Tudo do Pro", "Até 5 membros", "Carteiras compartilhadas", "Relatórios em PDF", "Suporte prioritário"],
-      cta: t("landing.pricing.cta"),
-      popular: false,
-    },
-  ]
+export default function Landing() {
+  const { t, locale } = useI18n();
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-dvh bg-background">
       {/* Nav */}
-      <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
+      <header className="sticky top-0 z-40 border-b border-border/60 bg-background/70 backdrop-blur-md">
+        <div className="mx-auto flex h-16 max-w-7xl items-center px-4 sm:px-6 lg:px-8">
           <Logo />
-          <nav className="hidden items-center gap-8 md:flex">
-            <a href="#features" className="text-sm text-muted-foreground transition-colors hover:text-foreground">{t("landing.nav.features")}</a>
-            <a href="#pricing" className="text-sm text-muted-foreground transition-colors hover:text-foreground">{t("landing.nav.pricing")}</a>
-            <a href="#faq" className="text-sm text-muted-foreground transition-colors hover:text-foreground">{t("landing.nav.faq")}</a>
+          <nav className="ml-10 hidden items-center gap-8 md:flex">
+            <a href="#features" className="text-sm text-muted-foreground transition hover:text-foreground">{t("nav.features")}</a>
+            <a href="#pricing" className="text-sm text-muted-foreground transition hover:text-foreground">{t("nav.pricing")}</a>
+            <a href="#faq" className="text-sm text-muted-foreground transition hover:text-foreground">{t("nav.faq")}</a>
           </nav>
-          <div className="hidden items-center gap-2 md:flex">
+          <div className="ml-auto flex items-center gap-2">
             <LanguageSwitcher />
             <ThemeToggle />
-            <Link to="/login">
-              <Button variant="ghost" size="sm">{t("landing.nav.login")}</Button>
+            <Link
+              to="/login"
+              className="hidden h-9 items-center rounded-xl px-3 text-sm font-medium text-foreground transition hover:bg-muted sm:inline-flex"
+            >
+              {t("nav.login")}
             </Link>
-            <Link to="/signup">
-              <Button size="sm">{t("landing.nav.signup")}</Button>
+            <Link
+              to="/signup"
+              className="inline-flex h-9 items-center rounded-xl bg-primary px-4 text-sm font-medium text-primary-foreground shadow-sm transition hover:opacity-95"
+            >
+              {t("nav.signup")}
             </Link>
           </div>
-          <button className="md:hidden" onClick={() => setMobileOpen((v) => !v)} aria-label="Menu">
-            {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
         </div>
-        {mobileOpen && (
-          <div className="border-t border-border/60 bg-background px-4 py-4 md:hidden">
-            <div className="flex flex-col gap-3">
-              <a href="#features" onClick={() => setMobileOpen(false)} className="py-2 text-sm text-muted-foreground">{t("landing.nav.features")}</a>
-              <a href="#pricing" onClick={() => setMobileOpen(false)} className="py-2 text-sm text-muted-foreground">{t("landing.nav.pricing")}</a>
-              <a href="#faq" onClick={() => setMobileOpen(false)} className="py-2 text-sm text-muted-foreground">{t("landing.nav.faq")}</a>
-              <div className="flex items-center gap-2 pt-2">
-                <LanguageSwitcher />
-                <ThemeToggle />
-              </div>
-              <Link to="/login"><Button variant="outline" className="w-full">{t("landing.nav.login")}</Button></Link>
-              <Link to="/signup"><Button className="w-full">{t("landing.nav.signup")}</Button></Link>
-            </div>
-          </div>
-        )}
       </header>
 
       {/* Hero */}
       <section className="relative overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 bg-grid-pattern opacity-[0.04]" />
-        <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:py-24">
-          <div className="animate-fade-up">
-            <div className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/50 px-3 py-1 text-xs font-medium text-muted-foreground">
+        <div className="pointer-events-none absolute inset-0 -z-10">
+          <div className="absolute left-1/2 top-[-10%] h-[600px] w-[900px] -translate-x-1/2 rounded-full bg-primary/10 blur-3xl" />
+          <div className="absolute right-[-10%] top-40 h-[300px] w-[300px] rounded-full bg-primary/5 blur-2xl" />
+        </div>
+
+        <div className="mx-auto grid max-w-7xl gap-12 px-4 pb-16 pt-16 sm:px-6 lg:grid-cols-2 lg:gap-8 lg:px-8 lg:pt-24">
+          <div className="max-w-xl">
+            <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs text-muted-foreground shadow-sm">
               <Sparkles className="h-3.5 w-3.5 text-primary" />
-              {t("landing.hero.badge")}
+              <span>{t("hero.badge")}</span>
             </div>
-            <h1 className="mt-6 text-balance text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
-              {t("landing.hero.title")}
+            <h1 className="mt-6 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+              <span className="gradient-hero-text">{t("hero.title")}</span>
             </h1>
-            <p className="mt-6 max-w-lg text-pretty text-lg leading-relaxed text-muted-foreground">
-              {t("landing.hero.subtitle")}
+            <p className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg">
+              {t("hero.subtitle")}
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link to="/signup">
-                <Button size="lg" className="w-full sm:w-auto">
-                  {t("landing.hero.cta")}
-                  <ArrowRight className="h-4 w-4" />
-                </Button>
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <Link
+                to="/signup"
+                className="inline-flex h-12 items-center gap-2 rounded-2xl bg-primary px-6 text-sm font-medium text-primary-foreground shadow-[var(--shadow-float)] transition hover:opacity-95"
+              >
+                {t("hero.cta")} <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link to="/app/dashboard">
-                <Button size="lg" variant="outline" className="w-full sm:w-auto">
-                  {t("landing.hero.ctaSecondary")}
-                </Button>
-              </Link>
+              <button className="inline-flex h-12 items-center gap-2 rounded-2xl border border-border bg-card px-5 text-sm font-medium text-foreground transition hover:bg-muted">
+                <Play className="h-4 w-4" /> {t("hero.cta2")}
+              </button>
             </div>
-            <p className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
-              <ShieldCheck className="h-4 w-4 text-success" />
-              {t("landing.hero.noCard")}
-            </p>
+            <div className="mt-8 flex items-center gap-3 text-xs text-muted-foreground">
+              <div className="flex -space-x-2">
+                {["A", "M", "K", "R"].map((c, i) => (
+                  <div
+                    key={c}
+                    className="grid h-7 w-7 place-items-center rounded-full border-2 border-background bg-primary/10 text-[10px] font-semibold text-primary"
+                    style={{ zIndex: 10 - i }}
+                  >
+                    {c}
+                  </div>
+                ))}
+              </div>
+              <span>{t("hero.trust")}</span>
+            </div>
           </div>
 
-          {/* Hero mockup */}
-          <div className="relative animate-fade-up [animation-delay:120ms]">
-            <HeroCard fmt={fmt} t={t} />
+          {/* Floating hero visual */}
+          <div className="relative h-[440px] lg:h-[520px]">
+            <HeroVisual locale={locale} />
           </div>
         </div>
-      </section>
 
-      {/* Logos strip */}
-      <section className="border-y border-border/60 bg-secondary/30 py-8">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-10 gap-y-4 px-4 text-sm font-semibold text-muted-foreground/70 sm:px-6">
-          <span>+180.000 usuários</span>
-          <span className="hidden sm:inline">•</span>
-          <span>R$ 2,4 bi planejados</span>
-          <span className="hidden sm:inline">•</span>
-          <span className="flex items-center gap-1"><Star className="h-4 w-4 fill-warning text-warning" /> 4,9 na App Store</span>
+        {/* logo row */}
+        <div className="mx-auto grid max-w-6xl grid-cols-2 items-center gap-6 border-y border-border/60 px-6 py-6 opacity-80 sm:grid-cols-3 lg:grid-cols-6">
+          {["Notion", "Linear", "Stripe", "Vercel", "Arc", "Raycast"].map((l) => (
+            <div key={l} className="text-center text-sm font-medium tracking-tight text-muted-foreground">
+              {l}
+            </div>
+          ))}
         </div>
       </section>
 
       {/* Features */}
-      <section id="features" className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+      <section id="features" className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <span className="text-sm font-semibold uppercase tracking-wide text-primary">{t("landing.features.badge")}</span>
-          <h2 className="mt-3 text-balance text-3xl font-bold tracking-tight sm:text-4xl">{t("landing.features.title")}</h2>
-          <p className="mt-4 text-pretty text-muted-foreground">{t("landing.features.subtitle")}</p>
+          <Badge variant="secondary" className="rounded-full px-3 py-1 text-xs font-medium">Features</Badge>
+          <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">{t("features.title")}</h2>
+          <p className="mt-3 text-muted-foreground">{t("features.subtitle")}</p>
         </div>
         <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {features.map((f) => (
-            <div key={f.title} className="group rounded-2xl border border-border bg-card p-6 transition-all hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5">
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                <f.icon className="h-5 w-5" />
-              </div>
-              <h3 className="mt-4 font-semibold">{f.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.desc}</p>
-            </div>
-          ))}
+          <FeatureCard icon={Calculator} title={t("feat.sim.title")} desc={t("feat.sim.desc")} accent />
+          <FeatureCard icon={LineChartIcon} title={t("feat.forecast.title")} desc={t("feat.forecast.desc")} />
+          <FeatureCard icon={BarChart3} title={t("feat.tracking.title")} desc={t("feat.tracking.desc")} />
+          <FeatureCard icon={Heart} title={t("feat.wishlist.title")} desc={t("feat.wishlist.desc")} />
+          <FeatureCard icon={Layers} title={t("feat.analytics.title")} desc={t("feat.analytics.desc")} />
+          <FeatureCard icon={Wallet} title={t("feat.wallets.title")} desc={t("feat.wallets.desc")} />
+        </div>
+      </section>
+
+      {/* Product screenshot */}
+      <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
+        <div className="overflow-hidden rounded-3xl border border-border bg-card p-2 shadow-[var(--shadow-elevated)]">
+          <ProductPreview />
         </div>
       </section>
 
       {/* Testimonials */}
-      <section className="border-y border-border/60 bg-secondary/30 py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="mx-auto max-w-2xl text-center">
-            <span className="text-sm font-semibold uppercase tracking-wide text-primary">{t("landing.testimonials.badge")}</span>
-            <h2 className="mt-3 text-balance text-3xl font-bold tracking-tight sm:text-4xl">{t("landing.testimonials.title")}</h2>
-          </div>
-          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {testimonials.map((tm) => (
-              <div key={tm.name} className="flex flex-col rounded-2xl border border-border bg-card p-6">
-                <div className="flex gap-0.5 text-warning">
-                  {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}
+      <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
+        <div className="grid gap-5 md:grid-cols-3">
+          {[
+            {
+              q: locale === "pt" ? "Nunca mais comprei por impulso." : "I never buy on impulse again.",
+              n: "Rafael M.",
+              r: locale === "pt" ? "Designer" : "Designer",
+            },
+            {
+              q: locale === "pt" ? "O simulador salvou minha viagem." : "The simulator saved my trip.",
+              n: "Ana P.",
+              r: locale === "pt" ? "Engenheira" : "Engineer",
+            },
+            {
+              q: locale === "pt" ? "Finalmente entendo pra onde vai meu dinheiro." : "I finally understand where my money goes.",
+              n: "Kaio S.",
+              r: locale === "pt" ? "Estudante" : "Student",
+            },
+          ].map((tst) => (
+            <figure key={tst.n} className="card-elevated p-6">
+              <blockquote className="text-base leading-relaxed text-foreground">“{tst.q}”</blockquote>
+              <figcaption className="mt-5 flex items-center gap-3">
+                <div className="grid h-9 w-9 place-items-center rounded-full bg-primary/10 text-xs font-semibold text-primary">
+                  {tst.n[0]}
                 </div>
-                <p className="mt-4 flex-1 text-sm leading-relaxed text-foreground/90">{tm.text}</p>
-                <div className="mt-5 flex items-center gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">{tm.avatar}</div>
-                  <div>
-                    <p className="text-sm font-medium">{tm.name}</p>
-                    <p className="text-xs text-muted-foreground">{tm.role}</p>
-                  </div>
+                <div>
+                  <div className="text-sm font-medium">{tst.n}</div>
+                  <div className="text-xs text-muted-foreground">{tst.r}</div>
                 </div>
-              </div>
-            ))}
-          </div>
+              </figcaption>
+            </figure>
+          ))}
         </div>
       </section>
 
       {/* Pricing */}
-      <section id="pricing" className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+      <section id="pricing" className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <span className="text-sm font-semibold uppercase tracking-wide text-primary">{t("landing.pricing.badge")}</span>
-          <h2 className="mt-3 text-balance text-3xl font-bold tracking-tight sm:text-4xl">{t("landing.pricing.title")}</h2>
-          <p className="mt-4 text-pretty text-muted-foreground">{t("landing.pricing.subtitle")}</p>
-          <div className="mt-8 inline-flex items-center gap-1 rounded-full border border-border bg-secondary/50 p-1">
-            <button onClick={() => setYearly(false)} className={cn("rounded-full px-4 py-1.5 text-sm font-medium transition-colors", !yearly ? "bg-card text-foreground shadow-sm" : "text-muted-foreground")}>{t("landing.pricing.monthly")}</button>
-            <button onClick={() => setYearly(true)} className={cn("flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium transition-colors", yearly ? "bg-card text-foreground shadow-sm" : "text-muted-foreground")}>
-              {t("landing.pricing.yearly")}
-              <span className="rounded-full bg-success/15 px-2 py-0.5 text-[10px] font-semibold text-success">{t("landing.pricing.save")}</span>
-            </button>
-          </div>
+          <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">{t("pricing.title")}</h2>
         </div>
-        <div className="mt-14 grid gap-5 lg:grid-cols-3">
-          {plans.map((plan) => (
-            <div key={plan.name} className={cn("relative flex flex-col rounded-2xl border p-6", plan.popular ? "border-primary bg-card shadow-xl shadow-primary/10" : "border-border bg-card")}>
-              {plan.popular && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">{t("landing.pricing.popular")}</span>
-              )}
-              <h3 className="font-semibold">{plan.name}</h3>
-              <p className="mt-1 text-sm text-muted-foreground">{plan.desc}</p>
-              <div className="mt-5 flex items-end gap-1">
-                <span className="text-4xl font-bold">{fmt(plan.price)}</span>
-                <span className="mb-1 text-sm text-muted-foreground">{t("landing.pricing.month")}</span>
-              </div>
-              <ul className="mt-6 flex-1 space-y-3">
-                {plan.features.map((feat) => (
-                  <li key={feat} className="flex items-start gap-2 text-sm">
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" />
-                    <span className="text-foreground/90">{feat}</span>
-                  </li>
-                ))}
-              </ul>
-              <Link to="/signup" className="mt-6">
-                <Button className="w-full" variant={plan.popular ? "default" : "outline"}>{plan.cta}</Button>
-              </Link>
-            </div>
-          ))}
+        <div className="mt-12 grid gap-5 md:grid-cols-3">
+          <PricingCard name={t("pricing.free")} price={0} features={[
+            locale === "pt" ? "1 carteira" : "1 wallet",
+            locale === "pt" ? "Transações ilimitadas" : "Unlimited transactions",
+            locale === "pt" ? "Simulador básico" : "Basic simulator",
+          ]} />
+          <PricingCard highlight name={t("pricing.pro")} price={locale === "pt" ? 19 : 6} features={[
+            locale === "pt" ? "Carteiras ilimitadas" : "Unlimited wallets",
+            locale === "pt" ? "Simulador avançado com IA" : "Advanced AI simulator",
+            locale === "pt" ? "Metas ilimitadas" : "Unlimited goals",
+            "Analytics",
+          ]} />
+          <PricingCard name={t("pricing.team")} price={locale === "pt" ? 39 : 12} features={[
+            locale === "pt" ? "Até 5 pessoas" : "Up to 5 people",
+            locale === "pt" ? "Carteiras compartilhadas" : "Shared wallets",
+            locale === "pt" ? "Relatórios familiares" : "Family reports",
+          ]} />
         </div>
       </section>
 
       {/* FAQ */}
-      <FaqSection />
+      <section id="faq" className="mx-auto max-w-3xl px-4 pb-24 sm:px-6 lg:px-8">
+        <h2 className="text-center text-3xl font-semibold tracking-tight sm:text-4xl">{t("faq.title")}</h2>
+        <Accordion type="single" collapsible className="mt-10">
+          {faqs.map((f, i) => (
+            <AccordionItem key={i} value={`i${i}`} className="border-border">
+              <AccordionTrigger className="text-left text-base font-medium">
+                {f.q[locale]}
+              </AccordionTrigger>
+              <AccordionContent className="text-sm leading-relaxed text-muted-foreground">
+                {f.a[locale]}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </section>
 
       {/* CTA */}
-      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
-        <div className="relative overflow-hidden rounded-3xl border border-border bg-primary px-6 py-16 text-center text-primary-foreground">
-          <div className="pointer-events-none absolute inset-0 bg-grid-pattern opacity-10" />
-          <h2 className="relative mx-auto max-w-xl text-balance text-3xl font-bold tracking-tight sm:text-4xl">{t("landing.cta.title")}</h2>
-          <p className="relative mx-auto mt-4 max-w-md text-pretty text-primary-foreground/80">{t("landing.cta.subtitle")}</p>
-          <Link to="/signup" className="relative mt-8 inline-block">
-            <Button size="lg" variant="secondary">{t("landing.hero.cta")}<ArrowRight className="h-4 w-4" /></Button>
-          </Link>
+      <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
+        <div className="relative overflow-hidden rounded-3xl border border-border bg-card p-10 text-center shadow-sm sm:p-16">
+          <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-br from-primary/5 to-transparent" />
+          <h3 className="text-3xl font-semibold tracking-tight sm:text-4xl">{t("hero.title")}</h3>
+          <p className="mx-auto mt-3 max-w-lg text-muted-foreground">{t("hero.subtitle")}</p>
+          <div className="mt-8">
+            <Link
+              to="/signup"
+              className="inline-flex h-12 items-center gap-2 rounded-2xl bg-primary px-6 text-sm font-medium text-primary-foreground shadow-[var(--shadow-float)] transition hover:opacity-95"
+            >
+              {t("hero.cta")} <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border/60 py-12">
-        <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 sm:px-6 md:flex-row md:items-center md:justify-between">
+      <footer className="border-t border-border">
+        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-4 py-10 sm:px-6 lg:flex-row lg:items-center lg:px-8">
           <div>
             <Logo />
-            <p className="mt-3 max-w-xs text-sm text-muted-foreground">{t("common.tagline")}</p>
+            <p className="mt-2 max-w-xs text-sm text-muted-foreground">{t("footer.tagline")}</p>
           </div>
-          <div className="flex flex-wrap gap-x-10 gap-y-4 text-sm text-muted-foreground">
-            <a href="#features" className="transition-colors hover:text-foreground">{t("landing.nav.features")}</a>
-            <a href="#pricing" className="transition-colors hover:text-foreground">{t("landing.nav.pricing")}</a>
-            <a href="#faq" className="transition-colors hover:text-foreground">{t("landing.nav.faq")}</a>
+          <div className="flex items-center gap-6 text-sm text-muted-foreground">
+            <a href="#features" className="hover:text-foreground">{t("nav.features")}</a>
+            <a href="#pricing" className="hover:text-foreground">{t("nav.pricing")}</a>
+            <a href="#faq" className="hover:text-foreground">{t("nav.faq")}</a>
+            <div className="flex items-center gap-1 text-xs">
+              <ShieldCheck className="h-3.5 w-3.5 text-success" />
+              <span>SOC 2</span>
+            </div>
           </div>
         </div>
-        <div className="mx-auto mt-8 max-w-6xl border-t border-border/60 px-4 pt-6 text-center text-xs text-muted-foreground sm:px-6">
-          © 2026 Cofrinho. {t("landing.footer.rights")}
+        <div className="border-t border-border py-4 text-center text-xs text-muted-foreground">
+          © 2026 Cofrinho. All rights reserved.
         </div>
       </footer>
     </div>
-  )
+  );
 }
 
-function HeroCard({ fmt, t }: { fmt: (n: number) => string; t: (k: any) => string }) {
+function FeatureCard({
+  icon: Icon,
+  title,
+  desc,
+  accent,
+}: {
+  icon: any;
+  title: string;
+  desc: string;
+  accent?: boolean;
+}) {
   return (
-    <div className="relative mx-auto max-w-sm">
-      <div className="absolute -inset-4 -z-10 rounded-3xl bg-primary/10 blur-2xl" />
-      <div className="rounded-3xl border border-border bg-card p-5 shadow-2xl">
+    <div className="group relative rounded-2xl border border-border bg-card p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-elevated)]">
+      <div
+        className={`grid h-11 w-11 place-items-center rounded-xl ${
+          accent ? "bg-primary text-primary-foreground" : "bg-primary/10 text-primary"
+        }`}
+      >
+        <Icon className="h-5 w-5" strokeWidth={2.2} />
+      </div>
+      <h3 className="mt-5 text-base font-semibold text-foreground">{title}</h3>
+      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{desc}</p>
+    </div>
+  );
+}
+
+function PricingCard({
+  name,
+  price,
+  features,
+  highlight,
+}: {
+  name: string;
+  price: number;
+  features: string[];
+  highlight?: boolean;
+}) {
+  const { t, locale } = useI18n();
+  return (
+    <div
+      className={`relative rounded-2xl border p-8 shadow-sm ${
+        highlight ? "border-primary bg-card ring-2 ring-primary/20" : "border-border bg-card"
+      }`}
+    >
+      {highlight && (
+        <Badge className="absolute -top-3 left-6 rounded-full bg-primary px-3 py-1 text-[10px] font-semibold text-primary-foreground">
+          {locale === "pt" ? "MAIS POPULAR" : "MOST POPULAR"}
+        </Badge>
+      )}
+      <div className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">{name}</div>
+      <div className="mt-4 flex items-baseline gap-1">
+        <span className="text-4xl font-semibold tracking-tight">
+          {locale === "pt" ? "R$" : "$"}{price}
+        </span>
+        <span className="text-sm text-muted-foreground">{t("pricing.month")}</span>
+      </div>
+      <ul className="mt-6 space-y-3 text-sm">
+        {features.map((f) => (
+          <li key={f} className="flex items-start gap-2">
+            <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+            <span>{f}</span>
+          </li>
+        ))}
+      </ul>
+      <Button
+        asChild
+        className={`mt-8 h-11 w-full rounded-xl ${highlight ? "" : "bg-foreground text-background hover:bg-foreground/90"}`}
+      >
+        <Link to="/signup">{t("pricing.cta")}</Link>
+      </Button>
+    </div>
+  );
+}
+
+function HeroVisual({ locale }: { locale: "pt" | "en" }) {
+  return (
+    <div className="relative h-full w-full">
+      {/* Main balance card */}
+      <div className="animate-fade-in-up absolute right-0 top-0 w-[320px] rounded-2xl border border-border bg-card p-5 shadow-[var(--shadow-elevated)] sm:w-[360px]">
         <div className="flex items-center justify-between">
-          <span className="text-sm text-muted-foreground">{t("landing.hero.card.balance")}</span>
-          <span className="rounded-full bg-success/15 px-2 py-0.5 text-xs font-medium text-success">+12,4%</span>
+          <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+            {locale === "pt" ? "Saldo total" : "Total balance"}
+          </div>
+          <Badge className="rounded-full bg-success/10 px-2 py-0.5 text-[10px] font-medium text-success hover:bg-success/10">+12.4%</Badge>
         </div>
-        <p className="mt-1 text-3xl font-bold">{fmt(46370)}</p>
-
-        <div className="mt-5 rounded-2xl bg-secondary/60 p-4">
-          <div className="flex items-center justify-between text-sm">
-            <span className="text-muted-foreground">{t("landing.hero.card.health")}</span>
-            <span className="font-semibold text-success">82/100</span>
-          </div>
-          <div className="mt-2 h-2 overflow-hidden rounded-full bg-muted">
-            <div className="h-full w-[82%] rounded-full bg-success" />
-          </div>
+        <div className="mt-2 text-3xl font-semibold tracking-tight">
+          {locale === "pt" ? "R$ 27.980,00" : "$5,240.80"}
         </div>
+        <div className="mt-4 h-24">
+          <ResponsiveContainer width="100%" height="100%">
+            <AreaChart data={forecastData}>
+              <defs>
+                <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="var(--primary)" stopOpacity={0.35} />
+                  <stop offset="100%" stopColor="var(--primary)" stopOpacity={0} />
+                </linearGradient>
+              </defs>
+              <Area
+                type="monotone"
+                dataKey="balance"
+                stroke="var(--primary)"
+                strokeWidth={2.5}
+                fill="url(#g1)"
+                isAnimationActive
+                animationDuration={1600}
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
 
-        <div className="mt-4 flex items-center gap-3 rounded-2xl border border-success/30 bg-success/10 p-4">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-success text-white">
-            <Check className="h-5 w-5" />
-          </div>
+      {/* Simulator card */}
+      <div
+        className="animate-float absolute left-0 top-32 w-[280px] rounded-2xl border border-border bg-card p-5 shadow-[var(--shadow-elevated)] sm:w-[300px]"
+        style={{ animationDelay: "0.15s" }}
+      >
+        <div className="flex items-center gap-2">
+          <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary/10 text-primary">
+            <Calculator className="h-4 w-4" />
+          </span>
           <div>
-            <p className="text-sm font-semibold text-success">{t("landing.hero.card.canBuy")}</p>
-            <p className="text-xs text-muted-foreground">{t("landing.hero.card.simulation")}</p>
+            <div className="text-xs text-muted-foreground">{locale === "pt" ? "Simulação" : "Simulation"}</div>
+            <div className="text-sm font-medium">Sony WH-1000XM6</div>
+          </div>
+        </div>
+        <div className="mt-4 grid grid-cols-3 gap-2 text-center">
+          {[
+            { m: "Jul", s: "ok" },
+            { m: "Aug", s: "warn" },
+            { m: "Sep", s: "bad" },
+          ].map((x) => (
+            <div key={x.m} className="rounded-lg border border-border p-2">
+              <div className="text-[10px] uppercase text-muted-foreground">{x.m}</div>
+              <div
+                className={`mx-auto mt-1 h-2 w-2 rounded-full ${
+                  x.s === "ok" ? "bg-success" : x.s === "warn" ? "bg-warning" : "bg-destructive"
+                }`}
+              />
+            </div>
+          ))}
+        </div>
+        <div className="mt-3 rounded-lg bg-warning/10 p-2 text-[11px] leading-relaxed text-warning-foreground">
+          {locale === "pt" ? "Considere comprar em outubro." : "Consider buying in October."}
+        </div>
+      </div>
+
+      {/* Goal card */}
+      <div
+        className="animate-fade-in-up animate-float-delay absolute bottom-8 right-6 w-[240px] rounded-2xl border border-border bg-card p-4 shadow-[var(--shadow-elevated)]"
+        style={{ animationDelay: "0.3s" }}
+      >
+        <div className="flex items-center justify-between">
+          <div className="text-xs text-muted-foreground">{locale === "pt" ? "Meta" : "Goal"}</div>
+          <div className="text-lg">🗾</div>
+        </div>
+        <div className="mt-1 text-sm font-medium">{locale === "pt" ? "Viagem para o Japão" : "Trip to Japan"}</div>
+        <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-muted">
+          <div className="h-full rounded-full bg-primary transition-all duration-1000" style={{ width: "62%" }} />
+        </div>
+        <div className="mt-2 flex justify-between text-[11px] text-muted-foreground">
+          <span>62%</span>
+          <span>{locale === "pt" ? "R$ 7.400 / R$ 12.000" : "$1,650 / $2,600"}</span>
+        </div>
+      </div>
+
+      {/* Line trend micro-card */}
+      <div className="animate-fade-in-up absolute bottom-0 left-4 hidden w-[220px] rounded-2xl border border-border bg-card p-4 shadow-[var(--shadow-elevated)] sm:block" style={{ animationDelay: "0.45s" }}>
+        <div className="flex items-center justify-between">
+          <div className="text-xs text-muted-foreground">{locale === "pt" ? "Poupança" : "Savings rate"}</div>
+          <div className="text-xs font-medium text-success">+8.2%</div>
+        </div>
+        <div className="mt-2 h-14">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart data={forecastData.slice(4)}>
+              <Line
+                type="monotone"
+                dataKey="income"
+                stroke="var(--success)"
+                strokeWidth={2}
+                dot={false}
+                isAnimationActive
+                animationDuration={1400}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProductPreview() {
+  const { locale } = useI18n();
+  return (
+    <div className="overflow-hidden rounded-2xl bg-background">
+      <div className="flex items-center gap-2 border-b border-border px-4 py-3">
+        <div className="flex gap-1.5">
+          <span className="h-2.5 w-2.5 rounded-full bg-destructive/70" />
+          <span className="h-2.5 w-2.5 rounded-full bg-warning/70" />
+          <span className="h-2.5 w-2.5 rounded-full bg-success/70" />
+        </div>
+        <div className="mx-auto rounded-md bg-muted px-3 py-0.5 text-xs text-muted-foreground">
+          app.cofrinho.com/dashboard
+        </div>
+      </div>
+      <div className="grid gap-4 p-4 sm:p-6 lg:grid-cols-3">
+        <div className="rounded-2xl border border-border bg-card p-5">
+          <div className="text-xs uppercase tracking-wider text-muted-foreground">{locale === "pt" ? "Saldo" : "Balance"}</div>
+          <div className="mt-2 text-2xl font-semibold">{locale === "pt" ? "R$ 27.980" : "$5,240"}</div>
+          <div className="mt-1 text-xs text-success">+12.4%</div>
+        </div>
+        <div className="rounded-2xl border border-border bg-card p-5">
+          <div className="text-xs uppercase tracking-wider text-muted-foreground">{locale === "pt" ? "Poupança" : "Savings"}</div>
+          <div className="mt-2 text-2xl font-semibold">{locale === "pt" ? "R$ 8.400" : "$1,640"}</div>
+          <div className="mt-1 text-xs text-success">+8.2%</div>
+        </div>
+        <div className="rounded-2xl border border-border bg-card p-5">
+          <div className="text-xs uppercase tracking-wider text-muted-foreground">{locale === "pt" ? "Saúde" : "Health"}</div>
+          <div className="mt-2 text-2xl font-semibold">86</div>
+          <div className="mt-1 text-xs text-muted-foreground">{locale === "pt" ? "Excelente" : "Excellent"}</div>
+        </div>
+        <div className="rounded-2xl border border-border bg-card p-5 lg:col-span-3">
+          <div className="mb-3 flex items-center justify-between">
+            <div className="text-sm font-medium">{locale === "pt" ? "Previsão dos próximos meses" : "Forecast of upcoming months"}</div>
+            <div className="text-xs text-muted-foreground">12 {locale === "pt" ? "meses" : "months"}</div>
+          </div>
+          <div className="h-56">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={forecastData}>
+                <defs>
+                  <linearGradient id="gp" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="var(--primary)" stopOpacity={0.35} />
+                    <stop offset="100%" stopColor="var(--primary)" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <XAxis dataKey="m" stroke="var(--muted-foreground)" fontSize={11} tickLine={false} axisLine={false} />
+                <Tooltip
+                  contentStyle={{
+                    background: "var(--popover)",
+                    border: "1px solid var(--border)",
+                    borderRadius: 12,
+                    fontSize: 12,
+                  }}
+                />
+                <Area
+                  type="monotone"
+                  dataKey="balance"
+                  stroke="var(--primary)"
+                  strokeWidth={2.5}
+                  fill="url(#gp)"
+                  isAnimationActive
+                  animationDuration={1600}
+                />
+              </AreaChart>
+            </ResponsiveContainer>
           </div>
         </div>
       </div>
     </div>
-  )
-}
-
-const faqKeys = [
-  { q: "O Cofrinho é gratuito?", a: "Sim! Você pode começar gratuitamente e fazer upgrade para o plano Pro quando quiser recursos avançados." },
-  { q: "Meus dados financeiros estão seguros?", a: "Usamos criptografia de ponta a ponta e nunca compartilhamos seus dados. Sua privacidade é nossa prioridade." },
-  { q: "Como funciona o simulador de compras?", a: "Você informa o produto, valor e forma de pagamento, e o Cofrinho analisa seu fluxo de caixa para dizer se é seguro comprar agora." },
-  { q: "Posso usar em vários dispositivos?", a: "Sim, o Cofrinho funciona perfeitamente no computador, tablet e celular, com sincronização em tempo real." },
-]
-
-function FaqSection() {
-  const { t } = useI18n()
-  const [open, setOpen] = useState<number | null>(0)
-  return (
-    <section id="faq" className="border-t border-border/60 bg-secondary/30 py-20">
-      <div className="mx-auto max-w-3xl px-4 sm:px-6">
-        <div className="text-center">
-          <span className="text-sm font-semibold uppercase tracking-wide text-primary">{t("landing.faq.badge")}</span>
-          <h2 className="mt-3 text-balance text-3xl font-bold tracking-tight sm:text-4xl">{t("landing.faq.title")}</h2>
-        </div>
-        <div className="mt-10 space-y-3">
-          {faqKeys.map((item, i) => (
-            <div key={i} className="overflow-hidden rounded-2xl border border-border bg-card">
-              <button onClick={() => setOpen(open === i ? null : i)} className="flex w-full items-center justify-between gap-4 p-5 text-left">
-                <span className="font-medium">{item.q}</span>
-                <ArrowRight className={cn("h-4 w-4 shrink-0 text-muted-foreground transition-transform", open === i && "rotate-90")} />
-              </button>
-              {open === i && <p className="px-5 pb-5 text-sm leading-relaxed text-muted-foreground">{item.a}</p>}
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
+  );
 }
