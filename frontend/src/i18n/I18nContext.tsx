@@ -10,16 +10,17 @@ import {
   type Language,
   type TranslationKey,
 } from "./translations";
+import type { Currency } from "../types/currency";
 
 type Locale = "pt" | "en";
 
-interface I18nContextValue {
+export interface I18nContextValue {
   lang: Language;
   setLang: (lang: Language) => void;
   t: (key: TranslationKey) => string;
   locale: Locale;
   setLocale: (l: Locale) => void;
-  formatCurrency: (n: number) => string;
+  formatCurrency: (n: number, currency?: Currency) => string;
 }
 
 const I18nContext = createContext<I18nContextValue | undefined>(undefined);
@@ -47,10 +48,10 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     } catch {}
   };
 
-  const formatCurrency = (n: number) => {
+  const formatCurrency = (value: number, currency?: Currency) => {
     if (locale === "pt")
-      return n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-    return n.toLocaleString("en-US", { style: "currency", currency: "USD" });
+      return value.toLocaleString("pt-BR", { currency: currency || "BRL" });
+    return value.toLocaleString("en-US", { currency: currency || "USD" });
   };
 
   useEffect(() => {
