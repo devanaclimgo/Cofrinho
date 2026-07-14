@@ -5,8 +5,10 @@ export function createWishlist(data: { name: string }) {
   return api.post("/api/v1/wishlist", data);
 }
 
-export function getWishlist() {
-  return api.get<WishlistItem[]>("/api/v1/wishlist");
+export async function getWishlist() {
+  const { data } = await api.get<WishlistItem[]>("/api/v1/wishlist");
+
+  return data;
 }
 
 export function updateWishlist(id: string, data: { name: string }) {
