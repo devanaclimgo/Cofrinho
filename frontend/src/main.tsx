@@ -8,7 +8,7 @@ import { I18nProvider } from "./i18n/I18nContext";
 import { AppStateProvider } from "./lib/AppStateContext";
 import { QueryProvider } from "./providers/QueryProvider";
 
-createRoot(document.getElementById("root")!).render(
+createRoot(document.getElementById("app")!).render(
   <StrictMode>
     <QueryProvider>
       <ThemeProvider>
