@@ -1,8 +1,11 @@
-import type { PurchaseSimulationRequest } from "../hooks/useSimulation";
+import type { PurchaseSimulationRequest, PurchaseSimulationResponse } from "../types/simulation";
 import { api } from "./axios";
 
 export async function simulateTransaction(body: PurchaseSimulationRequest) {
-  const { data } = await api.post("/api/v1/simulate", body);
+  const { data } = await api.post<PurchaseSimulationResponse>(
+    "/api/v1/simulate",
+    body,
+  );
 
   return data;
 }
