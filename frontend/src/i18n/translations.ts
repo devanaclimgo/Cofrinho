@@ -62,7 +62,8 @@ export const translations = {
     "auth.dont": "Ainda não tem conta?",
     "auth.or": "ou continue com",
 
-    "auth.terms": "Ao criar uma conta, você concorda com nossos Termos e Política de Privacidade.",
+    "auth.terms":
+      "Ao criar uma conta, você concorda com nossos Termos e Política de Privacidade.",
     "auth.emailPlaceholder": "voce@email.com",
     "auth.validation.email": "Digite um e-mail válido",
     "auth.validation.password": "A senha deve ter ao menos 8 caracteres",
@@ -79,18 +80,22 @@ export const translations = {
       "Vamos configurar sua conta em alguns passos rápidos para você começar a planejar melhor.",
     "onboarding.welcome.start": "Vamos começar",
     "onboarding.language.title": "Escolha seu idioma",
-    "onboarding.language.subtitle": "Você pode alterar isso depois nas configurações.",
+    "onboarding.language.subtitle":
+      "Você pode alterar isso depois nas configurações.",
     "onboarding.currency.title": "Selecione sua moeda",
     "onboarding.currency.subtitle": "Usaremos essa moeda em todo o aplicativo.",
     "onboarding.wallet.title": "Crie sua primeira carteira",
-    "onboarding.wallet.subtitle": "Uma carteira ajuda a organizar seu dinheiro.",
+    "onboarding.wallet.subtitle":
+      "Uma carteira ajuda a organizar seu dinheiro.",
     "onboarding.wallet.name": "Nome da carteira",
     "onboarding.wallet.namePlaceholder": "Ex: Conta principal",
     "onboarding.wallet.type": "Tipo",
     "onboarding.balance.title": "Qual seu saldo inicial?",
-    "onboarding.balance.subtitle": "Informe quanto você tem nessa carteira agora.",
+    "onboarding.balance.subtitle":
+      "Informe quanto você tem nessa carteira agora.",
     "onboarding.card.title": "Adicionar um cartão",
-    "onboarding.card.subtitle": "Opcional — você pode adicionar cartões depois.",
+    "onboarding.card.subtitle":
+      "Opcional — você pode adicionar cartões depois.",
     "onboarding.card.number": "Últimos 4 dígitos",
     "onboarding.card.limit": "Limite",
     "onboarding.income.title": "Qual sua renda mensal?",
@@ -109,15 +114,20 @@ export const translations = {
     "tour.skip": "Pular tour",
     "tour.restart": "Reiniciar tour",
     "tour.dashboard.title": "Este é seu painel",
-    "tour.dashboard.desc": "Veja um resumo completo das suas finanças em um só lugar.",
+    "tour.dashboard.desc":
+      "Veja um resumo completo das suas finanças em um só lugar.",
     "tour.wallets.title": "Suas carteiras",
-    "tour.wallets.desc": "Gerencie cartões, dinheiro, poupança e investimentos.",
+    "tour.wallets.desc":
+      "Gerencie cartões, dinheiro, poupança e investimentos.",
     "tour.simulator.title": "Simulador de compras",
-    "tour.simulator.desc": "O coração do Cofrinho: descubra se você pode comprar algo.",
+    "tour.simulator.desc":
+      "O coração do Cofrinho: descubra se você pode comprar algo.",
     "tour.wishlist.title": "Lista de desejos",
-    "tour.wishlist.desc": "Salve produtos e saiba o melhor momento para comprá-los.",
+    "tour.wishlist.desc":
+      "Salve produtos e saiba o melhor momento para comprá-los.",
     "tour.analytics.title": "Análises",
-    "tour.analytics.desc": "Entenda seus hábitos financeiros com gráficos detalhados.",
+    "tour.analytics.desc":
+      "Entenda seus hábitos financeiros com gráficos detalhados.",
     "tour.goals.title": "Metas financeiras",
     "tour.goals.desc": "Defina objetivos e acompanhe seu progresso.",
 
@@ -459,4 +469,4 @@ export const translations = {
   },
 } as const;
 
-export type TranslationKey = keyof (typeof translations)["pt"];
+export type TranslationKey = keyof (typeof translations)["pt" | "en"];
