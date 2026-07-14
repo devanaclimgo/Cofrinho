@@ -12,7 +12,7 @@ export interface SignupData {
 }
 
 export async function login(data: LoginData) {
-  const response = await api.post("/login", {
+  const response = await api.post("/api/v1/login", {
     user: data,
   });
 
@@ -20,7 +20,7 @@ export async function login(data: LoginData) {
 }
 
 export async function signup(data: SignupData) {
-  const response = await api.post("/signup", {
+  const response = await api.post("/api/v1/signup", {
     user: data,
   });
 
@@ -28,5 +28,5 @@ export async function signup(data: SignupData) {
 }
 
 export async function logout() {
-  return api.delete("/logout");
+  return api.delete("/api/v1/logout");
 }
