@@ -28,11 +28,20 @@ import { Input } from "../components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "../components/ui/sheet";
 import { Avatar, AvatarFallback } from "../components/ui/avatar";
 import { Badge } from "../components/ui/badge";
+import { useLocation } from "react-router-dom";
 
 const nav = (t: (k: any) => string) =>
   [
-    { to: "/app/dashboard", label: t("sidebar.dashboard"), icon: LayoutDashboard },
-    { to: "/app/transactions", label: t("sidebar.transactions"), icon: ArrowLeftRight },
+    {
+      to: "/app/dashboard",
+      label: t("sidebar.dashboard"),
+      icon: LayoutDashboard,
+    },
+    {
+      to: "/app/transactions",
+      label: t("sidebar.transactions"),
+      icon: ArrowLeftRight,
+    },
     { to: "/app/wallets", label: t("sidebar.wallets"), icon: Wallet },
     { to: "/app/wishlist", label: t("sidebar.wishlist"), icon: Heart },
     { to: "/app/simulator", label: t("sidebar.simulator"), icon: Calculator },
@@ -47,7 +56,7 @@ const nav = (t: (k: any) => string) =>
 
 function SidebarInner({ onNavigate }: { onNavigate?: () => void }) {
   const { t } = useI18n();
-  const pathname = ({ select: () => location.pathname });
+  const { pathname } = useLocation();
   const items = nav(t);
   return (
     <div className="flex h-full flex-col">
@@ -66,7 +75,7 @@ function SidebarInner({ onNavigate }: { onNavigate?: () => void }) {
       <nav className="flex-1 overflow-y-auto px-3 py-2">
         <ul className="space-y-0.5">
           {items.map((item) => {
-            const active = pathname;
+            const active = pathname === item.to;
             const Icon = item.icon;
             return (
               <li key={item.to}>
@@ -98,11 +107,17 @@ function SidebarInner({ onNavigate }: { onNavigate?: () => void }) {
       <div className="border-t border-border px-3 pb-4 pt-3">
         <div className="mb-3 flex items-center gap-3 rounded-xl px-2 py-2">
           <Avatar className="h-9 w-9">
-            <AvatarFallback className="bg-primary/10 text-primary text-xs font-semibold">MA</AvatarFallback>
+            <AvatarFallback className="bg-primary/10 text-primary text-xs font-semibold">
+              MA
+            </AvatarFallback>
           </Avatar>
           <div className="min-w-0 flex-1">
-            <div className="truncate text-sm font-medium text-foreground">Maria Almeida</div>
-            <div className="truncate text-xs text-muted-foreground">maria@example.com</div>
+            <div className="truncate text-sm font-medium text-foreground">
+              Maria Almeida
+            </div>
+            <div className="truncate text-xs text-muted-foreground">
+              maria@example.com
+            </div>
           </div>
         </div>
         <button className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm text-destructive transition-colors hover:bg-destructive/10">
@@ -114,12 +129,20 @@ function SidebarInner({ onNavigate }: { onNavigate?: () => void }) {
   );
 }
 
-function MobileTopbar({ children, title }: { children?: ReactNode; title: string }) {
+function MobileTopbar({
+  children,
+  title,
+}: {
+  children?: ReactNode;
+  title: string;
+}) {
   return (
     <header className="sticky top-0 z-30 flex h-14 items-center gap-2 border-b border-border bg-background/80 px-4 backdrop-blur-md lg:hidden">
       {children}
       <div className="min-w-0 flex-1">
-        <div className="truncate text-sm font-semibold text-foreground">{title}</div>
+        <div className="truncate text-sm font-semibold text-foreground">
+          {title}
+        </div>
       </div>
       <ThemeToggle />
       <LanguageSwitcher />
@@ -130,10 +153,15 @@ function MobileTopbar({ children, title }: { children?: ReactNode; title: string
 function DesktopTopbar({ title }: { title: string }) {
   return (
     <header className="sticky top-0 z-30 hidden h-16 items-center gap-3 border-b border-border bg-background/70 px-6 backdrop-blur-md lg:flex">
-      <h1 className="text-lg font-semibold tracking-tight text-foreground">{title}</h1>
+      <h1 className="text-lg font-semibold tracking-tight text-foreground">
+        {title}
+      </h1>
       <div className="relative ml-6 hidden max-w-md flex-1 md:block">
         <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-        <Input placeholder="Search transactions, goals, wallets…" className="h-9 rounded-xl border-transparent bg-muted/60 pl-9 text-sm" />
+        <Input
+          placeholder="Search transactions, goals, wallets…"
+          className="h-9 rounded-xl border-transparent bg-muted/60 pl-9 text-sm"
+        />
       </div>
       <div className="ml-auto flex items-center gap-2">
         <Link
@@ -153,9 +181,13 @@ function DesktopTopbar({ title }: { title: string }) {
 
 function BottomNav() {
   const { t } = useI18n();
-  const pathname = ({ select: () => location.pathname });
+  const pathname = { select: () => location.pathname };
   const items = [
-    { to: "/app/dashboard", label: t("sidebar.dashboard"), icon: LayoutDashboard },
+    {
+      to: "/app/dashboard",
+      label: t("sidebar.dashboard"),
+      icon: LayoutDashboard,
+    },
     { to: "/app/wallets", label: t("sidebar.wallets"), icon: Wallet },
     { to: "/app/simulator", label: "Sim", icon: Calculator, primary: true },
     { to: "/app/analytics", label: t("sidebar.analytics"), icon: BarChart3 },
@@ -201,7 +233,13 @@ function BottomNav() {
   );
 }
 
-export function AppLayout({ children, title }: { children: ReactNode; title: string }) {
+export function AppLayout({
+  children,
+  title,
+}: {
+  children: ReactNode;
+  title: string;
+}) {
   const [open, setOpen] = useState(false);
   return (
     <div className="min-h-dvh bg-background">
@@ -214,8 +252,17 @@ export function AppLayout({ children, title }: { children: ReactNode; title: str
         <MobileTopbar title={title}>
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" aria-label="Open menu" className="h-9 w-9 rounded-xl">
-                {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label="Open menu"
+                className="h-9 w-9 rounded-xl"
+              >
+                {open ? (
+                  <X className="h-4 w-4" />
+                ) : (
+                  <Menu className="h-4 w-4" />
+                )}
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="w-72 p-0">
@@ -224,7 +271,9 @@ export function AppLayout({ children, title }: { children: ReactNode; title: str
           </Sheet>
         </MobileTopbar>
         <DesktopTopbar title={title} />
-        <main className="mx-auto max-w-7xl px-4 pb-28 pt-6 sm:px-6 lg:px-8 lg:pb-10">{children}</main>
+        <main className="mx-auto max-w-7xl px-4 pb-28 pt-6 sm:px-6 lg:px-8 lg:pb-10">
+          {children}
+        </main>
       </div>
 
       <BottomNav />
