@@ -7,7 +7,15 @@ import { ThemeToggle } from "../components/shared/ThemeToggle";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
-import { Check, Sparkles, Wallet, CreditCard, TrendingUp, Target } from "lucide-react";
+import {
+  Check,
+  Sparkles,
+  Wallet,
+  CreditCard,
+  TrendingUp,
+  Target,
+} from "lucide-react";
+import { CurrencyInput } from "../lib/CurrencyInput";
 
 const steps = [
   { key: "welcome", icon: Sparkles },
@@ -24,12 +32,16 @@ const steps = [
 export default function OnboardingPage() {
   const { t, locale, setLocale } = useI18n();
   const [step, setStep] = useState(0);
-  const [currency, setCurrency] = useState<"BRL" | "USD" | "EUR">(locale === "pt" ? "BRL" : "USD");
+  const [currency, setCurrency] = useState<"BRL" | "USD" | "EUR">(
+    locale === "pt" ? "BRL" : "USD",
+  );
   const nav = useNavigate();
+  const [amount, setAmount] = useState(0);
 
   const progress = ((step + 1) / steps.length) * 100;
 
-  const next = () => (step < steps.length - 1 ? setStep(step + 1) : nav("/app/dashboard"));
+  const next = () =>
+    step < steps.length - 1 ? setStep(step + 1) : nav("/app/dashboard");
   const back = () => setStep(Math.max(0, step - 1));
 
   return (
@@ -39,7 +51,10 @@ export default function OnboardingPage() {
         <div className="flex items-center gap-2">
           <LanguageSwitcher />
           <ThemeToggle />
-          <Link to="/app/dashboard" className="ml-2 text-sm text-muted-foreground hover:text-foreground">
+          <Link
+            to="/app/dashboard"
+            className="ml-2 text-sm text-muted-foreground hover:text-foreground"
+          >
             {t("onb.skip")}
           </Link>
         </div>
@@ -48,62 +63,113 @@ export default function OnboardingPage() {
       <div className="mx-auto max-w-xl px-6">
         <div className="mb-8">
           <div className="mb-2 flex items-center justify-between text-xs text-muted-foreground">
-            <span>Step {step + 1} of {steps.length}</span>
+            <span>
+              Step {step + 1} of {steps.length}
+            </span>
             <span>{Math.round(progress)}%</span>
           </div>
           <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted">
-            <div className="h-full rounded-full bg-primary transition-all duration-500" style={{ width: `${progress}%` }} />
+            <div
+              className="h-full rounded-full bg-primary transition-all duration-500"
+              style={{ width: `${progress}%` }}
+            />
           </div>
         </div>
 
-        <div key={step} className="animate-fade-in-up rounded-3xl border border-border bg-card p-8 shadow-sm">
+        <div
+          key={step}
+          className="animate-fade-in-up rounded-3xl border border-border bg-card p-8 shadow-sm"
+        >
           {step === 0 && (
-            <StepPane emoji="👋" title={t("onb.welcome.title")} desc={t("onb.welcome.desc")}>
+            <StepPane
+              emoji="👋"
+              title={t("onb.welcome.title")}
+              desc={t("onb.welcome.desc")}
+            >
               <ul className="mt-6 space-y-3 text-sm">
                 {[
-                  locale === "pt" ? "Simule qualquer compra antes de fazer" : "Simulate any purchase before you make it",
-                  locale === "pt" ? "Preveja seu saldo dos próximos meses" : "Forecast your balance for the next months",
-                  locale === "pt" ? "Organize metas e desejos com clareza" : "Organize goals and wishes with clarity",
+                  locale === "pt"
+                    ? "Simule qualquer compra antes de fazer"
+                    : "Simulate any purchase before you make it",
+                  locale === "pt"
+                    ? "Preveja seu saldo dos próximos meses"
+                    : "Forecast your balance for the next months",
+                  locale === "pt"
+                    ? "Organize metas e desejos com clareza"
+                    : "Organize goals and wishes with clarity",
                 ].map((x) => (
                   <li key={x} className="flex items-start gap-2">
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" /> {x}
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />{" "}
+                    {x}
                   </li>
                 ))}
               </ul>
             </StepPane>
           )}
           {step === 1 && (
-            <StepPane emoji="🌍" title={locale === "pt" ? "Escolha seu idioma" : "Pick your language"} desc={locale === "pt" ? "Você pode mudar depois" : "You can change it later"}>
+            <StepPane
+              emoji="🌍"
+              title={
+                locale === "pt" ? "Escolha seu idioma" : "Pick your language"
+              }
+              desc={
+                locale === "pt"
+                  ? "Você pode mudar depois"
+                  : "You can change it later"
+              }
+            >
               <div className="mt-6 grid grid-cols-2 gap-3">
                 {(["pt", "en"] as const).map((l) => (
                   <button
                     key={l}
                     onClick={() => setLocale(l)}
                     className={`rounded-2xl border p-4 text-left transition ${
-                      locale === l ? "border-primary bg-primary/5 ring-1 ring-primary" : "border-border hover:bg-muted"
+                      locale === l
+                        ? "border-primary bg-primary/5 ring-1 ring-primary"
+                        : "border-border hover:bg-muted"
                     }`}
                   >
                     <div className="text-2xl">{l === "pt" ? "🇧🇷" : "🇺🇸"}</div>
-                    <div className="mt-2 text-sm font-medium">{l === "pt" ? "Português (BR)" : "English (US)"}</div>
+                    <div className="mt-2 text-sm font-medium">
+                      {l === "pt" ? "Português (BR)" : "English (US)"}
+                    </div>
                   </button>
                 ))}
               </div>
             </StepPane>
           )}
           {step === 2 && (
-            <StepPane emoji="💱" title={locale === "pt" ? "Sua moeda principal" : "Your primary currency"} desc={locale === "pt" ? "Usada em toda a plataforma" : "Used across the platform"}>
+            <StepPane
+              emoji="💱"
+              title={
+                locale === "pt"
+                  ? "Sua moeda principal"
+                  : "Your primary currency"
+              }
+              desc={
+                locale === "pt"
+                  ? "Usada em toda a plataforma"
+                  : "Used across the platform"
+              }
+            >
               <div className="mt-6 grid grid-cols-3 gap-3">
                 {(["BRL", "USD", "EUR"] as const).map((c) => (
                   <button
                     key={c}
                     onClick={() => setCurrency(c)}
                     className={`rounded-2xl border p-4 text-center transition ${
-                      currency === c ? "border-primary bg-primary/5 ring-1 ring-primary" : "border-border hover:bg-muted"
+                      currency === c
+                        ? "border-primary bg-primary/5 ring-1 ring-primary"
+                        : "border-border hover:bg-muted"
                     }`}
                   >
                     <div className="text-lg font-semibold">{c}</div>
                     <div className="text-xs text-muted-foreground">
-                      {c === "BRL" ? "Real" : c === "USD" ? "US Dollar" : "Euro"}
+                      {c === "BRL"
+                        ? "Real"
+                        : c === "USD"
+                          ? "US Dollar"
+                          : "Euro"}
                     </div>
                   </button>
                 ))}
@@ -111,61 +177,144 @@ export default function OnboardingPage() {
             </StepPane>
           )}
           {step === 3 && (
-            <StepPane emoji="👛" title={locale === "pt" ? "Crie sua primeira carteira" : "Create your first wallet"} desc={locale === "pt" ? "Uma conta ou meio de pagamento" : "An account or payment method"}>
+            <StepPane
+              emoji="👛"
+              title={
+                locale === "pt"
+                  ? "Crie sua primeira carteira"
+                  : "Create your first wallet"
+              }
+              desc={
+                locale === "pt"
+                  ? "Uma conta ou meio de pagamento"
+                  : "An account or payment method"
+              }
+            >
               <div className="mt-6 space-y-3">
                 <Label>{locale === "pt" ? "Nome" : "Name"}</Label>
-                <Input defaultValue="Conta principal" className="h-11 rounded-xl" />
+                <Input
+                  defaultValue="Conta principal"
+                  className="h-11 rounded-xl"
+                />
               </div>
             </StepPane>
           )}
           {step === 4 && (
-            <StepPane emoji="💰" title={locale === "pt" ? "Saldo inicial" : "Initial balance"} desc={locale === "pt" ? "Quanto você tem hoje?" : "How much do you have today?"}>
+            <StepPane
+              emoji="💰"
+              title={locale === "pt" ? "Saldo inicial" : "Initial balance"}
+              desc={
+                locale === "pt"
+                  ? "Quanto você tem hoje?"
+                  : "How much do you have today?"
+              }
+            >
               <div className="mt-6">
-                <Input placeholder="0,00" className="h-14 rounded-xl text-2xl font-semibold tracking-tight" />
+                <CurrencyInput
+                  currency="BRL"
+                  value={amount}
+                  onChange={setAmount}
+                />
               </div>
             </StepPane>
           )}
           {step === 5 && (
-            <StepPane emoji="💳" title={locale === "pt" ? "Adicione um cartão (opcional)" : "Add a card (optional)"} desc={locale === "pt" ? "Para acompanhar seus gastos" : "So we can track your spend"}>
+            <StepPane
+              emoji="💳"
+              title={
+                locale === "pt"
+                  ? "Adicione um cartão (opcional)"
+                  : "Add a card (optional)"
+              }
+              desc={
+                locale === "pt"
+                  ? "Para acompanhar seus gastos"
+                  : "So we can track your spend"
+              }
+            >
               <div className="mt-6 space-y-3">
                 <div>
                   <Label>{locale === "pt" ? "Apelido" : "Nickname"}</Label>
-                  <Input placeholder="Nubank" className="mt-1 h-11 rounded-xl" />
+                  <Input
+                    placeholder="Nubank"
+                    className="mt-1 h-11 rounded-xl"
+                  />
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
                     <Label>{locale === "pt" ? "Últimos 4" : "Last 4"}</Label>
-                    <Input placeholder="4821" className="mt-1 h-11 rounded-xl" />
+                    <Input
+                      placeholder="4821"
+                      className="mt-1 h-11 rounded-xl"
+                    />
                   </div>
                   <div>
                     <Label>{locale === "pt" ? "Limite" : "Limit"}</Label>
-                    <Input placeholder="5000" className="mt-1 h-11 rounded-xl" />
+                    <Input
+                      placeholder="5000"
+                      className="mt-1 h-11 rounded-xl"
+                    />
                   </div>
                 </div>
               </div>
             </StepPane>
           )}
           {step === 6 && (
-            <StepPane emoji="📈" title={locale === "pt" ? "Sua renda mensal" : "Your monthly income"} desc={locale === "pt" ? "Média das últimas semanas" : "Average of recent weeks"}>
+            <StepPane
+              emoji="📈"
+              title={
+                locale === "pt" ? "Sua renda mensal" : "Your monthly income"
+              }
+              desc={
+                locale === "pt"
+                  ? "Média das últimas semanas"
+                  : "Average of recent weeks"
+              }
+            >
               <div className="mt-6">
-                <Input placeholder="5.800,00" className="h-14 rounded-xl text-2xl font-semibold tracking-tight" />
+                <Input
+                  placeholder="5.800,00"
+                  className="h-14 rounded-xl text-2xl font-semibold tracking-tight"
+                />
               </div>
             </StepPane>
           )}
           {step === 7 && (
-            <StepPane emoji="🎯" title={locale === "pt" ? "Sua primeira meta" : "Your first goal"} desc={locale === "pt" ? "Vamos ajudar a alcançar!" : "Let's help you get there!"}>
+            <StepPane
+              emoji="🎯"
+              title={locale === "pt" ? "Sua primeira meta" : "Your first goal"}
+              desc={
+                locale === "pt"
+                  ? "Vamos ajudar a alcançar!"
+                  : "Let's help you get there!"
+              }
+            >
               <div className="mt-6 space-y-3">
                 <div>
-                  <Label>{locale === "pt" ? "Nome da meta" : "Goal name"}</Label>
-                  <Input placeholder={locale === "pt" ? "Reserva de emergência" : "Emergency fund"} className="mt-1 h-11 rounded-xl" />
+                  <Label>
+                    {locale === "pt" ? "Nome da meta" : "Goal name"}
+                  </Label>
+                  <Input
+                    placeholder={
+                      locale === "pt"
+                        ? "Reserva de emergência"
+                        : "Emergency fund"
+                    }
+                    className="mt-1 h-11 rounded-xl"
+                  />
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
                     <Label>{locale === "pt" ? "Valor alvo" : "Target"}</Label>
-                    <Input placeholder="15.000" className="mt-1 h-11 rounded-xl" />
+                    <Input
+                      placeholder="15.000"
+                      className="mt-1 h-11 rounded-xl"
+                    />
                   </div>
                   <div>
-                    <Label>{locale === "pt" ? "Até quando" : "Target date"}</Label>
+                    <Label>
+                      {locale === "pt" ? "Até quando" : "Target date"}
+                    </Label>
                     <Input type="month" className="mt-1 h-11 rounded-xl" />
                   </div>
                 </div>
@@ -173,7 +322,15 @@ export default function OnboardingPage() {
             </StepPane>
           )}
           {step === 8 && (
-            <StepPane emoji="🎉" title={locale === "pt" ? "Tudo pronto!" : "All set!"} desc={locale === "pt" ? "Bem-vindo ao Cofrinho." : "Welcome to Cofrinho."}>
+            <StepPane
+              emoji="🎉"
+              title={locale === "pt" ? "Tudo pronto!" : "All set!"}
+              desc={
+                locale === "pt"
+                  ? "Bem-vindo ao Cofrinho."
+                  : "Welcome to Cofrinho."
+              }
+            >
               <div className="mt-6 rounded-2xl bg-primary/5 p-4 text-sm text-foreground">
                 {locale === "pt"
                   ? "Vamos abrir seu painel e mostrar um rápido tour dos recursos."
