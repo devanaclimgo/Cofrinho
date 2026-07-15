@@ -272,6 +272,7 @@ export default function OnboardingPage() {
               }
             >
               <div className="mt-6">
+                {/* TODO: consertar sistema de currency input pra nao aparecer o mesmo valor em todos e só formatar os números */}
                 <Input
                   placeholder="5.800,00"
                   className="h-14 rounded-xl text-2xl font-semibold tracking-tight"
