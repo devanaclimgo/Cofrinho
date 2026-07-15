@@ -201,13 +201,13 @@ export default function Landing() {
             locale === "pt" ? "Transações ilimitadas" : "Unlimited transactions",
             locale === "pt" ? "Simulador básico" : "Basic simulator",
           ]} />
-          <PricingCard highlight name={t("pricing.pro")} price={locale === "pt" ? 19 : 6} features={[
+          <PricingCard highlight name={t("pricing.pro")} price={locale === "pt" ? 9.99 : 2} features={[
             locale === "pt" ? "Carteiras ilimitadas" : "Unlimited wallets",
             locale === "pt" ? "Simulador avançado com IA" : "Advanced AI simulator",
             locale === "pt" ? "Metas ilimitadas" : "Unlimited goals",
-            "Analytics",
+            locale === "pt" ? "Análises detalhadas" : "Detailed analytics",
           ]} />
-          <PricingCard name={t("pricing.team")} price={locale === "pt" ? 39 : 12} features={[
+          <PricingCard name={t("pricing.team")} price={locale === "pt" ? 20.99 : 6} features={[
             locale === "pt" ? "Até 5 pessoas" : "Up to 5 people",
             locale === "pt" ? "Carteiras compartilhadas" : "Shared wallets",
             locale === "pt" ? "Relatórios familiares" : "Family reports",
