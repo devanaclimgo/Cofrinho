@@ -15,16 +15,16 @@ export default function SignupPage() {
       <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
         <div className="space-y-1.5">
           <Label htmlFor="name">{t("auth.name")}</Label>
-          <Input id="name" placeholder="Maria Almeida" className="h-11 rounded-xl" />
+          <Input id="name" placeholder={t("auth.namePlaceholder")} className="h-11 rounded-xl" />
         </div>
         <div className="space-y-1.5">
           <Label htmlFor="email">{t("auth.email")}</Label>
-          <Input id="email" type="email" placeholder="you@company.com" className="h-11 rounded-xl" />
+          <Input id="email" type="email" placeholder={t("auth.emailPlaceholder")} className="h-11 rounded-xl" />
         </div>
         <div className="space-y-1.5">
           <Label htmlFor="password">{t("auth.password")}</Label>
           <div className="relative">
-            <Input id="password" type={show ? "text" : "password"} placeholder="At least 8 characters" className="h-11 rounded-xl pr-10" />
+            <Input id="password" type={show ? "text" : "password"} placeholder={t("auth.passwordPlaceholder")} className="h-11 rounded-xl pr-10" />
             <button
               type="button"
               onClick={() => setShow((v) => !v)}
@@ -34,7 +34,7 @@ export default function SignupPage() {
               {show ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
             </button>
           </div>
-          <p className="text-xs text-muted-foreground">Use 8+ characters with a mix of letters and numbers.</p>
+          <p className="text-xs text-muted-foreground">{t("auth.passwordHint")}</p>
         </div>
         <Button asChild className="h-11 w-full rounded-xl">
           <Link to="/onboarding">{t("auth.signup.button")}</Link>
