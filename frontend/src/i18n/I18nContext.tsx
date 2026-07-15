@@ -16,7 +16,6 @@ type Locale = "pt" | "en";
 
 export interface I18nContextValue {
   lang: Language;
-  setLang: (lang: Language) => void;
   t: (key: TranslationKey) => string;
   locale: Locale;
   setLocale: (l: Locale) => void;
@@ -28,13 +27,7 @@ const I18nContext = createContext<I18nContextValue | undefined>(undefined);
 const STORAGE_KEY = "cofrinho-lang";
 
 export function I18nProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Language>(() => {
-    if (typeof window === "undefined") return "pt";
-    const stored = localStorage.getItem(STORAGE_KEY) as Language | null;
-    if (stored === "pt" || stored === "en") return stored;
-    return navigator.language.startsWith("pt") ? "pt" : "en";
-  });
-  const [locale, setLocaleState] = useState<Locale>("pt");
+  const [locale, setLocaleState] = useState<Language>("pt");
   useEffect(() => {
     const saved = (typeof window !== "undefined" &&
       localStorage.getItem("cofrinho.locale")) as Locale | null;
@@ -50,20 +43,19 @@ export function I18nProvider({ children }: { children: ReactNode }) {
 
   const formatCurrency = (value: number, currency?: Currency) => {
     if (locale === "pt")
-      return value.toLocaleString("pt-BR", { currency: currency || "BRL" });
-    return value.toLocaleString("en-US", { currency: currency || "USD" });
+      return value.toLocaleString("pt-BR", {style: "currency", currency: currency || "BRL" });
+    return value.toLocaleString("en-US", { style: "currency", currency: currency || "USD" });
   };
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, lang);
-    document.documentElement.lang = lang === "pt" ? "pt-BR" : "en";
-  }, [lang]);
+    localStorage.setItem(STORAGE_KEY, locale);
+    document.documentElement.lang = locale === "pt" ? "pt-BR" : "en";
+  }, [locale]);
 
-  const setLang = (l: Language) => setLangState(l);
-  const t = (key: TranslationKey) => translations[lang][key] ?? key;
+  const t = (key: TranslationKey) => translations[locale][key] ?? key;
 
   return (
-    <I18nContext.Provider value={{ lang, setLang, t, locale, setLocale, formatCurrency }}>
+    <I18nContext.Provider value={{ lang: locale, t, locale, setLocale, formatCurrency }}>
       {children}
     </I18nContext.Provider>
   );
