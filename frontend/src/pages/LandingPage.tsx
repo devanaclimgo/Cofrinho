@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { useI18n } from "../i18n/I18nContext";
 import { Logo } from "../components/shared/Logo";
 import { LanguageSwitcher } from "../components/shared/LanguageSwitcher";

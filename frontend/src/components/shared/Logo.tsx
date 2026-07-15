@@ -1,5 +1,5 @@
 import { PiggyBank } from "lucide-react";
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 
 export function Logo({ compact = false, className = "" }: { compact?: boolean; className?: string }) {
   return (

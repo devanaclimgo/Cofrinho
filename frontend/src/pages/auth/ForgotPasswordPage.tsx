@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { AuthShell } from "../auth/AuthShell";
 import { useI18n } from "../../i18n/I18nContext";
 import { Input } from "../../components/ui/input";

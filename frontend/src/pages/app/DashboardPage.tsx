@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { AppLayout } from "../../components/app-layout";
 import { useDashboard } from "../../hooks/useDashboard";
 import { useI18n } from "../../i18n/I18nContext";

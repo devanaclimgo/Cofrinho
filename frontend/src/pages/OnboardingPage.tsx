@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useI18n } from "../i18n/I18nContext";
 import { Logo } from "../components/shared/Logo";
@@ -29,7 +29,7 @@ export default function OnboardingPage() {
 
   const progress = ((step + 1) / steps.length) * 100;
 
-  const next = () => (step < steps.length - 1 ? setStep(step + 1) : nav({ to: "/app/dashboard" }));
+  const next = () => (step < steps.length - 1 ? setStep(step + 1) : nav("/app/dashboard"));
   const back = () => setStep(Math.max(0, step - 1));
 
   return (
