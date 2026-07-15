@@ -1,1 +1,1 @@
-export type Currency = "BRL" | "USD";
+export type Currency = "BRL" | "USD" | "EUR";
