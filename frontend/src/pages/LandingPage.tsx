@@ -45,9 +45,24 @@ export default function Landing() {
         <div className="mx-auto flex h-16 max-w-7xl items-center px-4 sm:px-6 lg:px-8">
           <Logo />
           <nav className="ml-10 hidden items-center gap-8 md:flex">
-            <a href="#features" className="text-sm text-muted-foreground transition hover:text-foreground">{t("nav.features")}</a>
-            <a href="#pricing" className="text-sm text-muted-foreground transition hover:text-foreground">{t("nav.pricing")}</a>
-            <a href="#faq" className="text-sm text-muted-foreground transition hover:text-foreground">{t("nav.faq")}</a>
+            <a
+              href="#features"
+              className="text-sm text-muted-foreground transition hover:text-foreground"
+            >
+              {t("nav.features")}
+            </a>
+            <a
+              href="#pricing"
+              className="text-sm text-muted-foreground transition hover:text-foreground"
+            >
+              {t("nav.pricing")}
+            </a>
+            <a
+              href="#faq"
+              className="text-sm text-muted-foreground transition hover:text-foreground"
+            >
+              {t("nav.faq")}
+            </a>
           </nav>
           <div className="ml-auto flex items-center gap-2">
             <LanguageSwitcher />
@@ -122,28 +137,68 @@ export default function Landing() {
 
         {/* logo row */}
         <div className="mx-auto grid max-w-6xl grid-cols-2 items-center gap-6 border-y border-border/60 px-6 py-6 opacity-80 sm:grid-cols-3 lg:grid-cols-6">
-          {["Notion", "Linear", "Stripe", "Vercel", "Arc", "Raycast"].map((l) => (
-            <div key={l} className="text-center text-sm font-medium tracking-tight text-muted-foreground">
-              {l}
-            </div>
-          ))}
+          {["Notion", "Linear", "Stripe", "Vercel", "Arc", "Raycast"].map(
+            (l) => (
+              <div
+                key={l}
+                className="text-center text-sm font-medium tracking-tight text-muted-foreground"
+              >
+                {l}
+              </div>
+            ),
+          )}
         </div>
       </section>
 
       {/* Features */}
-      <section id="features" className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+      <section
+        id="features"
+        className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8"
+      >
         <div className="mx-auto max-w-2xl text-center">
-          <Badge variant="secondary" className="rounded-full px-3 py-1 text-xs font-medium">Features</Badge>
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">{t("features.title")}</h2>
+          <Badge
+            variant="secondary"
+            className="rounded-full px-3 py-1 text-xs font-medium"
+          >
+            Features
+          </Badge>
+          <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
+            {t("features.title")}
+          </h2>
           <p className="mt-3 text-muted-foreground">{t("features.subtitle")}</p>
         </div>
         <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          <FeatureCard icon={Calculator} title={t("feat.sim.title")} desc={t("feat.sim.desc")} accent />
-          <FeatureCard icon={LineChartIcon} title={t("feat.forecast.title")} desc={t("feat.forecast.desc")} />
-          <FeatureCard icon={BarChart3} title={t("feat.tracking.title")} desc={t("feat.tracking.desc")} />
-          <FeatureCard icon={Heart} title={t("feat.wishlist.title")} desc={t("feat.wishlist.desc")} />
-          <FeatureCard icon={Layers} title={t("feat.analytics.title")} desc={t("feat.analytics.desc")} />
-          <FeatureCard icon={Wallet} title={t("feat.wallets.title")} desc={t("feat.wallets.desc")} />
+          <FeatureCard
+            icon={Calculator}
+            title={t("feat.sim.title")}
+            desc={t("feat.sim.desc")}
+            accent
+          />
+          <FeatureCard
+            icon={LineChartIcon}
+            title={t("feat.forecast.title")}
+            desc={t("feat.forecast.desc")}
+          />
+          <FeatureCard
+            icon={BarChart3}
+            title={t("feat.tracking.title")}
+            desc={t("feat.tracking.desc")}
+          />
+          <FeatureCard
+            icon={Heart}
+            title={t("feat.wishlist.title")}
+            desc={t("feat.wishlist.desc")}
+          />
+          <FeatureCard
+            icon={Layers}
+            title={t("feat.analytics.title")}
+            desc={t("feat.analytics.desc")}
+          />
+          <FeatureCard
+            icon={Wallet}
+            title={t("feat.wallets.title")}
+            desc={t("feat.wallets.desc")}
+          />
         </div>
       </section>
 
@@ -159,23 +214,34 @@ export default function Landing() {
         <div className="grid gap-5 md:grid-cols-3">
           {[
             {
-              q: locale === "pt" ? "Nunca mais comprei por impulso." : "I never buy on impulse again.",
+              q:
+                locale === "pt"
+                  ? "Nunca mais comprei por impulso."
+                  : "I never buy on impulse again.",
               n: "Rafael M.",
               r: locale === "pt" ? "Designer" : "Designer",
             },
             {
-              q: locale === "pt" ? "O simulador salvou minha viagem." : "The simulator saved my trip.",
+              q:
+                locale === "pt"
+                  ? "O simulador salvou minha viagem."
+                  : "The simulator saved my trip.",
               n: "Ana P.",
               r: locale === "pt" ? "Engenheira" : "Engineer",
             },
             {
-              q: locale === "pt" ? "Finalmente entendo pra onde vai meu dinheiro." : "I finally understand where my money goes.",
+              q:
+                locale === "pt"
+                  ? "Finalmente entendo pra onde vai meu dinheiro."
+                  : "I finally understand where my money goes.",
               n: "Kaio S.",
               r: locale === "pt" ? "Estudante" : "Student",
             },
           ].map((tst) => (
             <figure key={tst.n} className="card-elevated p-6">
-              <blockquote className="text-base leading-relaxed text-foreground">“{tst.q}”</blockquote>
+              <blockquote className="text-base leading-relaxed text-foreground">
+                “{tst.q}”
+              </blockquote>
               <figcaption className="mt-5 flex items-center gap-3">
                 <div className="grid h-9 w-9 place-items-center rounded-full bg-primary/10 text-xs font-semibold text-primary">
                   {tst.n[0]}
@@ -191,41 +257,70 @@ export default function Landing() {
       </section>
 
       {/* Pricing */}
-      <section id="pricing" className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
+      <section
+        id="pricing"
+        className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8"
+      >
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">{t("pricing.title")}</h2>
+          <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+            {t("pricing.title")}
+          </h2>
         </div>
         <div className="mt-12 grid gap-5 md:grid-cols-3">
-          <PricingCard name={t("pricing.free")} price={0} features={[
-            locale === "pt" ? "1 carteira" : "1 wallet",
-            locale === "pt" ? "Transações ilimitadas" : "Unlimited transactions",
-            locale === "pt" ? "Simulador básico" : "Basic simulator",
-          ]} />
-          <PricingCard highlight name={t("pricing.pro")} price={locale === "pt" ? 9.99 : 2} features={[
-            locale === "pt" ? "Carteiras ilimitadas" : "Unlimited wallets",
-            locale === "pt" ? "Simulador avançado com IA" : "Advanced AI simulator",
-            locale === "pt" ? "Metas ilimitadas" : "Unlimited goals",
-            locale === "pt" ? "Análises detalhadas" : "Detailed analytics",
-          ]} />
-          <PricingCard name={t("pricing.team")} price={locale === "pt" ? 20.99 : 6} features={[
-            locale === "pt" ? "Até 5 pessoas" : "Up to 5 people",
-            locale === "pt" ? "Carteiras compartilhadas" : "Shared wallets",
-            locale === "pt" ? "Relatórios familiares" : "Family reports",
-          ]} />
+          <PricingCard
+            name={t("pricing.free")}
+            price={0}
+            features={[
+              locale === "pt" ? "1 carteira" : "1 wallet",
+              locale === "pt"
+                ? "Transações ilimitadas"
+                : "Unlimited transactions",
+              locale === "pt" ? "Simulador básico" : "Basic simulator",
+            ]}
+          />
+          <PricingCard
+            highlight
+            name={t("pricing.pro")}
+            price={locale === "pt" ? 9.99 : 2}
+            features={[
+              locale === "pt" ? "Carteiras ilimitadas" : "Unlimited wallets",
+              locale === "pt"
+                ? "Simulador avançado com IA"
+                : "Advanced AI simulator",
+              locale === "pt" ? "Metas ilimitadas" : "Unlimited goals",
+              locale === "pt" ? "Análises detalhadas" : "Detailed analytics",
+            ]}
+          />
+          <PricingCard
+            name={t("pricing.team")}
+            price={locale === "pt" ? 20.99 : 6}
+            features={[
+              locale === "pt" ? "Até 5 pessoas" : "Up to 5 people",
+              locale === "pt" ? "Carteiras compartilhadas" : "Shared wallets",
+              locale === "pt" ? "Relatórios familiares" : "Family reports",
+            ]}
+          />
         </div>
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="mx-auto max-w-3xl px-4 pb-24 sm:px-6 lg:px-8">
-        <h2 className="text-center text-3xl font-semibold tracking-tight sm:text-4xl">{t("faq.title")}</h2>
+      <section
+        id="faq"
+        className="mx-auto max-w-3xl px-4 pb-24 sm:px-6 lg:px-8"
+      >
+        <h2 className="text-center text-3xl font-semibold tracking-tight sm:text-4xl">
+          {t("faq.title")}
+        </h2>
         <Accordion type="single" collapsible className="mt-10">
           {faqs.map((f, i) => (
             <AccordionItem key={i} value={`i${i}`} className="border-border">
               <AccordionTrigger className="text-left text-base font-medium">
                 {f.q[locale]}
               </AccordionTrigger>
-              <AccordionContent className="text-sm leading-relaxed text-muted-foreground">
-                {f.a[locale]}
+              <AccordionContent className="overflow-hidden data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down">
+                <div className="pb-4 text-sm leading-relaxed text-muted-foreground">
+                  {f.a[locale]}
+                </div>
               </AccordionContent>
             </AccordionItem>
           ))}
@@ -236,8 +331,12 @@ export default function Landing() {
       <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
         <div className="relative overflow-hidden rounded-3xl border border-border bg-card p-10 text-center shadow-sm sm:p-16">
           <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-br from-primary/5 to-transparent" />
-          <h3 className="text-3xl font-semibold tracking-tight sm:text-4xl">{t("hero.title")}</h3>
-          <p className="mx-auto mt-3 max-w-lg text-muted-foreground">{t("hero.subtitle")}</p>
+          <h3 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+            {t("hero.title")}
+          </h3>
+          <p className="mx-auto mt-3 max-w-lg text-muted-foreground">
+            {t("hero.subtitle")}
+          </p>
           <div className="mt-8">
             <Link
               to="/signup"
@@ -254,12 +353,20 @@ export default function Landing() {
         <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-4 py-10 sm:px-6 lg:flex-row lg:items-center lg:px-8">
           <div>
             <Logo />
-            <p className="mt-2 max-w-xs text-sm text-muted-foreground">{t("footer.tagline")}</p>
+            <p className="mt-2 max-w-xs text-sm text-muted-foreground">
+              {t("footer.tagline")}
+            </p>
           </div>
           <div className="flex items-center gap-6 text-sm text-muted-foreground">
-            <a href="#features" className="hover:text-foreground">{t("nav.features")}</a>
-            <a href="#pricing" className="hover:text-foreground">{t("nav.pricing")}</a>
-            <a href="#faq" className="hover:text-foreground">{t("nav.faq")}</a>
+            <a href="#features" className="hover:text-foreground">
+              {t("nav.features")}
+            </a>
+            <a href="#pricing" className="hover:text-foreground">
+              {t("nav.pricing")}
+            </a>
+            <a href="#faq" className="hover:text-foreground">
+              {t("nav.faq")}
+            </a>
             <div className="flex items-center gap-1 text-xs">
               <ShieldCheck className="h-3.5 w-3.5 text-success" />
               <span>SOC 2</span>
@@ -289,13 +396,17 @@ function FeatureCard({
     <div className="group relative rounded-2xl border border-border bg-card p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-elevated)]">
       <div
         className={`grid h-11 w-11 place-items-center rounded-xl ${
-          accent ? "bg-primary text-primary-foreground" : "bg-primary/10 text-primary"
+          accent
+            ? "bg-primary text-primary-foreground"
+            : "bg-primary/10 text-primary"
         }`}
       >
         <Icon className="h-5 w-5" strokeWidth={2.2} />
       </div>
       <h3 className="mt-5 text-base font-semibold text-foreground">{title}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{desc}</p>
+      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+        {desc}
+      </p>
     </div>
   );
 }
@@ -315,7 +426,9 @@ function PricingCard({
   return (
     <div
       className={`relative rounded-2xl border p-8 shadow-sm ${
-        highlight ? "border-primary bg-card ring-2 ring-primary/20" : "border-border bg-card"
+        highlight
+          ? "border-primary bg-card ring-2 ring-primary/20"
+          : "border-border bg-card"
       }`}
     >
       {highlight && (
@@ -323,12 +436,17 @@ function PricingCard({
           {locale === "pt" ? "MAIS POPULAR" : "MOST POPULAR"}
         </Badge>
       )}
-      <div className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">{name}</div>
+      <div className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+        {name}
+      </div>
       <div className="mt-4 flex items-baseline gap-1">
         <span className="text-4xl font-semibold tracking-tight">
-          {locale === "pt" ? "R$" : "$"}{price}
+          {locale === "pt" ? "R$" : "$"}
+          {price}
         </span>
-        <span className="text-sm text-muted-foreground">{t("pricing.month")}</span>
+        <span className="text-sm text-muted-foreground">
+          {t("pricing.month")}
+        </span>
       </div>
       <ul className="mt-6 space-y-3 text-sm">
         {features.map((f) => (
@@ -357,7 +475,9 @@ function HeroVisual({ locale }: { locale: "pt" | "en" }) {
           <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
             {locale === "pt" ? "Saldo total" : "Total balance"}
           </div>
-          <Badge className="rounded-full bg-success/10 px-2 py-0.5 text-[10px] font-medium text-success hover:bg-success/10">+12.4%</Badge>
+          <Badge className="rounded-full bg-success/10 px-2 py-0.5 text-[10px] font-medium text-success hover:bg-success/10">
+            +12.4%
+          </Badge>
         </div>
         <div className="mt-2 text-3xl font-semibold tracking-tight">
           {locale === "pt" ? "R$ 27.980,00" : "$5,240.80"}
@@ -367,8 +487,16 @@ function HeroVisual({ locale }: { locale: "pt" | "en" }) {
             <AreaChart data={forecastData}>
               <defs>
                 <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity={0.35} />
-                  <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity={0} />
+                  <stop
+                    offset="0%"
+                    stopColor="hsl(var(--primary))"
+                    stopOpacity={0.35}
+                  />
+                  <stop
+                    offset="100%"
+                    stopColor="hsl(var(--primary))"
+                    stopOpacity={0}
+                  />
                 </linearGradient>
               </defs>
               <Area
@@ -395,7 +523,9 @@ function HeroVisual({ locale }: { locale: "pt" | "en" }) {
             <Calculator className="h-4 w-4" />
           </span>
           <div>
-            <div className="text-xs text-muted-foreground">{locale === "pt" ? "Simulação" : "Simulation"}</div>
+            <div className="text-xs text-muted-foreground">
+              {locale === "pt" ? "Simulação" : "Simulation"}
+            </div>
             <div className="text-sm font-medium">Sony WH-1000XM6</div>
           </div>
         </div>
@@ -406,17 +536,25 @@ function HeroVisual({ locale }: { locale: "pt" | "en" }) {
             { m: "Sep", s: "bad" },
           ].map((x) => (
             <div key={x.m} className="rounded-lg border border-border p-2">
-              <div className="text-[10px] uppercase text-muted-foreground">{x.m}</div>
+              <div className="text-[10px] uppercase text-muted-foreground">
+                {x.m}
+              </div>
               <div
                 className={`mx-auto mt-1 h-2 w-2 rounded-full ${
-                  x.s === "ok" ? "bg-success" : x.s === "warn" ? "bg-warning" : "bg-destructive"
+                  x.s === "ok"
+                    ? "bg-success"
+                    : x.s === "warn"
+                      ? "bg-warning"
+                      : "bg-destructive"
                 }`}
               />
             </div>
           ))}
         </div>
         <div className="mt-3 rounded-lg bg-warning/10 p-2 text-[11px] leading-relaxed">
-          {locale === "pt" ? "Considere comprar em outubro." : "Consider buying in October."}
+          {locale === "pt"
+            ? "Considere comprar em outubro."
+            : "Consider buying in October."}
         </div>
       </div>
 
@@ -426,23 +564,37 @@ function HeroVisual({ locale }: { locale: "pt" | "en" }) {
         style={{ animationDelay: "0.3s" }}
       >
         <div className="flex items-center justify-between">
-          <div className="text-xs text-muted-foreground">{locale === "pt" ? "Meta" : "Goal"}</div>
+          <div className="text-xs text-muted-foreground">
+            {locale === "pt" ? "Meta" : "Goal"}
+          </div>
           <div className="text-lg">🗾</div>
         </div>
-        <div className="mt-1 text-sm font-medium">{locale === "pt" ? "Viagem para o Japão" : "Trip to Japan"}</div>
+        <div className="mt-1 text-sm font-medium">
+          {locale === "pt" ? "Viagem para o Japão" : "Trip to Japan"}
+        </div>
         <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-muted">
-          <div className="h-full rounded-full bg-primary transition-all duration-1000" style={{ width: "62%" }} />
+          <div
+            className="h-full rounded-full bg-primary transition-all duration-1000"
+            style={{ width: "62%" }}
+          />
         </div>
         <div className="mt-2 flex justify-between text-[11px] text-muted-foreground">
           <span>62%</span>
-          <span>{locale === "pt" ? "R$ 7.400 / R$ 12.000" : "$1,650 / $2,600"}</span>
+          <span>
+            {locale === "pt" ? "R$ 7.400 / R$ 12.000" : "$1,650 / $2,600"}
+          </span>
         </div>
       </div>
 
       {/* Line trend micro-card */}
-      <div className="animate-fade-in-up absolute bottom-0 left-4 hidden w-[220px] rounded-2xl border border-border bg-card p-4 shadow-[var(--shadow-elevated)] sm:block" style={{ animationDelay: "0.45s" }}>
+      <div
+        className="animate-fade-in-up absolute bottom-0 left-4 hidden w-[220px] rounded-2xl border border-border bg-card p-4 shadow-[var(--shadow-elevated)] sm:block"
+        style={{ animationDelay: "0.45s" }}
+      >
         <div className="flex items-center justify-between">
-          <div className="text-xs text-muted-foreground">{locale === "pt" ? "Poupança" : "Savings rate"}</div>
+          <div className="text-xs text-muted-foreground">
+            {locale === "pt" ? "Poupança" : "Savings rate"}
+          </div>
           <div className="text-xs font-medium text-success">+8.2%</div>
         </div>
         <div className="mt-2 h-14">
@@ -481,35 +633,67 @@ function ProductPreview() {
       </div>
       <div className="grid gap-4 p-4 sm:p-6 lg:grid-cols-3">
         <div className="rounded-2xl border border-border bg-card p-5">
-          <div className="text-xs uppercase tracking-wider text-muted-foreground">{locale === "pt" ? "Saldo" : "Balance"}</div>
-          <div className="mt-2 text-2xl font-semibold">{locale === "pt" ? "R$ 27.980" : "$5,240"}</div>
+          <div className="text-xs uppercase tracking-wider text-muted-foreground">
+            {locale === "pt" ? "Saldo" : "Balance"}
+          </div>
+          <div className="mt-2 text-2xl font-semibold">
+            {locale === "pt" ? "R$ 27.980" : "$5,240"}
+          </div>
           <div className="mt-1 text-xs text-success">+12.4%</div>
         </div>
         <div className="rounded-2xl border border-border bg-card p-5">
-          <div className="text-xs uppercase tracking-wider text-muted-foreground">{locale === "pt" ? "Poupança" : "Savings"}</div>
-          <div className="mt-2 text-2xl font-semibold">{locale === "pt" ? "R$ 8.400" : "$1,640"}</div>
+          <div className="text-xs uppercase tracking-wider text-muted-foreground">
+            {locale === "pt" ? "Poupança" : "Savings"}
+          </div>
+          <div className="mt-2 text-2xl font-semibold">
+            {locale === "pt" ? "R$ 8.400" : "$1,640"}
+          </div>
           <div className="mt-1 text-xs text-success">+8.2%</div>
         </div>
         <div className="rounded-2xl border border-border bg-card p-5">
-          <div className="text-xs uppercase tracking-wider text-muted-foreground">{locale === "pt" ? "Saúde" : "Health"}</div>
+          <div className="text-xs uppercase tracking-wider text-muted-foreground">
+            {locale === "pt" ? "Saúde" : "Health"}
+          </div>
           <div className="mt-2 text-2xl font-semibold">86</div>
-          <div className="mt-1 text-xs text-muted-foreground">{locale === "pt" ? "Excelente" : "Excellent"}</div>
+          <div className="mt-1 text-xs text-muted-foreground">
+            {locale === "pt" ? "Excelente" : "Excellent"}
+          </div>
         </div>
         <div className="rounded-2xl border border-border bg-card p-5 lg:col-span-3">
           <div className="mb-3 flex items-center justify-between">
-            <div className="text-sm font-medium">{locale === "pt" ? "Previsão dos próximos meses" : "Forecast of upcoming months"}</div>
-            <div className="text-xs text-muted-foreground">12 {locale === "pt" ? "meses" : "months"}</div>
+            <div className="text-sm font-medium">
+              {locale === "pt"
+                ? "Previsão dos próximos meses"
+                : "Forecast of upcoming months"}
+            </div>
+            <div className="text-xs text-muted-foreground">
+              12 {locale === "pt" ? "meses" : "months"}
+            </div>
           </div>
           <div className="h-56">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={forecastData}>
                 <defs>
                   <linearGradient id="gp" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="var(--primary)" stopOpacity={0.35} />
-                    <stop offset="100%" stopColor="var(--primary)" stopOpacity={0} />
+                    <stop
+                      offset="0%"
+                      stopColor="var(--primary)"
+                      stopOpacity={0.35}
+                    />
+                    <stop
+                      offset="100%"
+                      stopColor="var(--primary)"
+                      stopOpacity={0}
+                    />
                   </linearGradient>
                 </defs>
-                <XAxis dataKey="m" stroke="var(--muted-foreground)" fontSize={11} tickLine={false} axisLine={false} />
+                <XAxis
+                  dataKey="m"
+                  stroke="var(--muted-foreground)"
+                  fontSize={11}
+                  tickLine={false}
+                  axisLine={false}
+                />
                 <Tooltip
                   contentStyle={{
                     background: "var(--popover)",
