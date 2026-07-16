@@ -367,14 +367,14 @@ function HeroVisual({ locale }: { locale: "pt" | "en" }) {
             <AreaChart data={forecastData}>
               <defs>
                 <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="var(--primary)" stopOpacity={0.35} />
-                  <stop offset="100%" stopColor="var(--primary)" stopOpacity={0} />
+                  <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity={0.35} />
+                  <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity={0} />
                 </linearGradient>
               </defs>
               <Area
                 type="monotone"
                 dataKey="balance"
-                stroke="var(--primary)"
+                stroke="hsl(var(--primary))"
                 strokeWidth={2.5}
                 fill="url(#g1)"
                 isAnimationActive
@@ -415,7 +415,7 @@ function HeroVisual({ locale }: { locale: "pt" | "en" }) {
             </div>
           ))}
         </div>
-        <div className="mt-3 rounded-lg bg-warning/10 p-2 text-[11px] leading-relaxed text-warning-foreground">
+        <div className="mt-3 rounded-lg bg-warning/10 p-2 text-[11px] leading-relaxed">
           {locale === "pt" ? "Considere comprar em outubro." : "Consider buying in October."}
         </div>
       </div>
@@ -451,7 +451,7 @@ function HeroVisual({ locale }: { locale: "pt" | "en" }) {
               <Line
                 type="monotone"
                 dataKey="income"
-                stroke="var(--success)"
+                stroke="hsl(var(--success))"
                 strokeWidth={2}
                 dot={false}
                 isAnimationActive
