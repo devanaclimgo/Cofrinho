@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { AppLayout } from "../../components/app-layout";
 import { useDashboard } from "../../hooks/useDashboard";
 import { useI18n } from "../../i18n/I18nContext";
 import {
@@ -42,7 +41,6 @@ export default function DashboardPage() {
   }
 
   return (
-    <AppLayout title={t("sidebar.dashboard")}>
       <div className="space-y-6">
         {/* Welcome + quick actions */}
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
@@ -389,7 +387,6 @@ export default function DashboardPage() {
           </div>
         </div>
       </div>
-    </AppLayout>
   );
 }
 
