@@ -145,38 +145,38 @@ export default function DashboardPage() {
                     <linearGradient id="da" x1="0" y1="0" x2="0" y2="1">
                       <stop
                         offset="0%"
-                        stopColor="var(--primary)"
+                        stopColor="hsl(var(--primary))"
                         stopOpacity={0.28}
                       />
                       <stop
                         offset="100%"
-                        stopColor="var(--primary)"
+                        stopColor="hsl(var(--primary))"
                         stopOpacity={0}
                       />
                     </linearGradient>
                   </defs>
                   <CartesianGrid
-                    stroke="var(--border)"
+                    stroke="hsl(var(--border))"
                     strokeDasharray="3 3"
                     vertical={false}
                   />
                   <XAxis
                     dataKey="m"
-                    stroke="var(--muted-foreground)"
+                    stroke="hsl(var(--muted-foreground))"
                     fontSize={11}
                     tickLine={false}
                     axisLine={false}
                   />
                   <YAxis
-                    stroke="var(--muted-foreground)"
+                    stroke="hsl(var(--muted-foreground))"
                     fontSize={11}
                     tickLine={false}
                     axisLine={false}
                   />
                   <Tooltip
                     contentStyle={{
-                      background: "var(--popover)",
-                      border: "1px solid var(--border)",
+                      background: "hsl(var(--popover))",
+                      border: "1px solid hsl(var(--border))",
                       borderRadius: 12,
                       fontSize: 12,
                     }}
@@ -184,7 +184,7 @@ export default function DashboardPage() {
                   <Area
                     type="monotone"
                     dataKey="balance"
-                    stroke="var(--primary)"
+                    stroke="hsl(var(--primary))"
                     strokeWidth={2.5}
                     fill="url(#da)"
                     isAnimationActive
@@ -464,7 +464,7 @@ function ScoreRing({ value }: { value: number }) {
           cx="50"
           cy="50"
           r={r}
-          stroke="var(--muted)"
+          stroke="hsl(var(--muted))"
           strokeWidth="8"
           fill="none"
         />
@@ -472,7 +472,7 @@ function ScoreRing({ value }: { value: number }) {
           cx="50"
           cy="50"
           r={r}
-          stroke="var(--primary)"
+          stroke="hsl(var(--primary))"
           strokeWidth="8"
           strokeLinecap="round"
           fill="none"
