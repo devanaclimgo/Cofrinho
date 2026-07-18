@@ -20,8 +20,8 @@ import {
 } from "recharts";
 
 const tooltipStyle = {
-  background: "var(--popover)",
-  border: "1px solid var(--border)",
+  background: "hsl(var(--popover))",
+  border: "1px solid hsl(var(--border))",
   borderRadius: 12,
   fontSize: 12,
 };
@@ -44,13 +44,13 @@ export default function AnalyticsPage() {
             <div className="mt-4 h-72">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={forecastData}>
-                  <CartesianGrid stroke="var(--border)" strokeDasharray="3 3" vertical={false} />
-                  <XAxis dataKey="m" stroke="var(--muted-foreground)" fontSize={11} tickLine={false} axisLine={false} />
-                  <YAxis stroke="var(--muted-foreground)" fontSize={11} tickLine={false} axisLine={false} />
+                  <CartesianGrid stroke="hsl(var(--border))" strokeDasharray="3 3" vertical={false} />
+                  <XAxis dataKey="m" stroke="hsl(var(--muted-foreground))" fontSize={11} tickLine={false} axisLine={false} />
+                  <YAxis stroke="hsl(var(--muted-foreground))" fontSize={11} tickLine={false} axisLine={false} />
                   <Tooltip contentStyle={tooltipStyle} />
                   <Legend wrapperStyle={{ fontSize: 12 }} />
-                  <Bar dataKey="income" fill="var(--success)" radius={[8, 8, 0, 0]} />
-                  <Bar dataKey="expenses" fill="var(--destructive)" radius={[8, 8, 0, 0]} />
+                  <Bar dataKey="income" fill="hsl(var(--success))" radius={[8, 8, 0, 0]} />
+                  <Bar dataKey="expenses" fill="hsl(var(--destructive))" radius={[8, 8, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -90,15 +90,15 @@ export default function AnalyticsPage() {
                 <AreaChart data={forecastData}>
                   <defs>
                     <linearGradient id="ana" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="var(--primary)" stopOpacity={0.3} />
-                      <stop offset="100%" stopColor="var(--primary)" stopOpacity={0} />
+                      <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity={0.3} />
+                      <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <CartesianGrid stroke="var(--border)" strokeDasharray="3 3" vertical={false} />
-                  <XAxis dataKey="m" stroke="var(--muted-foreground)" fontSize={11} tickLine={false} axisLine={false} />
-                  <YAxis stroke="var(--muted-foreground)" fontSize={11} tickLine={false} axisLine={false} />
+                  <CartesianGrid stroke="hsl(var(--border))" strokeDasharray="3 3" vertical={false} />
+                  <XAxis dataKey="m" stroke="hsl(var(--muted-foreground))" fontSize={11} tickLine={false} axisLine={false} />
+                  <YAxis stroke="hsl(var(--muted-foreground))" fontSize={11} tickLine={false} axisLine={false} />
                   <Tooltip contentStyle={tooltipStyle} />
-                  <Area dataKey="balance" stroke="var(--primary)" strokeWidth={2.5} fill="url(#ana)" isAnimationActive animationDuration={1400} />
+                  <Area dataKey="balance" stroke="hsl(var(--primary))" strokeWidth={2.5} fill="url(#ana)" isAnimationActive animationDuration={1400} />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
@@ -109,11 +109,11 @@ export default function AnalyticsPage() {
             <div className="mt-4 h-64">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={forecastData.map((d) => ({ ...d, rate: Math.round(((d.income - d.expenses) / d.income) * 100) }))}>
-                  <CartesianGrid stroke="var(--border)" strokeDasharray="3 3" vertical={false} />
-                  <XAxis dataKey="m" stroke="var(--muted-foreground)" fontSize={11} tickLine={false} axisLine={false} />
-                  <YAxis stroke="var(--muted-foreground)" fontSize={11} tickLine={false} axisLine={false} />
+                  <CartesianGrid stroke="hsl(var(--border))" strokeDasharray="3 3" vertical={false} />
+                  <XAxis dataKey="m" stroke="hsl(var(--muted-foreground))" fontSize={11} tickLine={false} axisLine={false} />
+                  <YAxis stroke="hsl(var(--muted-foreground))" fontSize={11} tickLine={false} axisLine={false} />
                   <Tooltip contentStyle={tooltipStyle} />
-                  <Line type="monotone" dataKey="rate" stroke="var(--success)" strokeWidth={2.5} dot={{ r: 3 }} activeDot={{ r: 5 }} isAnimationActive animationDuration={1400} />
+                  <Line type="monotone" dataKey="rate" stroke="hsl(var(--success))" strokeWidth={2.5} dot={{ r: 3 }} activeDot={{ r: 5 }} isAnimationActive animationDuration={1400} />
                 </LineChart>
               </ResponsiveContainer>
             </div>
