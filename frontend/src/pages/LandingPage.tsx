@@ -677,27 +677,27 @@ function ProductPreview() {
                   <linearGradient id="gp" x1="0" y1="0" x2="0" y2="1">
                     <stop
                       offset="0%"
-                      stopColor="var(--primary)"
+                      stopColor="hsl(var(--primary))"
                       stopOpacity={0.35}
                     />
                     <stop
                       offset="100%"
-                      stopColor="var(--primary)"
+                      stopColor="hsl(var(--primary))"
                       stopOpacity={0}
                     />
                   </linearGradient>
                 </defs>
                 <XAxis
                   dataKey="m"
-                  stroke="var(--muted-foreground)"
+                  stroke="hsl(var(--muted-foreground))"
                   fontSize={11}
                   tickLine={false}
                   axisLine={false}
                 />
                 <Tooltip
                   contentStyle={{
-                    background: "var(--popover)",
-                    border: "1px solid var(--border)",
+                    background: "hsl(var(--popover))",
+                    border: "1px solid hsl(var(--border))",
                     borderRadius: 12,
                     fontSize: 12,
                   }}
@@ -705,7 +705,7 @@ function ProductPreview() {
                 <Area
                   type="monotone"
                   dataKey="balance"
-                  stroke="var(--primary)"
+                  stroke="hsl(var(--primary))"
                   strokeWidth={2.5}
                   fill="url(#gp)"
                   isAnimationActive
