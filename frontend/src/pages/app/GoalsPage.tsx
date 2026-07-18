@@ -31,7 +31,7 @@ export default function GoalsPage() {
                 <div className="flex items-start gap-4">
                   <div className="relative grid h-24 w-24 place-items-center">
                     <svg viewBox="0 0 100 100" className="h-24 w-24 -rotate-90">
-                      <circle cx="50" cy="50" r={r} stroke="var(--muted)" strokeWidth="8" fill="none" />
+                      <circle cx="50" cy="50" r={r} stroke="hsl(var(--muted))" strokeWidth="8" fill="none" />
                       <circle
                         cx="50"
                         cy="50"
