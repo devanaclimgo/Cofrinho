@@ -41,10 +41,9 @@ export default function CalendarPage() {
               <Button variant="ghost" size="icon" className="h-8 w-8 rounded-lg"><ChevronRight className="h-4 w-4" /></Button>
             </div>
             <div className="flex flex-wrap gap-2 text-[11px] text-muted-foreground">
-              <Legend color="var(--success)" label={locale === "pt" ? "Receita" : "Income"} />
-              <Legend color="var(--destructive)" label={locale === "pt" ? "Conta" : "Bill"} />
-              <Legend color="#7C3AED" label={locale === "pt" ? "Assinatura" : "Subscription"} />
-              <Legend color="var(--primary)" label={locale === "pt" ? "Meta" : "Goal"} />
+              <Legend color="hsl(var(--success))" label={locale === "pt" ? "Receita" : "Income"} />
+              <Legend color="hsl(var(--destructive))" label={locale === "pt" ? "Conta" : "Bill"} />
+              <Legend color="hsl(var(--primary))" label={locale === "pt" ? "Meta" : "Goal"} />
             </div>
           </div>
 
