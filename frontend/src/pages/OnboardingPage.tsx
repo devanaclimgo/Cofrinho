@@ -16,6 +16,9 @@ import {
   Target,
 } from "lucide-react";
 import { CurrencyInput } from "../lib/CurrencyInput";
+import { useQueryClient } from "@tanstack/react-query";
+import { completeOnboarding } from "../api/onboarding";
+import { useAuth } from "../hooks/useAuth";
 
 const steps = [
   { key: "welcome", icon: Sparkles },
@@ -40,11 +43,45 @@ export default function OnboardingPage() {
   const [cardLimit, setCardLimit] = useState(0);
   const [income, setIncome] = useState(0);
   const [goal, setGoal] = useState(0);
+  const [walletName, setWalletName] = useState("Conta principal");
+  const [cardNickname, setCardNickname] = useState("");
+  const [cardLast4, setCardLast4] = useState("");
+  const [goalName, setGoalName] = useState("");
+  const [goalDate, setGoalDate] = useState("");
+  const { refreshUser } = useAuth();
+  const queryClient = useQueryClient();
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const progress = ((step + 1) / steps.length) * 100;
 
-  const next = () =>
-    step < steps.length - 1 ? setStep(step + 1) : nav("/app/dashboard");
+  const next = async () => {
+    if (step < steps.length - 1) {
+      setStep(step + 1);
+      return;
+    }
+    setSubmitting(true);
+    setSubmitError(null);
+    try {
+      await completeOnboarding({
+        user: { currency, locale, monthly_income: income },
+        wallet: { name: walletName, balance },
+        card: cardNickname
+          ? { nickname: cardNickname, last4: cardLast4, limit: cardLimit }
+          : undefined,
+        goal: goalName
+          ? { name: goalName, target_amount: goal, target_date: goalDate }
+          : undefined,
+      });
+      await refreshUser();
+      queryClient.invalidateQueries({ queryKey: ["dashboard"] });
+      nav("/app/dashboard");
+    } catch (err: any) {
+      setSubmitError(err.response?.data?.error ?? "Erro ao salvar");
+    } finally {
+      setSubmitting(false);
+    }
+  };
   const back = () => setStep(Math.max(0, step - 1));
 
   return (
@@ -198,6 +235,8 @@ export default function OnboardingPage() {
                 <Input
                   defaultValue="Conta principal"
                   className="h-11 rounded-xl"
+                  value={walletName}
+                  onChange={(e) => setWalletName(e.target.value)}
                 />
               </div>
             </StepPane>
@@ -241,6 +280,8 @@ export default function OnboardingPage() {
                   <Input
                     placeholder="Nubank"
                     className="mt-1 h-11 rounded-xl"
+                    value={cardNickname}
+                    onChange={(e) => setCardNickname(e.target.value)}
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-3">
@@ -250,6 +291,8 @@ export default function OnboardingPage() {
                       placeholder="4821"
                       maxLength={4}
                       className="mt-1 h-11 rounded-xl"
+                      value={cardLast4}
+                      onChange={(e) => setCardLast4(e.target.value)}
                     />
                   </div>
                   <div>
@@ -309,6 +352,8 @@ export default function OnboardingPage() {
                         : "Emergency fund"
                     }
                     className="mt-1 h-11 rounded-xl"
+                    value={goalName}
+                    onChange={(e) => setGoalName(e.target.value)}
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-3">
@@ -325,7 +370,12 @@ export default function OnboardingPage() {
                     <Label>
                       {locale === "pt" ? "Até quando" : "Target date"}
                     </Label>
-                    <Input type="month" className="mt-1 h-11 rounded-xl" />
+                    <Input
+                      type="month"
+                      className="mt-1 h-11 rounded-xl"
+                      value={goalDate}
+                      onChange={(e) => setGoalDate(e.target.value)}
+                    />
                   </div>
                 </div>
               </div>
@@ -349,18 +399,33 @@ export default function OnboardingPage() {
             </StepPane>
           )}
 
-          <div className="mt-8 flex items-center justify-between">
-            <Button
-              variant="ghost"
-              onClick={back}
-              disabled={step === 0}
-              className="rounded-xl"
-            >
-              {t("onb.back")}
-            </Button>
-            <Button onClick={next} className="h-11 rounded-xl px-6">
-              {step === steps.length - 1 ? t("onb.finish") : t("onb.next")}
-            </Button>
+          <div className="mt-8 space-y-3">
+            {submitError && (
+              <p className="text-sm text-destructive">{submitError}</p>
+            )}
+            <div className="flex items-center justify-between">
+              <Button
+                variant="ghost"
+                onClick={back}
+                disabled={step === 0 || submitting}
+                className="rounded-xl"
+              >
+                {t("onb.back")}
+              </Button>
+              <Button
+                onClick={next}
+                disabled={submitting}
+                className="h-11 rounded-xl px-6"
+              >
+                {submitting
+                  ? locale === "pt"
+                    ? "Salvando..."
+                    : "Saving..."
+                  : step === steps.length - 1
+                    ? t("onb.finish")
+                    : t("onb.next")}
+              </Button>
+            </div>
           </div>
         </div>
       </div>
