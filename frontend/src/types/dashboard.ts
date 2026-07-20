@@ -1,21 +1,9 @@
-export interface Summary {
-  balance: number;
-  income: number;
-  expenses: number;
-  savings: number;
-}
-
-export interface Forecast {
-  month: string;
-  balance: number;
-}
-
 export interface Wallet {
   id: number;
   name: string;
-  type: "credit" | "cash" | "bank" | "investment" | "savings";
-  color: string;
+  type: "checking" | "cash" | "savings" | "investment" | "credit";
   balance: number;
+  color: string;
   last4?: string;
 }
 
@@ -25,23 +13,28 @@ export interface Transaction {
   category: string;
   wallet: string;
   amount: number;
-  date: string;
   type: "income" | "expense";
+  date: string;
 }
 
 export interface WishlistItem {
   id: number;
   name: string;
-  image: string;
   store: string;
   price: number;
+  image: string;
   verdict: "buy" | "wait" | "no";
 }
 
-export interface Dashboard {
-  summary: Summary;
-  forecast: Forecast[];
+export interface DashboardData {
+  summary: {
+    balance: number;
+    income: number;
+    expenses: number;
+    savings: number;
+  };
   wallets: Wallet[];
   transactions: Transaction[];
   wishlist: WishlistItem[];
+  forecast: { m: string; balance: number }[];
 }
