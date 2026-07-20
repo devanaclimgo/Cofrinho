@@ -36,7 +36,9 @@ export default function OnboardingPage() {
     locale === "pt" ? "BRL" : "USD",
   );
   const nav = useNavigate();
-  const [amount, setAmount] = useState(0);
+  const [balance, setBalance] = useState(0);
+  const [cardLimit, setCardLimit] = useState(0);
+  const [income, setIncome] = useState(0);
 
   const progress = ((step + 1) / steps.length) * 100;
 
@@ -212,8 +214,8 @@ export default function OnboardingPage() {
               <div className="mt-6">
                 <CurrencyInput
                   currency="BRL"
-                  value={amount}
-                  onChange={setAmount}
+                  value={balance}
+                  onChange={setBalance}
                 />
               </div>
             </StepPane>
@@ -245,13 +247,16 @@ export default function OnboardingPage() {
                     <Label>{locale === "pt" ? "Últimos 4" : "Last 4"}</Label>
                     <Input
                       placeholder="4821"
+                      maxLength={4}
                       className="mt-1 h-11 rounded-xl"
                     />
                   </div>
                   <div>
                     <Label>{locale === "pt" ? "Limite" : "Limit"}</Label>
-                    <Input
-                      placeholder="5000"
+                    <CurrencyInput
+                      currency="BRL"
+                      value={cardLimit}
+                      onChange={setCardLimit}
                       className="mt-1 h-11 rounded-xl"
                     />
                   </div>
@@ -272,9 +277,10 @@ export default function OnboardingPage() {
               }
             >
               <div className="mt-6">
-                {/* TODO: consertar sistema de currency input pra nao aparecer o mesmo valor em todos e só formatar os números */}
-                <Input
-                  placeholder="5.800,00"
+                <CurrencyInput
+                  currency="BRL"
+                  value={income}
+                  onChange={setIncome}
                   className="h-14 rounded-xl text-2xl font-semibold tracking-tight"
                 />
               </div>
