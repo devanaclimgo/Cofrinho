@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_23_195808) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_20_190344) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -24,6 +24,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_23_195808) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.index ["user_id"], name: "index_cards_on_user_id"
+  end
+
+  create_table "goals", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.decimal "current_amount", precision: 12, scale: 2, default: "0.0", null: false
+    t.string "name", null: false
+    t.decimal "target_amount", precision: 12, scale: 2, null: false
+    t.date "target_date"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_goals_on_user_id"
   end
 
   create_table "installments", force: :cascade do |t|
@@ -71,10 +82,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_23_195808) do
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.string "currency", default: "BRL"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "jti", null: false
+    t.string "locale", default: "pt"
+    t.decimal "monthly_income", precision: 12, scale: 2
     t.string "name"
+    t.boolean "onboarding_completed", default: false, null: false
     t.datetime "remember_created_at"
     t.datetime "reset_password_sent_at"
     t.string "reset_password_token"
@@ -83,4 +98,21 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_23_195808) do
     t.index ["jti"], name: "index_users_on_jti", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
+
+  create_table "wallets", force: :cascade do |t|
+    t.decimal "balance", precision: 12, scale: 2, default: "0.0", null: false
+    t.string "color", default: "#6366f1"
+    t.datetime "created_at", null: false
+    t.decimal "credit_limit", precision: 12, scale: 2
+    t.string "currency", default: "BRL", null: false
+    t.string "last4"
+    t.string "name", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.string "wallet_type", default: "checking", null: false
+    t.index ["user_id"], name: "index_wallets_on_user_id"
+  end
+
+  add_foreign_key "goals", "users"
+  add_foreign_key "wallets", "users"
 end
