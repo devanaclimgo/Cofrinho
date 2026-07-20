@@ -1,6 +1,7 @@
+import type { DashboardData } from "../types/dashboard";
 import { api } from "./axios";
 
-export async function getDashboard() {
-  const { data } = await api.get("/dashboard");
+export async function getDashboard(): Promise<DashboardData> {
+  const { data } = await api.get<DashboardData>("/dashboard");
   return data;
 }
