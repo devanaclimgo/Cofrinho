@@ -39,6 +39,7 @@ export default function OnboardingPage() {
   const [balance, setBalance] = useState(0);
   const [cardLimit, setCardLimit] = useState(0);
   const [income, setIncome] = useState(0);
+  const [goal, setGoal] = useState(0);
 
   const progress = ((step + 1) / steps.length) * 100;
 
@@ -313,8 +314,10 @@ export default function OnboardingPage() {
                 <div className="grid grid-cols-2 gap-3">
                   <div>
                     <Label>{locale === "pt" ? "Valor alvo" : "Target"}</Label>
-                    <Input
-                      placeholder="15.000"
+                    <CurrencyInput
+                      currency="BRL"
+                      value={goal}
+                      onChange={setGoal}
                       className="mt-1 h-11 rounded-xl"
                     />
                   </div>
