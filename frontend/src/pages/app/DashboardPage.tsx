@@ -26,11 +26,12 @@ import {
   CartesianGrid,
 } from "recharts";
 import { Badge } from "../../components/ui/badge";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function DashboardPage() {
   const { t, formatCurrency, locale } = useI18n();
   const { data, isLoading, error } = useDashboard();
-
+  const { user } = useAuth();
   // TODO: Add error handling and loading states
   if (isLoading) {
     return <div>Loading...</div>;
@@ -46,7 +47,7 @@ export default function DashboardPage() {
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
           <div>
             <p className="text-sm text-muted-foreground">
-              {locale === "pt" ? "Bom dia, Maria" : "Good morning, Maria"} 👋
+              {locale === "pt" ? `Bom dia, ${user?.name ?? ""}` : `Good morning, ${user?.name ?? ""}`} 👋
             </p>
             <h2 className="mt-1 text-2xl font-semibold tracking-tight sm:text-3xl">
               {locale === "pt"
