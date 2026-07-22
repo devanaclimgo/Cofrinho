@@ -7,19 +7,22 @@ import { ThemeProvider } from "./lib/ThemeContext";
 import { I18nProvider } from "./i18n/I18nContext";
 import { AppStateProvider } from "./lib/AppStateContext";
 import { QueryProvider } from "./providers/QueryProvider";
+import { AuthProvider } from "./providers/AuthProvider";
 
 createRoot(document.getElementById("app")!).render(
   <StrictMode>
     <QueryProvider>
-      <ThemeProvider>
-        <I18nProvider>
+      <AuthProvider>
+        <ThemeProvider>
+          <I18nProvider>
             <AppStateProvider>
               <BrowserRouter>
                 <App />
               </BrowserRouter>
             </AppStateProvider>
-        </I18nProvider>
-      </ThemeProvider>
+          </I18nProvider>
+        </ThemeProvider>
+      </AuthProvider>
     </QueryProvider>
   </StrictMode>,
 );
