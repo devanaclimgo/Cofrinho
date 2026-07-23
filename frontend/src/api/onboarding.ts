@@ -8,6 +8,6 @@ export interface OnboardingPayload {
 }
 
 export async function completeOnboarding(payload: OnboardingPayload) {
-  const { data } = await api.post("/onboarding", payload);
+  const { data } = await api.post("/onboardings", payload);
   return data;
 }
