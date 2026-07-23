@@ -280,6 +280,8 @@ export const translations = {
     "onb.back": "Voltar",
     "onb.finish": "Concluir",
 
+    "layout.bar": "Pesquisar transações, metas, carteiras…",
+
     "common.search": "Pesquisar…",
     "common.save": "Salvar",
     "common.cancel": "Cancelar",
@@ -451,6 +453,8 @@ export const translations = {
     "onb.next": "Continue",
     "onb.back": "Back",
     "onb.finish": "Finish",
+
+    "layout.bar": "Search transactions, goals, wallets…",
 
     "common.search": "Search…",
     "common.save": "Save",
