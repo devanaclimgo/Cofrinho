@@ -220,6 +220,7 @@ export const translations = {
     "sidebar.faq": "FAQ",
     "sidebar.account": "Conta",
     "sidebar.delete": "Excluir conta",
+    "sidebar.logout": "Sair",
 
     "dash.balance": "Saldo atual",
     "dash.income": "Receita do mês",
@@ -395,6 +396,7 @@ export const translations = {
     "sidebar.faq": "FAQ",
     "sidebar.account": "Account",
     "sidebar.delete": "Delete account",
+    "sidebar.logout": "Log out",
 
     "dash.balance": "Current balance",
     "dash.income": "Monthly income",
