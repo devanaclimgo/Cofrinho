@@ -1,4 +1,6 @@
 class Api::V1::SimulationsController < ApplicationController
+  before_action :authenticate_user!
+  
   def create
     simulation = PurchaseSimulator::PurchaseSimulator.call(
       user: current_user,
