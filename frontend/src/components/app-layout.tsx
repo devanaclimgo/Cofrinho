@@ -12,11 +12,11 @@ import {
   Bell,
   Settings as SettingsIcon,
   HelpCircle,
-  Trash2,
   Plus,
   Search,
   Menu,
   X,
+  LogOut,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Logo } from "./shared/Logo";
@@ -29,6 +29,7 @@ import { Sheet, SheetContent, SheetTrigger } from "../components/ui/sheet";
 import { Avatar, AvatarFallback } from "../components/ui/avatar";
 import { Badge } from "../components/ui/badge";
 import { useLocation } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 const nav = (t: (k: any) => string) =>
   [
@@ -57,7 +58,18 @@ const nav = (t: (k: any) => string) =>
 function SidebarInner({ onNavigate }: { onNavigate?: () => void }) {
   const { t } = useI18n();
   const { pathname } = useLocation();
+  const { user, logout } = useAuth();
+
   const items = nav(t);
+
+  const initials =
+  user?.name
+    ?.split(" ")
+    .slice(0, 2)
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase() ?? "?";
+
   return (
     <div className="flex h-full flex-col">
       <div className="flex h-16 items-center px-5">
@@ -108,21 +120,21 @@ function SidebarInner({ onNavigate }: { onNavigate?: () => void }) {
         <div className="mb-3 flex items-center gap-3 rounded-xl px-2 py-2">
           <Avatar className="h-9 w-9">
             <AvatarFallback className="bg-primary/10 text-primary text-xs font-semibold">
-              MA
+              {initials}
             </AvatarFallback>
           </Avatar>
           <div className="min-w-0 flex-1">
             <div className="truncate text-sm font-medium text-foreground">
-              Maria Almeida
+              {user?.name}
             </div>
             <div className="truncate text-xs text-muted-foreground">
-              maria@example.com
+              {user?.email}
             </div>
           </div>
         </div>
-        <button className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm text-destructive transition-colors hover:bg-destructive/10">
-          <Trash2 className="h-4 w-4" />
-          <span>{useI18n().t("sidebar.delete")}</span>
+        <button className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm text-destructive transition-colors hover:bg-destructive/10" onClick={logout}>
+          <LogOut className="h-4 w-4" />
+          <span>{useI18n().t("sidebar.logout")}</span>
         </button>
       </div>
     </div>
