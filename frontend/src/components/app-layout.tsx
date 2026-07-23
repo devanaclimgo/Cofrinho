@@ -151,6 +151,7 @@ function MobileTopbar({
 }
 
 function DesktopTopbar({ title }: { title: string }) {
+  const { t } = useI18n();
   return (
     <header className="sticky top-0 z-30 hidden h-16 items-center gap-3 border-b border-border bg-background/70 px-6 backdrop-blur-md lg:flex">
       <h1 className="text-lg font-semibold tracking-tight text-foreground">
@@ -159,7 +160,7 @@ function DesktopTopbar({ title }: { title: string }) {
       <div className="relative ml-6 hidden max-w-md flex-1 md:block">
         <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <Input
-          placeholder="Search transactions, goals, wallets…"
+          placeholder={t("layout.bar")}
           className="h-9 rounded-xl border-transparent bg-muted/60 pl-9 text-sm"
         />
       </div>
