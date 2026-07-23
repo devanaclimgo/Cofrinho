@@ -25,7 +25,7 @@ export function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-      <Route path="/onboarding" element={<OnboardingPage />} />
+      <Route path="/onboardings" element={<OnboardingPage />} />
       <Route path="/app" element={<AppRouteOutlet title="Cofrinho" />}>
         <Route path="dashboard" element={<DashboardPage />} />
         <Route path="transactions" element={<TransactionsPage />} />
