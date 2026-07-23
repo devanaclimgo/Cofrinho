@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::API
+  include ActionController::MimeResponds
+  include Devise::Controllers::Helpers
   include Pundit::Authorization
-
-  before_action :authenticate_user!
 end
