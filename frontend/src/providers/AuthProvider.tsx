@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 import {
   login as loginApi,
@@ -30,29 +24,19 @@ type AuthContextType = {
 
   login: (email: string, password: string) => Promise<void>;
 
-  signup: (
-    name: string,
-    email: string,
-    password: string
-  ) => Promise<void>;
+  signup: (name: string, email: string, password: string) => Promise<void>;
 
   logout: () => Promise<void>;
 
   refreshUser: () => Promise<void>;
 };
 
-const AuthContext = createContext<AuthContextType>(
-  {} as AuthContextType
-);
+const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
-export function AuthProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
 
-  const [loading, setLoading] = useState(true);
+  const [loading] = useState(true);
 
   const authenticated = !!user;
 
@@ -72,11 +56,13 @@ export function AuthProvider({
       const { data } = await api.get<User>("/me");
 
       setUser(data);
-    } catch {
-      storage.removeToken();
-      setUser(null);
-    } finally {
-      setLoading(false);
+    } catch (err: any) {
+      if (err.response?.status === 401) {
+        storage.removeToken();
+        setUser(null);
+      } else {
+        console.error(err);
+      }
     }
   }
 
@@ -86,8 +72,7 @@ export function AuthProvider({
       password,
     });
 
-    const token =
-      response.headers.authorization?.replace("Bearer ", "");
+    const token = response.headers.authorization?.replace("Bearer ", "");
 
     if (token) {
       storage.setToken(token);
@@ -96,11 +81,7 @@ export function AuthProvider({
     await refreshUser();
   }
 
-  async function signup(
-    name: string,
-    email: string,
-    password: string
-  ) {
+  async function signup(name: string, email: string, password: string) {
     const response = await signupApi({
       name,
       email,
@@ -108,8 +89,7 @@ export function AuthProvider({
       password_confirmation: password,
     });
 
-    const token =
-      response.headers.authorization?.replace("Bearer ", "");
+    const token = response.headers.authorization?.replace("Bearer ", "");
 
     if (token) {
       storage.setToken(token);
@@ -137,14 +117,10 @@ export function AuthProvider({
       logout,
       refreshUser,
     }),
-    [user, authenticated, loading]
+    [user, authenticated, loading],
   );
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuthContext() {
