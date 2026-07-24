@@ -24,12 +24,4 @@ class Users::SessionsController < Devise::SessionsController
       }, status: :unauthorized
     end
   end
-
-  def respond_to_on_create
-    if current_user
-      render json: { user: current_user }, status: :ok
-    else
-      render json: { error: "Invalid email or password" }, status: :unauthorized
-    end
-  end
 end
