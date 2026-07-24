@@ -53,7 +53,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         return;
       }
 
-      const { data } = await api.get<User>("/me");
+      const { data } = await api.get<User>("/api/v1/me");
 
       setUser(data);
     } catch (err: any) {
