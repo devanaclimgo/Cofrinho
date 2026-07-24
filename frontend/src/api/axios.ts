@@ -2,7 +2,7 @@ import axios from "axios";
 import { storage } from "../lib/storage";
 
 export const api = axios.create({
-  baseURL: "http://localhost:3000/api/v1",
+  baseURL: "http://localhost:3000",
   headers: {
     "Content-Type": "application/json",
     "Accept": "application/json",
