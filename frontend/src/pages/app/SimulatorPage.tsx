@@ -1,4 +1,3 @@
-import { AppLayout } from "../../components/app-layout";
 import { useI18n } from "../../i18n/I18nContext";
 import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
@@ -54,94 +53,94 @@ export default function SimulatorPage() {
   const [walletId, setWalletId] = useState("");
 
   return (
-    <AppLayout title={t("sidebar.simulator")}>
-      <div className="mx-auto max-w-4xl space-y-6">
-        <div>
-          <h2 className="text-2xl font-semibold tracking-tight">
-            {t("sim.title")}
-          </h2>
-          <p className="text-sm text-muted-foreground">
-            {locale === "pt"
-              ? "Descreva a compra e veremos o impacto nos próximos 6 meses."
-              : "Describe the purchase and we'll show the impact for the next 6 months."}
-          </p>
-        </div>
+    <div className="mx-auto max-w-4xl space-y-6">
+      <div>
+        <h2 className="text-2xl font-semibold tracking-tight">
+          {t("sim.title")}
+        </h2>
+        <p className="text-sm text-muted-foreground">
+          {locale === "pt"
+            ? "Descreva a compra e veremos o impacto nos próximos 6 meses."
+            : "Describe the purchase and we'll show the impact for the next 6 months."}
+        </p>
+      </div>
 
-        <div className="card-elevated p-6">
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="sm:col-span-2">
-              <Label>{t("sim.product")}</Label>
-              <Input
-                value={product}
-                onChange={(e) => setProduct(e.target.value)}
-                placeholder="Sony WH-1000XM6"
-                className="mt-1 h-11 rounded-xl"
-              />
-            </div>
-            <div>
-              <Label>{t("sim.price")}</Label>
-              <Input
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                placeholder="2799"
-                className="mt-1 h-11 rounded-xl"
-              />
-            </div>
-            <div>
-              <Label>{t("sim.installments")}</Label>
-              <Select value={installments} onValueChange={setInstallments}>
-                <SelectTrigger className="mt-1 h-11 rounded-xl">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {[1, 2, 3, 6, 10, 12].map((n) => (
-                    <SelectItem key={n} value={String(n)}>
-                      {n}x
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label>{t("sim.method")}</Label>
-              <Select value={walletId} onValueChange={setWalletId}>
-                <SelectTrigger className="mt-1 h-11 rounded-xl">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="credit">{t("sim.card")}</SelectItem>
-                  <SelectItem value="cash">{t("sim.cash")}</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label>{t("sim.date")}</Label>
-              <Input type="date" className="mt-1 h-11 rounded-xl" />
-            </div>
+      <div className="card-elevated p-6">
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div className="sm:col-span-2">
+            <Label>{t("sim.product")}</Label>
+            <Input
+              value={product}
+              onChange={(e) => setProduct(e.target.value)}
+              placeholder="Sony WH-1000XM6"
+              className="mt-1 h-11 rounded-xl"
+            />
           </div>
-          <Button
-            onClick={() => {
-              simulation.mutate({
-                product: product || "",
-                amount: parseFloat(amount) || 0,
-                installments: parseInt(installments) || 6,
-                walletId: walletId || "",
-              });
-              setRan(true);
-            }}
-            className="mt-6 h-11 w-full rounded-xl sm:w-auto sm:px-8"
-          >
-            <Calculator className="mr-2 h-4 w-4" /> {t("sim.run")}
-          </Button>
+          <div>
+            <Label>{t("sim.price")}</Label>
+            <Input
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              placeholder="2799"
+              className="mt-1 h-11 rounded-xl"
+            />
+          </div>
+          <div>
+            <Label>{t("sim.installments")}</Label>
+            <Select value={installments} onValueChange={setInstallments}>
+              <SelectTrigger className="mt-1 h-11 rounded-xl">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {[1, 2, 3, 6, 10, 12].map((n) => (
+                  <SelectItem key={n} value={String(n)}>
+                    {n}x
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label>{t("sim.method")}</Label>
+            <Select value={walletId} onValueChange={setWalletId}>
+              <SelectTrigger className="mt-1 h-11 rounded-xl">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="credit">{t("sim.card")}</SelectItem>
+                <SelectItem value="cash">{t("sim.cash")}</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label>{t("sim.date")}</Label>
+            <Input type="date" className="mt-1 h-11 rounded-xl" />
+          </div>
         </div>
+        <Button
+          onClick={() => {
+            simulation.mutate({
+              product: product || "",
+              amount: parseFloat(amount) || 0,
+              installments: parseInt(installments) || 6,
+              walletId: walletId || "",
+            });
+            setRan(true);
+          }}
+          className="mt-6 h-11 w-full rounded-xl sm:w-auto sm:px-8"
+        >
+          <Calculator className="mr-2 h-4 w-4" /> {t("sim.run")}
+        </Button>
+      </div>
 
-        {ran && (
-          <div className="animate-fade-in-up space-y-4">
-            <div className="flex items-center gap-2">
-              <h3 className="text-lg font-semibold">{t("sim.result")}</h3>
-            </div>
-            <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-6">
-              {simulation.data && simulation.data.months.map((m) => {
+      {ran && (
+        <div className="animate-fade-in-up space-y-4">
+          <div className="flex items-center gap-2">
+            <h3 className="text-lg font-semibold">{t("sim.result")}</h3>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-6">
+            {simulation.data &&
+              simulation.data.months.map((m) => {
                 const s = statusMap[m.status];
                 return (
                   <div
@@ -157,18 +156,17 @@ export default function SimulatorPage() {
                   </div>
                 );
               })}
-            </div>
-            <div className="card-elevated flex items-start gap-3 p-5">
-              <Info className="mt-0.5 h-4 w-4 text-primary" />
-              <div className="text-sm text-foreground">
-                {locale === "pt"
-                  ? "Recomendação: adie para outubro. Sua margem de segurança fica 42% maior."
-                  : "Recommendation: postpone to October. Your safety margin will be 42% higher."}
-              </div>
+          </div>
+          <div className="card-elevated flex items-start gap-3 p-5">
+            <Info className="mt-0.5 h-4 w-4 text-primary" />
+            <div className="text-sm text-foreground">
+              {locale === "pt"
+                ? "Recomendação: adie para outubro. Sua margem de segurança fica 42% maior."
+                : "Recommendation: postpone to October. Your safety margin will be 42% higher."}
             </div>
           </div>
-        )}
-      </div>
-    </AppLayout>
+        </div>
+      )}
+    </div>
   );
 }
