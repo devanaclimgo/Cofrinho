@@ -25,31 +25,31 @@ export const wallets: Wallet[] = [
 export type TxType = "income" | "expense"
 export type TxStatus = "completed" | "pending" | "scheduled"
 
-export interface Transaction {
-  id: string
-  description: string
-  categoryKey: TranslationKey
-  type: TxType
-  amount: number
-  walletId: string
-  date: string
-  status: TxStatus
-  icon: string
+export interface TransactionResponse {
+  id: number;
+  amount: number;
+  category: TranslationKey;
+  description: string;
+  kind: "income" | "expense";
+  walletId: string;
+  transaction_date: string;
+  icon: string;
+  status: "completed" | "pending" | "scheduled";
 }
 
-export const transactions: Transaction[] = [
-  { id: "t1", description: "Salário", categoryKey: "category.salary", type: "income", amount: 7200, walletId: "w2", date: "2026-07-05", status: "completed", icon: "briefcase" },
-  { id: "t2", description: "Supermercado Pão de Açúcar", categoryKey: "category.food", type: "expense", amount: 432.5, walletId: "w1", date: "2026-07-09", status: "completed", icon: "shopping-cart" },
-  { id: "t3", description: "Uber", categoryKey: "category.transport", type: "expense", amount: 28.9, walletId: "w1", date: "2026-07-10", status: "completed", icon: "car" },
-  { id: "t4", description: "Aluguel", categoryKey: "category.housing", type: "expense", amount: 1850, walletId: "w2", date: "2026-07-08", status: "completed", icon: "home" },
-  { id: "t5", description: "Netflix", categoryKey: "category.subscription", type: "expense", amount: 44.9, walletId: "w1", date: "2026-07-11", status: "pending", icon: "clapperboard" },
-  { id: "t6", description: "Projeto freelance", categoryKey: "category.freelance", type: "income", amount: 1500, walletId: "w2", date: "2026-07-07", status: "completed", icon: "laptop" },
-  { id: "t7", description: "Academia", categoryKey: "category.health", type: "expense", amount: 99.9, walletId: "w2", date: "2026-07-06", status: "completed", icon: "dumbbell" },
-  { id: "t8", description: "Cinema", categoryKey: "category.entertainment", type: "expense", amount: 68, walletId: "w3", date: "2026-07-04", status: "completed", icon: "film" },
-  { id: "t9", description: "Curso de inglês", categoryKey: "category.education", type: "expense", amount: 320, walletId: "w2", date: "2026-07-12", status: "scheduled", icon: "graduation-cap" },
-  { id: "t10", description: "Amazon", categoryKey: "category.shopping", type: "expense", amount: 259.9, walletId: "w1", date: "2026-07-03", status: "completed", icon: "package" },
-  { id: "t11", description: "Rendimento Tesouro", categoryKey: "category.investment", type: "income", amount: 210.4, walletId: "w5", date: "2026-07-02", status: "completed", icon: "trending-up" },
-  { id: "t12", description: "Farmácia", categoryKey: "category.health", type: "expense", amount: 87.3, walletId: "w3", date: "2026-07-01", status: "completed", icon: "cross" },
+export const transactions: TransactionResponse[] = [
+  { id: 1, description: "Salário", category: "category.salary", kind: "income", amount: 7200, walletId: "w2", transaction_date: "2026-07-05", icon: "briefcase", status: "completed" },
+  { id: 2, description: "Supermercado Pão de Açúcar", category: "category.food", kind: "expense", amount: 432.5, walletId: "w1", transaction_date: "2026-07-09", icon: "shopping-cart", status: "completed" },
+  { id: 3, description: "Uber", category: "category.transport", kind: "expense", amount: 28.9, walletId: "w1", transaction_date: "2026-07-10", icon: "car", status: "completed" },
+  { id: 4, description: "Aluguel", category: "category.housing", kind: "expense", amount: 1850, walletId: "w2", transaction_date: "2026-07-08", icon: "home", status: "completed" },
+  { id: 5, description: "Netflix", category: "category.subscription", kind: "expense", amount: 44.9, walletId: "w1", transaction_date: "2026-07-11", icon: "clapperboard", status: "completed" },
+  { id: 6, description: "Projeto freelance", category: "category.freelance", kind: "income", amount: 1500, walletId: "w2", transaction_date: "2026-07-07", icon: "laptop", status: "completed" },
+  { id: 7, description: "Academia", category: "category.health", kind: "expense", amount: 99.9, walletId: "w2", transaction_date: "2026-07-06", icon: "dumbbell", status: "completed" },
+  { id: 8, description: "Cinema", category: "category.entertainment", kind: "expense", amount: 68, walletId: "w3", transaction_date: "2026-07-04", icon: "film", status: "completed" },
+  { id: 9, description: "Curso de inglês", category: "category.education", kind: "expense", amount: 320, walletId: "w2", transaction_date: "2026-07-12", icon: "graduation-cap", status: "completed" },
+  { id: 10, description: "Amazon", category: "category.shopping", kind: "expense", amount: 259.9, walletId: "w1", transaction_date: "2026-07-03", icon: "package", status: "completed" },
+  { id: 11, description: "Rendimento Tesouro", category: "category.investment", kind: "income", amount: 210.4, walletId: "w5", transaction_date: "2026-07-02", icon: "trending-up", status: "completed" },
+  { id: 12, description: "Farmácia", category: "category.health", kind: "expense", amount: 87.3, walletId: "w3", transaction_date: "2026-07-01", icon: "cross", status: "completed" },
 ]
 
 export interface WishlistItem {
