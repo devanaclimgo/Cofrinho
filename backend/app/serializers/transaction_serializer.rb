@@ -7,6 +7,9 @@ class TransactionSerializer
     :category,
     :description,
     :kind,
-    :transaction_date
+    :wallet_id,
+    :transaction_date,
+    :icon,
+    :status
   )
 end
