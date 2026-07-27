@@ -22,9 +22,6 @@ export const wallets: Wallet[] = [
   { id: "w6", name: "Inter", type: "credit", balance: 0, limit: 5000, used: 780, color: "#F97316", icon: "credit-card" },
 ]
 
-export type TxType = "income" | "expense"
-export type TxStatus = "completed" | "pending" | "scheduled"
-
 export interface TransactionResponse {
   id: number;
   amount: number;
