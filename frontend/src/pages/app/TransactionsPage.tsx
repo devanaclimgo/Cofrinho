@@ -1,5 +1,4 @@
 import { useI18n } from "../../i18n/I18nContext";
-import { transactions } from "../../lib/mock-data";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import {
@@ -18,9 +17,23 @@ import {
   Plus,
   Search,
 } from "lucide-react";
+import { useEffect, useState } from "react";
+import type { TransactionResponse } from "../../lib/data";
+import { getTransactions } from "../../api/transactions";
 
 export default function TransactionsPage() {
   const { t, formatCurrency, locale } = useI18n();
+  const [transactions, setTransactions] = useState<TransactionResponse[]>([]);
+  const [, setLoading] = useState(true);
+
+  useEffect(() => {
+  getTransactions()
+    .then((response) => {
+      setTransactions(response.data);
+    })
+    .finally(() => setLoading(false));
+}, []);
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
@@ -113,7 +126,7 @@ export default function TransactionsPage() {
                 className="border-t border-border transition hover:bg-muted/30"
               >
                 <td className="px-5 py-4 text-muted-foreground">
-                  {new Date(tx.date).toLocaleDateString(
+                  {new Date(tx.transaction_date).toLocaleDateString(
                     locale === "pt" ? "pt-BR" : "en-US",
                     { day: "2-digit", month: "short" },
                   )}
@@ -122,28 +135,28 @@ export default function TransactionsPage() {
                   <div className="flex items-center gap-3">
                     <span
                       className={`grid h-8 w-8 place-items-center rounded-lg ${
-                        tx.type === "income"
+                        tx.kind === "income"
                           ? "bg-success/10 text-success"
                           : "bg-destructive/10 text-destructive"
                       }`}
                     >
-                      {tx.type === "income" ? (
+                      {tx.kind === "income" ? (
                         <ArrowDownRight className="h-4 w-4" />
                       ) : (
                         <ArrowUpRight className="h-4 w-4" />
                       )}
                     </span>
-                    <span className="font-medium">{tx.title}</span>
+                    <span className="font-medium">{tx.description}</span>
                   </div>
                 </td>
                 <td className="px-5 py-4 text-muted-foreground">
                   {tx.category}
                 </td>
-                <td className="px-5 py-4 text-muted-foreground">{tx.wallet}</td>
+                <td className="px-5 py-4 text-muted-foreground">{tx.walletId}</td>
                 <td className="px-5 py-4">
                   <Badge
                     className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${
-                      tx.status === "cleared"
+                      tx.status === "completed"
                         ? "bg-success/10 text-success"
                         : "bg-warning/10 text-warning-foreground"
                     } hover:opacity-100`}
@@ -152,9 +165,9 @@ export default function TransactionsPage() {
                   </Badge>
                 </td>
                 <td
-                  className={`px-5 py-4 text-right font-semibold ${tx.type === "income" ? "text-success" : "text-foreground"}`}
+                  className={`px-5 py-4 text-right font-semibold ${tx.kind === "income" ? "text-success" : "text-foreground"}`}
                 >
-                  {tx.type === "income" ? "+" : ""}
+                  {tx.kind === "income" ? "+" : ""}
                   {formatCurrency(Math.abs(tx.amount))}
                 </td>
               </tr>
@@ -172,32 +185,32 @@ export default function TransactionsPage() {
           >
             <span
               className={`grid h-10 w-10 place-items-center rounded-xl ${
-                tx.type === "income"
+                tx.kind === "income"
                   ? "bg-success/10 text-success"
                   : "bg-destructive/10 text-destructive"
               }`}
             >
-              {tx.type === "income" ? (
+              {tx.kind === "income" ? (
                 <ArrowDownRight className="h-4 w-4" />
               ) : (
                 <ArrowUpRight className="h-4 w-4" />
               )}
             </span>
             <div className="min-w-0 flex-1">
-              <div className="truncate text-sm font-medium">{tx.title}</div>
+              <div className="truncate text-sm font-medium">{tx.description}</div>
               <div className="truncate text-xs text-muted-foreground">
-                {tx.category} · {tx.wallet}
+                {tx.category} · {tx.walletId}
               </div>
             </div>
             <div className="text-right">
               <div
-                className={`text-sm font-semibold ${tx.type === "income" ? "text-success" : "text-foreground"}`}
+                className={`text-sm font-semibold ${tx.kind === "income" ? "text-success" : "text-foreground"}`}
               >
-                {tx.type === "income" ? "+" : ""}
+                {tx.kind === "income" ? "+" : ""}
                 {formatCurrency(Math.abs(tx.amount))}
               </div>
               <div className="text-[11px] text-muted-foreground">
-                {new Date(tx.date).toLocaleDateString(
+                {new Date(tx.transaction_date).toLocaleDateString(
                   locale === "pt" ? "pt-BR" : "en-US",
                   { day: "2-digit", month: "short" },
                 )}
