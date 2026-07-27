@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
   ArrowLeftRight,
@@ -58,9 +58,15 @@ const nav = (t: (k: any) => string) =>
 function SidebarInner({ onNavigate }: { onNavigate?: () => void }) {
   const { t } = useI18n();
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const { user, logout } = useAuth();
 
   const items = nav(t);
+
+  async function handleLogout() {
+    await logout();
+    navigate("/landing", { replace: true });
+  }
 
   const initials =
   user?.name
@@ -132,7 +138,7 @@ function SidebarInner({ onNavigate }: { onNavigate?: () => void }) {
             </div>
           </div>
         </div>
-        <button className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm text-destructive transition-colors hover:bg-destructive/10" onClick={logout}>
+        <button className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm text-destructive transition-colors hover:bg-destructive/10" onClick={handleLogout}>
           <LogOut className="h-4 w-4" />
           <span>{useI18n().t("sidebar.logout")}</span>
         </button>
