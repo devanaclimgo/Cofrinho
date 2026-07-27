@@ -32,8 +32,6 @@ export default function DashboardPage() {
   const { t, formatCurrency, locale } = useI18n();
   const { data, isLoading, error } = useDashboard();
   const { user } = useAuth();
-
-  console.log(data?.summary);
   
   const firstName = user?.name?.split(" ")[0];
   // TODO: Add error handling and loading states
