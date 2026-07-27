@@ -1,5 +1,4 @@
-class TransactionSerializer
-  include JSONAPI::Serializer
+class TransactionSerializer < ActiveModel::Serializer
 
   attributes(
     :id,
@@ -9,7 +8,16 @@ class TransactionSerializer
     :kind,
     :wallet_id,
     :transaction_date,
-    :icon,
-    :status
+    :status,
+    :icon
   )
+
+  def icon
+    case object.category
+    when "food" then "shopping-cart"
+    when "transport" then "car"
+    when "salary" then "briefcase"
+    else "circle"
+    end
+  end
 end
