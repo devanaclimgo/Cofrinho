@@ -39,27 +39,6 @@ export const wallets: Wallet[] = [
   { id: "w5", name: "Portfolio", type: "investment", balance: 14200, color: "#EC4899" },
 ];
 
-export type Transaction = {
-  id: string;
-  title: string;
-  category: string;
-  amount: number;
-  date: string;
-  wallet: string;
-  type: "income" | "expense";
-  status: "cleared" | "pending";
-};
-
-export const transactions: Transaction[] = [
-  { id: "t1", title: "Salary", category: "Income", amount: 5800, date: "2026-07-05", wallet: "Itaú Checking", type: "income", status: "cleared" },
-  { id: "t2", title: "Uber Eats", category: "Food", amount: -42.9, date: "2026-07-10", wallet: "Nubank Credit", type: "expense", status: "cleared" },
-  { id: "t3", title: "Netflix", category: "Leisure", amount: -39.9, date: "2026-07-09", wallet: "Nubank Credit", type: "expense", status: "cleared" },
-  { id: "t4", title: "Rent", category: "Rent", amount: -1800, date: "2026-07-07", wallet: "Itaú Checking", type: "expense", status: "cleared" },
-  { id: "t5", title: "Freelance", category: "Income", amount: 950, date: "2026-07-08", wallet: "Itaú Checking", type: "income", status: "pending" },
-  { id: "t6", title: "Coffee", category: "Food", amount: -12.5, date: "2026-07-11", wallet: "Cash", type: "expense", status: "cleared" },
-  { id: "t7", title: "Gym", category: "Health", amount: -89, date: "2026-07-03", wallet: "Nubank Credit", type: "expense", status: "cleared" },
-];
-
 export type Goal = {
   id: string;
   title: string;
