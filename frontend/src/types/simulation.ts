@@ -2,7 +2,7 @@ export interface PurchaseSimulationRequest {
   product: string;
   amount: number;
   installments: number;
-  walletId: string;
+  wallet_id: string;
 }
 
 export interface PurchaseSimulationMonth {
