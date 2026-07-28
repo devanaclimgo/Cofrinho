@@ -50,7 +50,7 @@ export default function SimulatorPage() {
   const [product, setProduct] = useState("");
   const [amount, setAmount] = useState("");
   const [installments, setInstallments] = useState("6");
-  const [walletId, setWalletId] = useState("");
+  const [wallet_id, setWalletId] = useState("");
 
   return (
     <div className="mx-auto max-w-4xl space-y-6">
@@ -102,7 +102,7 @@ export default function SimulatorPage() {
           </div>
           <div>
             <Label>{t("sim.method")}</Label>
-            <Select value={walletId} onValueChange={setWalletId}>
+            <Select value={wallet_id} onValueChange={setWalletId}>
               <SelectTrigger className="mt-1 h-11 rounded-xl">
                 <SelectValue />
               </SelectTrigger>
@@ -123,7 +123,7 @@ export default function SimulatorPage() {
               product: product || "",
               amount: parseFloat(amount) || 0,
               installments: parseInt(installments) || 6,
-              walletId: walletId || "",
+              wallet_id: wallet_id || "",
             });
             setRan(true);
           }}
