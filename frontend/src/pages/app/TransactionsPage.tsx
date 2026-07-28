@@ -27,12 +27,12 @@ export default function TransactionsPage() {
   const [, setLoading] = useState(true);
 
   useEffect(() => {
-  getTransactions()
-    .then((response) => {
-      setTransactions(response.data);
-    })
-    .finally(() => setLoading(false));
-}, []);
+    getTransactions()
+      .then((response) => {
+        setTransactions(response.data);
+      })
+      .finally(() => setLoading(false));
+  }, []);
 
   return (
     <div className="space-y-6">
@@ -152,7 +152,9 @@ export default function TransactionsPage() {
                 <td className="px-5 py-4 text-muted-foreground">
                   {tx.category}
                 </td>
-                <td className="px-5 py-4 text-muted-foreground">{tx.walletId}</td>
+                <td className="px-5 py-4 text-muted-foreground">
+                  {tx.wallet_id}
+                </td>
                 <td className="px-5 py-4">
                   <Badge
                     className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${
@@ -197,9 +199,11 @@ export default function TransactionsPage() {
               )}
             </span>
             <div className="min-w-0 flex-1">
-              <div className="truncate text-sm font-medium">{tx.description}</div>
+              <div className="truncate text-sm font-medium">
+                {tx.description}
+              </div>
               <div className="truncate text-xs text-muted-foreground">
-                {tx.category} · {tx.walletId}
+                {tx.category} · {tx.wallet_id}
               </div>
             </div>
             <div className="text-right">
