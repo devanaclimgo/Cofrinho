@@ -15,6 +15,6 @@ class Transaction < ApplicationRecord
   enum :status, {
     completed: 0,
     pending: 1,
-    schedules: 2
+    scheduled: 2
   }
 end
