@@ -1,7 +1,7 @@
 class Transaction < ApplicationRecord
   belongs_to :user
   belongs_to :card, optional: true
-  belongs_to :wallet, optional: true
+  belongs_to :wallet
 
   has_many :installments, 
            foreign_key: :financial_transaction_id,
