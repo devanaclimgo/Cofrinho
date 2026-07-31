@@ -3,6 +3,7 @@ import { Logo } from "../../components/shared/Logo";
 import { LanguageSwitcher } from "../../components/shared/LanguageSwitcher";
 import { ThemeToggle } from "../../components/shared/ThemeToggle";
 import { PiggyBank, Sparkles, ShieldCheck } from "lucide-react";
+import { useI18n } from "../../i18n/I18nContext";
 
 export function AuthShell({
   title,
@@ -13,6 +14,8 @@ export function AuthShell({
   subtitle: string;
   children: ReactNode;
 }) {
+  const { t } = useI18n();
+
   return (
     <div className="min-h-dvh bg-background lg:grid lg:grid-cols-2">
       {/* Illustration side (desktop) */}
@@ -28,20 +31,24 @@ export function AuthShell({
           </div>
           <div className="mt-auto space-y-6">
             <div className="animate-float rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur-md">
-              <div className="text-xs text-white/70">Balance</div>
+              <div className="text-xs text-white/70">{t("auth.title")}</div>
               <div className="mt-1 text-3xl font-semibold">$5,240.80</div>
               <div className="mt-4 flex gap-2">
                 {[35, 55, 40, 70, 60, 85, 90].map((h, i) => (
-                  <div key={i} className="h-16 flex-1 rounded-md bg-white/20" style={{ height: `${h}%` }} />
+                  <div
+                    key={i}
+                    className="h-16 flex-1 rounded-md bg-white/20"
+                    style={{ height: `${h}%` }}
+                  />
                 ))}
               </div>
             </div>
             <blockquote className="max-w-md text-lg font-medium leading-relaxed">
-              “The purchase simulator turned my anxious shopping decisions into calm, confident ones.”
+              “{t("auth.quote")}”
             </blockquote>
             <div className="flex items-center gap-2 text-sm text-white/80">
               <Sparkles className="h-4 w-4" />
-              <span>Loved by 24,000+ mindful spenders</span>
+              <span>{t("auth.loved")}</span>
             </div>
           </div>
         </div>
@@ -60,11 +67,14 @@ export function AuthShell({
         </header>
         <main className="flex flex-1 items-center justify-center px-6 pb-10">
           <div className="w-full max-w-sm">
-            <h1 className="text-2xl font-semibold tracking-tight text-foreground">{title}</h1>
+            <h1 className="text-2xl font-semibold tracking-tight text-foreground">
+              {title}
+            </h1>
             <p className="mt-1.5 text-sm text-muted-foreground">{subtitle}</p>
             <div className="mt-8">{children}</div>
             <div className="mt-8 flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
-              <ShieldCheck className="h-3.5 w-3.5 text-success" /> Secured with end-to-end encryption
+              <ShieldCheck className="h-3.5 w-3.5 text-success" />{" "}
+              {t("auth.security")}
             </div>
           </div>
         </main>
