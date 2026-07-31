@@ -18,6 +18,8 @@ import SettingsPage from "./pages/app/SettingsPage";
 import FaqPage from "./pages/app/FaqPage";
 import NotFoundComponent from "./pages/app/NotFoundPage";
 import { ProtectedRoute } from "./ProtectedRoute";
+import NotificationsPage from "./pages/app/NotificationsPage";
+import RemindersPage from "./pages/app/RemindersPage";
 
 export function App() {
   return (
@@ -36,6 +38,8 @@ export function App() {
           <Route path="simulator" element={<SimulatorPage />} />
           <Route path="analytics" element={<AnalyticsPage />} />
           <Route path="goals" element={<GoalsPage />} />
+          <Route path="notifications" element={<NotificationsPage />} />
+          <Route path="reminders" element={<RemindersPage />} />
           <Route path="calendar" element={<CalendarPage />} />
           <Route path="profile" element={<FinancialProfilePage />} />
           <Route path="settings" element={<SettingsPage />} />
