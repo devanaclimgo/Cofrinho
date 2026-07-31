@@ -66,6 +66,12 @@ export const translations = {
     "auth.dont": "Ainda não tem conta?",
     "auth.or": "ou continue com",
 
+    "auth.title": "Saldo",
+    "auth.quote":
+      "O simulador de compras transformou minhas decisões de compra ansiosas em decisões calmas e confiantes.",
+    "auth.loved": "Amado por 24,000+ consumidores conscientes",
+    "auth.security": "Protegido com criptografia de ponta a ponta",
+
     "auth.terms":
       "Ao criar uma conta, você concorda com nossos Termos e Política de Privacidade.",
     "auth.validation.email": "Digite um e-mail válido",
@@ -368,6 +374,12 @@ export const translations = {
     "auth.have": "Already have an account?",
     "auth.dont": "Don't have an account?",
     "auth.or": "or continue with",
+
+    "auth.title": "Balance",
+    "auth.quote":
+      "The purchase simulator turned my anxious shopping decisions into calm, confident ones.",
+    "auth.loved": "Loved by 24,000+ mindful spenders",
+    "auth.security": "Secured with end-to-end encryption",
 
     "category.food": "Food",
     "category.transport": "Transport",
