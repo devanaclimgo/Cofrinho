@@ -21,6 +21,7 @@ import { ProtectedRoute } from "./ProtectedRoute";
 import NotificationsPage from "./pages/app/NotificationsPage";
 import RemindersPage from "./pages/app/RemindersPage";
 import NewTransactionPage from "./pages/app/NewTransactionsPage";
+import NewWishlistPage from "./pages/app/NewWishlistPage";
 
 export function App() {
   return (
@@ -37,6 +38,7 @@ export function App() {
           <Route path="transactions/new" element={<NewTransactionPage />} />
           <Route path="wallets" element={<WalletsPage />} />
           <Route path="wishlist" element={<WishlistPage />} />
+          <Route path="wishlist/new" element={<NewWishlistPage />} />
           <Route path="simulator" element={<SimulatorPage />} />
           <Route path="analytics" element={<AnalyticsPage />} />
           <Route path="goals" element={<GoalsPage />} />
