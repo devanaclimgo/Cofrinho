@@ -1,7 +1,6 @@
 
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AppLayout } from "../../components/app-layout";
 import { useI18n } from "../../i18n/I18nContext";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
@@ -12,21 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { ArrowLeft, Bell, CalendarClock, Repeat, Target } from "lucide-react";
 import { toast } from "sonner";
 
-// export const Route = createFileRoute("/app/reminders/new")({
-//   head: () => ({
-//     meta: [
-//       { title: "New reminder — Cofrinho" },
-//       { name: "description", content: "Schedule a bill, subscription or goal reminder so nothing catches you by surprise." },
-//       { property: "og:title", content: "New reminder — Cofrinho" },
-//       { property: "og:description", content: "Schedule bill, subscription and goal reminders." },
-//       { property: "og:type", content: "website" },
-//       { name: "twitter:card", content: "summary_large_image" },
-//     ],
-//   }),
-//   component: Page,
-// });
-
-export default function RemindersPage() {
+export default function NewReminderPage() {
   const { t, locale } = useI18n();
   const navigate = useNavigate();
   const pt = locale === "pt";
@@ -41,7 +26,6 @@ export default function RemindersPage() {
   ] as const;
 
   return (
-    <AppLayout title={pt ? "Novo lembrete" : "New reminder"}>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -136,6 +120,5 @@ export default function RemindersPage() {
           <Button type="submit" className="h-11 rounded-xl sm:w-48">{t("common.save")}</Button>
         </div>
       </form>
-    </AppLayout>
   );
 }
