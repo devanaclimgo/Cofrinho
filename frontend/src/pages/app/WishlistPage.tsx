@@ -1,103 +1,60 @@
-import { useNavigate, Link } from "@tanstack/react-router";
-import { useState } from "react";
-import { AppLayout } from "../../components/app-layout";
+import { Link } from "react-router-dom";
 import { useI18n } from "../../i18n/I18nContext";
+import { wishlist } from "../../lib/mock-data";
 import { Button } from "../../components/ui/button";
-import { Input } from "../../components/ui/input";
-import { Label } from "../../components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/select";
-import { ArrowLeft, Calculator } from "lucide-react";
-import { toast } from "sonner";
-
-const emojis = ["🎧", "📱", "📚", "🪑", "💻", "⌚", "📷", "🚲", "🎸", "🛋️"];
+import { Badge } from "../../components/ui/badge";
+import { Calculator, Plus, ExternalLink } from "lucide-react";
 
 export default function WishlistPage() {
-  const { t, locale, formatCurrency } = useI18n();
-  const navigate = useNavigate();
-  const pt = locale === "pt";
-  const [emoji, setEmoji] = useState(emojis[0]);
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const priceN = Number(price.replace(",", ".")) || 0;
-
+  const { t, formatCurrency, locale } = useI18n();
   return (
-    <AppLayout title={pt ? "Novo desejo" : "New wishlist item"}>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          toast.success(pt ? "Item adicionado à lista" : "Item added to wishlist", { description: name });
-          navigate({ to: "/app/wishlist" });
-        }}
-        className="mx-auto max-w-2xl space-y-6"
-      >
-        <div className="flex items-center gap-3">
-          <Button asChild variant="ghost" size="icon" className="h-9 w-9 rounded-xl">
-            <Link to="/app/wishlist" aria-label={t("common.cancel")}><ArrowLeft className="h-4 w-4" /></Link>
-          </Button>
+      <div className="space-y-6">
+        <div className="flex items-end justify-between gap-4">
           <div>
-            <h2 className="text-2xl font-semibold tracking-tight">{pt ? "Novo desejo" : "New wishlist item"}</h2>
-            <p className="text-sm text-muted-foreground">{pt ? "Descubra quando faz sentido comprar" : "Find out when it makes sense to buy"}</p>
+            <h2 className="text-2xl font-semibold tracking-tight">{t("wishlist.title")}</h2>
+            <p className="text-sm text-muted-foreground">
+              {locale === "pt" ? "O que você quer, quando faz sentido comprar" : "What you want, when it makes sense to buy"}
+            </p>
           </div>
+          <Button asChild className="h-10 rounded-xl"><Link to="/app/wishlist/new"><Plus className="mr-2 h-4 w-4" />{t("wishlist.new")}</Link></Button>
         </div>
 
-        <div className="card-elevated space-y-6 p-6">
-          <div className="flex items-center gap-4">
-            <div className="grid h-16 w-16 place-items-center rounded-2xl bg-muted text-3xl">{emoji}</div>
-            <div className="flex flex-wrap gap-2">
-              {emojis.map((e) => (
-                <button key={e} type="button" onClick={() => setEmoji(e)}
-                  className={`h-9 w-9 rounded-xl text-lg transition ${emoji === e ? "bg-primary/10 ring-2 ring-primary" : "hover:bg-muted"}`}>{e}</button>
-              ))}
-            </div>
-          </div>
-
-          <div className="grid gap-5 sm:grid-cols-2">
-            <div className="space-y-2 sm:col-span-2">
-              <Label htmlFor="wname">{pt ? "Item" : "Item"}</Label>
-              <Input id="wname" required value={name} onChange={(e) => setName(e.target.value)} placeholder={pt ? "Ex.: Fone Sony" : "e.g. Sony headphones"} className="h-11 rounded-xl" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="price">{pt ? "Preço" : "Price"}</Label>
-              <Input id="price" required inputMode="decimal" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="2799" className="h-11 rounded-xl" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="store">{pt ? "Loja / link" : "Store / link"}</Label>
-              <Input id="store" placeholder="amazon.com.br" className="h-11 rounded-xl" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="desired">{pt ? "Quero comprar em" : "Desired date"}</Label>
-              <Input id="desired" type="month" defaultValue="2026-09" className="h-11 rounded-xl" />
-            </div>
-            <div className="space-y-2">
-              <Label>{pt ? "Prioridade" : "Priority"}</Label>
-              <Select defaultValue="medium">
-                <SelectTrigger className="h-11 rounded-xl"><SelectValue /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="high">{t("common.priority.high")}</SelectItem>
-                  <SelectItem value="medium">{t("common.priority.medium")}</SelectItem>
-                  <SelectItem value="low">{t("common.priority.low")}</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-
-          <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-muted/50 p-4 text-sm">
-            <span className="text-muted-foreground">
-              {pt ? "Impacto estimado" : "Estimated impact"}: <strong className="text-foreground">{formatCurrency(priceN)}</strong>
-            </span>
-            <Button asChild type="button" variant="outline" className="h-10 rounded-xl">
-              <Link to="/app/simulator"><Calculator className="mr-2 h-4 w-4" />{pt ? "Simular compra" : "Run simulation"}</Link>
-            </Button>
-          </div>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {wishlist.map((w) => {
+            const verdict = w.verdict;
+            const map = {
+              buy: { label: t("wishlist.buyNow"), cls: "bg-success/10 text-success" },
+              wait: { label: t("wishlist.wait"), cls: "bg-warning/10 text-warning-foreground" },
+              no: { label: t("wishlist.notRec"), cls: "bg-destructive/10 text-destructive" },
+            } as const;
+            const v = map[verdict];
+            return (
+              <div key={w.id} className="card-elevated overflow-hidden">
+                <div className="grid h-40 place-items-center bg-muted text-6xl">{w.image}</div>
+                <div className="p-5">
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="min-w-0">
+                      <div className="truncate text-base font-semibold">{w.name}</div>
+                      <a href="#" className="mt-0.5 inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground">
+                        {w.store} <ExternalLink className="h-3 w-3" />
+                      </a>
+                    </div>
+                    <Badge className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${v.cls} hover:${v.cls}`}>{v.label}</Badge>
+                  </div>
+                  <div className="mt-4 flex items-baseline justify-between">
+                    <div className="text-lg font-semibold tracking-tight">{formatCurrency(w.price)}</div>
+                    <div className="text-xs text-muted-foreground">
+                      {locale === "pt" ? "para" : "for"} {w.desiredDate}
+                    </div>
+                  </div>
+                  <Button asChild variant="outline" className="mt-4 h-10 w-full rounded-xl">
+                    <Link to="/app/simulator"><Calculator className="mr-2 h-4 w-4" /> {t("wishlist.run")}</Link>
+                  </Button>
+                </div>
+              </div>
+            );
+          })}
         </div>
-
-        <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
-          <Button asChild variant="outline" className="h-11 rounded-xl sm:w-40">
-            <Link to="/app/wishlist">{t("common.cancel")}</Link>
-          </Button>
-          <Button type="submit" className="h-11 rounded-xl sm:w-48">{t("common.save")}</Button>
-        </div>
-      </form>
-    </AppLayout>
+      </div>
   );
 }
