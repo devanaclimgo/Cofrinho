@@ -23,6 +23,7 @@ import NewTransactionPage from "./pages/app/NewTransactionsPage";
 import NewWishlistPage from "./pages/app/NewWishlistPage";
 import NewWalletPage from "./pages/app/NewWalletPage";
 import NewReminderPage from "./pages/app/NewReminderPage";
+import NewGoalsPage from "./pages/app/NewGoalsPage";
 
 export function App() {
   return (
@@ -44,6 +45,7 @@ export function App() {
           <Route path="simulator" element={<SimulatorPage />} />
           <Route path="analytics" element={<AnalyticsPage />} />
           <Route path="goals" element={<GoalsPage />} />
+          <Route path="goals/new" element={<NewGoalsPage />} />
           <Route path="notifications" element={<NotificationsPage />} />
           <Route path="reminder/new" element={<NewReminderPage />} />
           <Route path="calendar" element={<CalendarPage />} />
