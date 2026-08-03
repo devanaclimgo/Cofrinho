@@ -19,10 +19,10 @@ import FaqPage from "./pages/app/FaqPage";
 import NotFoundComponent from "./pages/app/NotFoundPage";
 import { ProtectedRoute } from "./ProtectedRoute";
 import NotificationsPage from "./pages/app/NotificationsPage";
-import RemindersPage from "./pages/app/RemindersPage";
 import NewTransactionPage from "./pages/app/NewTransactionsPage";
 import NewWishlistPage from "./pages/app/NewWishlistPage";
 import NewWalletPage from "./pages/app/NewWalletPage";
+import NewReminderPage from "./pages/app/NewReminderPage";
 
 export function App() {
   return (
@@ -45,7 +45,7 @@ export function App() {
           <Route path="analytics" element={<AnalyticsPage />} />
           <Route path="goals" element={<GoalsPage />} />
           <Route path="notifications" element={<NotificationsPage />} />
-          <Route path="reminders" element={<RemindersPage />} />
+          <Route path="reminder/new" element={<NewReminderPage />} />
           <Route path="calendar" element={<CalendarPage />} />
           <Route path="profile" element={<FinancialProfilePage />} />
           <Route path="settings" element={<SettingsPage />} />
