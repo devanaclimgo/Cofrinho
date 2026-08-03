@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useI18n } from "../../i18n/I18nContext";
 import { goals } from "../../lib/mock-data";
 import { Button } from "../../components/ui/button";
@@ -19,9 +20,11 @@ export default function GoalsPage() {
               : "Your planned achievements"}
           </p>
         </div>
-        <Button className="h-10 rounded-xl">
-          <Plus className="mr-2 h-4 w-4" />
-          {t("goals.new")}
+        <Button asChild className="h-10 rounded-xl">
+          <Link to="/app/goals/new">
+            <Plus className="mr-2 h-4 w-4" />
+            {t("goals.new")}
+          </Link>
         </Button>
       </div>
 
@@ -40,7 +43,7 @@ export default function GoalsPage() {
                       cx="50"
                       cy="50"
                       r={r}
-                      stroke="hsl(var(--muted))"
+                      stroke="var(--muted)"
                       strokeWidth="8"
                       fill="none"
                     />
