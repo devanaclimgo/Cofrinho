@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useI18n } from "../../i18n/I18nContext";
 import { calendarEvents } from "../../lib/mock-data";
 import { Button } from "../../components/ui/button";
@@ -35,9 +36,11 @@ export default function CalendarPage() {
               : "Bills, subscriptions and reminders"}
           </p>
         </div>
-        <Button className="h-10 rounded-xl">
-          <Plus className="mr-2 h-4 w-4" />
-          {t("cal.add")}
+        <Button asChild className="h-10 rounded-xl">
+          <Link to="/app/reminder/new">
+            <Plus className="mr-2 h-4 w-4" />
+            {t("cal.add")}
+          </Link>
         </Button>
       </div>
 
@@ -56,15 +59,19 @@ export default function CalendarPage() {
           </div>
           <div className="flex flex-wrap gap-2 text-[11px] text-muted-foreground">
             <Legend
-              color="hsl(var(--success))"
+              color="var(--success)"
               label={locale === "pt" ? "Receita" : "Income"}
             />
             <Legend
-              color="hsl(var(--destructive))"
+              color="var(--destructive)"
               label={locale === "pt" ? "Conta" : "Bill"}
             />
             <Legend
-              color="hsl(var(--primary))"
+              color="#7C3AED"
+              label={locale === "pt" ? "Assinatura" : "Subscription"}
+            />
+            <Legend
+              color="var(--primary)"
               label={locale === "pt" ? "Meta" : "Goal"}
             />
           </div>
