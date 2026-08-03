@@ -22,6 +22,7 @@ import NotificationsPage from "./pages/app/NotificationsPage";
 import RemindersPage from "./pages/app/RemindersPage";
 import NewTransactionPage from "./pages/app/NewTransactionsPage";
 import NewWishlistPage from "./pages/app/NewWishlistPage";
+import NewWalletPage from "./pages/app/NewWalletPage";
 
 export function App() {
   return (
@@ -37,6 +38,7 @@ export function App() {
           <Route path="transactions" element={<TransactionsPage />} />
           <Route path="transactions/new" element={<NewTransactionPage />} />
           <Route path="wallets" element={<WalletsPage />} />
+          <Route path="wallets/new" element={<NewWalletPage />} />
           <Route path="wishlist" element={<WishlistPage />} />
           <Route path="wishlist/new" element={<NewWishlistPage />} />
           <Route path="simulator" element={<SimulatorPage />} />
