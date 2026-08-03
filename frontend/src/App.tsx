@@ -20,6 +20,7 @@ import NotFoundComponent from "./pages/app/NotFoundPage";
 import { ProtectedRoute } from "./ProtectedRoute";
 import NotificationsPage from "./pages/app/NotificationsPage";
 import RemindersPage from "./pages/app/RemindersPage";
+import NewTransactionPage from "./pages/app/NewTransactionsPage";
 
 export function App() {
   return (
@@ -33,6 +34,7 @@ export function App() {
         <Route path="/app" element={<AppRouteOutlet title="Cofrinho" />}>
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="transactions" element={<TransactionsPage />} />
+          <Route path="transactions/new" element={<NewTransactionPage />} />
           <Route path="wallets" element={<WalletsPage />} />
           <Route path="wishlist" element={<WishlistPage />} />
           <Route path="simulator" element={<SimulatorPage />} />
