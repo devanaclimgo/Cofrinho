@@ -9,6 +9,13 @@ const weekdays = {
   en: ["S", "M", "T", "W", "T", "F", "S"],
 };
 
+// TODO: Add a way to select the year and month to show the data for that period. For now, we are showing the data for the current year and month.
+// TODO: Add calendar events to the backend and fetch it from there instead of using mock data.
+// TODO: Add a way to add, edit and delete calendar events. For now, we are only showing the events for the current month.
+// TODO: Add a way to show the events for the next and previous months. For now, we are only showing the events for the current month.
+// TODO: Add a way to show the events for the next and previous years. For now, we are only showing the events for the current year.
+// TODO: Add a way for the events to show on the notification center. For now, we are only showing the events on the calendar page.
+
 export default function CalendarPage() {
   const { t, locale } = useI18n();
   const today = 12;
