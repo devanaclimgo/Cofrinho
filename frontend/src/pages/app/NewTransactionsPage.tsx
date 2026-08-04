@@ -17,6 +17,8 @@ import {
 import { ArrowDownLeft, ArrowLeft, ArrowUpRight } from "lucide-react";
 import { toast } from "sonner";
 
+// TODO: Add data to the backend and fetch it from there instead of using mock data. For now, we are using mock data.
+
 const expenseCats = [
   "Food",
   "Rent",
