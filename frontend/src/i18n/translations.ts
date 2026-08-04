@@ -278,6 +278,7 @@ export const translations = {
     "settings.danger": "Zona de perigo",
     "settings.deleteDesc":
       "Isto apagará permanentemente sua conta e todos os dados.",
+    "settings.deleteConfirm": "Tem certeza de que deseja excluir sua conta?",
 
     "onb.welcome.title": "Bem-vindo ao Cofrinho",
     "onb.welcome.desc":
@@ -460,6 +461,7 @@ export const translations = {
     "settings.danger": "Danger zone",
     "settings.deleteDesc":
       "This will permanently delete your account and all data.",
+    "settings.deleteConfirm": "Are you sure you want to delete your account? This action cannot be undone.",
 
     "onb.welcome.title": "Welcome to Cofrinho",
     "onb.welcome.desc": "Let's set up your experience in under 2 minutes.",
