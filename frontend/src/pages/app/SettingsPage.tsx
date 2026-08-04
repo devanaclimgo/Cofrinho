@@ -31,13 +31,13 @@ export default function SettingsPage() {
 
       if (response.status === 200) {
         navigate("/");
-        throw new Error("Account deleted successfully");
+        throw new Error(t("settings.deleteSuccess"));
       } else {
-        throw new Error("Failed to delete account");
+        throw new Error(t("settings.deleteError"));
       }
     } catch (error) {
       console.error("Error deleting account:", error);
-      setError("Error deleting account");
+      setError(t("settings.deleteError"));
     }
 
     localStorage.removeItem("token");
@@ -139,7 +139,7 @@ export default function SettingsPage() {
         <p className="mt-1 text-xs text-muted-foreground">
           {t("settings.deleteDesc")}
         </p>
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p style={{ color: "red", fontSize: "0.675rem", paddingTop: "0.25rem" }}>{error}</p>}
         <Button
           onClick={handleDeleteAccount}
           disabled={loading}
