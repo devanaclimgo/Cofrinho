@@ -30,3 +30,7 @@ export async function signup(data: SignupData) {
 export async function logout() {
   return api.delete("/logout");
 }
+
+export async function deleteAccount() {
+  return api.delete("api/v1/users");
+}
