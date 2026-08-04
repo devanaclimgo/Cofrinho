@@ -18,6 +18,8 @@ export default function NewReminderPage() {
   const [kind, setKind] = useState<"bill" | "subscription" | "goal" | "custom">("bill");
   const [title, setTitle] = useState("");
 
+  // TODO: Add data to the backend and fetch it from there instead of using mock data. For now, we are using mock data.
+
   const kinds = [
     { k: "bill", icon: CalendarClock, label: pt ? "Conta" : "Bill" },
     { k: "subscription", icon: Repeat, label: pt ? "Assinatura" : "Subscription" },
