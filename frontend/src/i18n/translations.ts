@@ -279,6 +279,10 @@ export const translations = {
     "settings.deleteDesc":
       "Isto apagará permanentemente sua conta e todos os dados.",
     "settings.deleteConfirm": "Tem certeza de que deseja excluir sua conta?",
+    "settings.deleteConfirmButton": "Sim, excluir minha conta",
+    "settings.deleteCancelButton": "Não, manter minha conta",
+    "settings.deleteSuccess": "Sua conta foi excluída com sucesso.",
+    "settings.deleteError": "Houve um erro ao excluir sua conta. Por favor, tente novamente mais tarde.",
 
     "onb.welcome.title": "Bem-vindo ao Cofrinho",
     "onb.welcome.desc":
@@ -462,6 +466,10 @@ export const translations = {
     "settings.deleteDesc":
       "This will permanently delete your account and all data.",
     "settings.deleteConfirm": "Are you sure you want to delete your account? This action cannot be undone.",
+    "settings.deleteConfirmButton": "Yes, delete my account",
+    "settings.deleteCancelButton": "No, keep my account",
+    "settings.deleteSuccess": "Your account has been successfully deleted.",
+    "settings.deleteError": "There was an error deleting your account. Please try again later.",
 
     "onb.welcome.title": "Welcome to Cofrinho",
     "onb.welcome.desc": "Let's set up your experience in under 2 minutes.",
