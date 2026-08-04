@@ -22,6 +22,20 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def respond_to_on_destroy
+    if current_user.nil?
+      render json: {
+        status: 200,
+        message: "Account deleted successfully"
+      }, status: :ok
+    else
+      render json: {
+        status: 400,
+        message: "Failed to delete account"
+      }, status: :unprocessable_entity
+    end
+  end
+
   before_action :configure_sign_up_params, only: [:create]
 
   protected
