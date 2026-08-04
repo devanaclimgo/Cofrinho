@@ -30,6 +30,7 @@ Rails.application.routes.draw do
       to: "simulations#create"
 
       get :me, to: "users#me"
+      delete :delete_account, to: "profiles#destroy"
     end
   end
 end
