@@ -22,6 +22,8 @@ import { useState, useEffect } from "react";
 import { getTransactions } from "../../api/transactions";
 import type { TransactionResponse } from "../../lib/data";
 
+// TODO: Add data to the backend and fetch it from there instead of using mock data. For now, we are using mock data.
+
 export default function TransactionsPage() {
   const { t, formatCurrency, locale } = useI18n();
   const [transactions, setTransactions] = useState<TransactionResponse[]>([]);
