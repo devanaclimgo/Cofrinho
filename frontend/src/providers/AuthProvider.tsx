@@ -30,7 +30,7 @@ type AuthContextType = {
 
   refreshUser: () => Promise<void>;
 
-  deleteAccount: () => Promise<Response>;
+  deleteAccount: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
@@ -109,10 +109,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   async function deleteAccount() {
-    const { data } = await api.delete("/api/v1/users");
-
     try {
-      await api.delete("/api/v1/users");
+      await api.delete("/api/v1/delete_account");
     } catch (err: any) {
       console.error("Error deleting account:", err);
       throw err;
@@ -120,8 +118,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       storage.removeToken();
       setUser(null);
     }
-
-    return data;
   }
 
   const value = useMemo(
