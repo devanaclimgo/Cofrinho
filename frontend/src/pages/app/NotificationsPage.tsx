@@ -15,6 +15,12 @@ import {
   CalendarClock,
 } from "lucide-react";
 
+// TODO: Add data to the backend and fetch it from there instead of using mock data. For now, we are using mock data.
+// TODO: Add a way to mark all notifications as read. For now, we are only showing the notifications and marking them as read individually.
+// TODO: Add a way to delete notifications. For now, we are only showing the notifications and deleting them individually.
+// TODO: Add a way to filter notifications by category. For now, we are only showing all notifications.
+// TODO: Add a handle to delete and mark as read notifications.
+
 const iconMap: Record<string, any> = {
   purchase: ShoppingBag,
   bill: CalendarClock,
