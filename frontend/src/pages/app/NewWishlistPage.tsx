@@ -16,6 +16,8 @@ import { toast } from "sonner";
 
 const emojis = ["🎧", "📱", "📚", "🪑", "💻", "⌚", "📷", "🚲", "🎸", "🛋️"];
 
+// TODO: Add data to the backend and fetch it from there instead of using mock data. For now, we are using mock data.
+
 export default function NewWishlistPage() {
   const { t, locale, formatCurrency } = useI18n();
   const navigate = useNavigate();
