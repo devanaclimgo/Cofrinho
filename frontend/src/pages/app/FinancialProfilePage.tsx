@@ -9,6 +9,9 @@ import {
   Sparkles,
 } from "lucide-react";
 
+// TODO: Add a way to select the year and month to show the data for that period. For now, we are showing the data for the current year and month.
+// TODO: Add data to the backend and fetch it from there instead of using mock data. For now, we are using mock data.
+
 export default function FinancialProfilePage() {
   const { t, locale, formatCurrency } = useI18n();
   return (
