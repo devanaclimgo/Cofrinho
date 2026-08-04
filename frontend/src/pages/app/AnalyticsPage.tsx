@@ -25,6 +25,9 @@ const tooltipStyle = {
   fontSize: 12,
 };
 
+// TODO: Add a way to select the year and month to show the data for that period. For now, we are showing the data for the current year and month.
+// TODO: Add forecast and category data to the backend and fetch it from there instead of using mock data.
+
 export default function AnalyticsPage() {
   const { t, locale } = useI18n();
   return (
