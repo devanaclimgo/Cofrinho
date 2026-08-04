@@ -5,6 +5,8 @@ import { Button } from "../../components/ui/button";
 import { Badge } from "../../components/ui/badge";
 import { Calculator, Plus, ExternalLink } from "lucide-react";
 
+// TODO: Add data to the backend and fetch it from there instead of using mock data. For now, we are using mock data.
+
 export default function WishlistPage() {
   const { t, formatCurrency, locale } = useI18n();
   return (
