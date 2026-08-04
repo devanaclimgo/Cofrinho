@@ -19,6 +19,8 @@ import {
 import { useState } from "react";
 import { usePurchaseSimulation } from "../../hooks/useSimulation";
 
+// TODO: Add data to the backend and fetch it from there instead of using mock data. For now, we are using mock data.
+
 const statusMap = {
   green: {
     color: "text-success",
