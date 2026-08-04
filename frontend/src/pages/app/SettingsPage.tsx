@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useI18n } from "../../i18n/I18nContext";
 import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
@@ -6,9 +7,43 @@ import { Switch } from "../../components/ui/switch";
 import { LanguageSwitcher } from "../../components/shared/LanguageSwitcher";
 import { ThemeToggle } from "../../components/shared/ThemeToggle";
 import { Trash2 } from "lucide-react";
+import { useState } from "react";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function SettingsPage() {
   const { t, locale } = useI18n();
+  const { deleteAccount } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const handleDeleteAccount = async () => {
+    const confirmmDelete = window.confirm(t("settings.deleteConfirm"));
+
+    if (!confirmmDelete) {
+      return;
+    }
+
+    setLoading(true);
+    setError("");
+    try {
+      const response = await deleteAccount();
+
+      if (response.status === 200) {
+        navigate("/");
+        throw new Error("Account deleted successfully");
+      } else {
+        throw new Error("Failed to delete account");
+      }
+    } catch (error) {
+      console.error("Error deleting account:", error);
+      setError("Error deleting account");
+    }
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+  };
+
   return (
     <div className="mx-auto max-w-3xl space-y-6">
       <div>
@@ -104,7 +139,13 @@ export default function SettingsPage() {
         <p className="mt-1 text-xs text-muted-foreground">
           {t("settings.deleteDesc")}
         </p>
-        <Button variant="destructive" className="mt-4 h-10 rounded-xl">
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        <Button
+          onClick={handleDeleteAccount}
+          disabled={loading}
+          variant="destructive"
+          className="mt-4 h-10 rounded-xl"
+        >
           <Trash2 className="mr-2 h-4 w-4" /> {t("sidebar.delete")}
         </Button>
       </section>
