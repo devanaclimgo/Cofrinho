@@ -1,13 +1,4 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import {
-  Outlet,
-  Link,
-  createRootRouteWithContext,
-  useRouter,
-  HeadContent,
-  Scripts,
-} from "@tanstack/react-router";
-import { type ReactNode } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { ThemeProvider } from "../../lib/ThemeContext";
 import { I18nProvider, useI18n } from "../../i18n/I18nContext";
 
@@ -23,7 +14,9 @@ function NotFoundInner() {
         <div className="mx-auto mb-8 grid h-24 w-24 place-items-center rounded-3xl bg-primary/10 text-primary text-4xl font-bold">
           404
         </div>
-        <h2 className="text-2xl font-semibold tracking-tight text-foreground">{t("nf.title")}</h2>
+        <h2 className="text-2xl font-semibold tracking-tight text-foreground">
+          {t("nf.title")}
+        </h2>
         <p className="mt-3 text-sm text-muted-foreground">{t("nf.desc")}</p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Link
@@ -46,7 +39,7 @@ function NotFoundInner() {
 
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
-  const router = useRouter();
+  const navigate = useNavigate();
 
   return (
     <div className="flex min-h-dvh items-center justify-center bg-background px-4">
@@ -60,7 +53,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
             onClick={() => {
-              router.invalidate();
+              navigate("/app/dashboard");
               reset();
             }}
             className="inline-flex h-10 items-center justify-center rounded-xl bg-primary px-4 text-sm font-medium text-primary-foreground transition hover:opacity-90"
@@ -79,7 +72,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
-export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+export const Route = {
   head: () => ({
     meta: [
       { charSet: "utf-8" },
@@ -104,43 +97,28 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     links: [
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "preconnect",
+        href: "https://fonts.gstatic.com",
+        crossOrigin: "anonymous",
+      },
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap",
       },
     ],
   }),
-  shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
-});
-
-function RootShell({ children }: { children: ReactNode }) {
-  return (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  );
-}
+};
 
 function RootComponent() {
-  const { queryClient } = Route.useRouteContext();
-
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <I18nProvider>
-          <Outlet />
-        </I18nProvider>
-      </ThemeProvider>
-    </QueryClientProvider>
+    <ThemeProvider>
+      <I18nProvider>
+        <NotFoundInner />
+      </I18nProvider>
+    </ThemeProvider>
   );
 }
