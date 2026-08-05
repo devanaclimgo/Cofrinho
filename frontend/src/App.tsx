@@ -32,6 +32,7 @@ export function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+      <Route path="/not_found" element={<NotFoundComponent />} />
       <Route path="/onboardings" element={<OnboardingPage />} />
       <Route element={<ProtectedRoute />}>
         <Route path="/app" element={<AppRouteOutlet title="Cofrinho" />}>
