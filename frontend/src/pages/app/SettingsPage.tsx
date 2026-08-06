@@ -27,21 +27,17 @@ export default function SettingsPage() {
     setLoading(true);
     setError("");
     try {
-      const response = await deleteAccount();
+      await deleteAccount();
 
-      if (response.status === 200) {
-        navigate("/");
-        throw new Error(t("settings.deleteSuccess"));
-      } else {
-        throw new Error(t("settings.deleteError"));
-      }
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+
+      navigate("/");
     } catch (error) {
-      console.error("Error deleting account:", error);
+      console.error(error);
+
       setError(t("settings.deleteError"));
     }
-
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
   };
 
   return (
@@ -139,7 +135,17 @@ export default function SettingsPage() {
         <p className="mt-1 text-xs text-muted-foreground">
           {t("settings.deleteDesc")}
         </p>
-        {error && <p style={{ color: "red", fontSize: "0.675rem", paddingTop: "0.25rem" }}>{error}</p>}
+        {error && (
+          <p
+            style={{
+              color: "red",
+              fontSize: "0.675rem",
+              paddingTop: "0.25rem",
+            }}
+          >
+            {error}
+          </p>
+        )}
         <Button
           onClick={handleDeleteAccount}
           disabled={loading}
