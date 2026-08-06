@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDashboard } from "../../hooks/useDashboard";
 import { useI18n } from "../../i18n/I18nContext";
 import {
@@ -34,6 +34,7 @@ export default function DashboardPage() {
   const { t, formatCurrency, locale } = useI18n();
   const { data, isLoading, error, refetch } = useDashboard();
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   // TODO: Add data to the backend and fetch it from there instead of using mock data. For now, we are using mock data.
   // TODO: Add a loading state and error handling for the dashboard data fetching.
@@ -67,19 +68,22 @@ export default function DashboardPage() {
         </div>
         <div className="hidden gap-2 sm:flex">
           <QuickAction
-            icon={ArrowDownRight}
+            icon={ArrowUpRight}
             label={t("dash.addIncome")}
             tone="success"
+            onClick={()=> navigate("/app/transactions/new?type=income")}
           />
           <QuickAction
-            icon={ArrowUpRight}
+            icon={ArrowDownRight}
             label={t("dash.addExpense")}
             tone="danger"
+            onClick={() => navigate("/app/transactions/new?type=expense")}
           />
           <QuickAction
             icon={ArrowLeftRight}
             label={t("dash.transfer")}
             tone="muted"
+            onClick={() => navigate("/app/transactions/new?type=transfer")}
           />
           <Link
             to="/app/simulator"
@@ -396,10 +400,12 @@ function QuickAction({
   icon: Icon,
   label,
   tone,
+  onClick,
 }: {
   icon: any;
   label: string;
   tone: "success" | "danger" | "muted";
+  onClick: () => void;
 }) {
   const t: Record<string, string> = {
     success: "text-success",
@@ -407,7 +413,7 @@ function QuickAction({
     muted: "text-foreground",
   };
   return (
-    <button className="inline-flex h-10 items-center gap-2 rounded-xl border border-border bg-card px-3 text-sm font-medium transition hover:bg-muted">
+    <button className="inline-flex h-10 items-center gap-2 rounded-xl border border-border bg-card px-3 text-sm font-medium transition hover:bg-muted" onClick={onClick}>
       <Icon className={`h-4 w-4 ${t[tone]}`} /> {label}
     </button>
   );
