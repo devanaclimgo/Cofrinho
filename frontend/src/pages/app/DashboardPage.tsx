@@ -27,10 +27,12 @@ import {
 } from "recharts";
 import { Badge } from "../../components/ui/badge";
 import { useAuth } from "../../hooks/useAuth";
+import LoadingState from "./LoadingState";
+import ErrorState from "./ErrorState";
 
 export default function DashboardPage() {
   const { t, formatCurrency, locale } = useI18n();
-  const { data, isLoading, error } = useDashboard();
+  const { data, isLoading, error, refetch } = useDashboard();
   const { user } = useAuth();
 
   // TODO: Add data to the backend and fetch it from there instead of using mock data. For now, we are using mock data.
@@ -39,13 +41,13 @@ export default function DashboardPage() {
   // TODO: Add a way to filter the dashboard data by date range.
 
   const firstName = user?.name?.split(" ")[0];
-  // TODO: Add error handling and loading states
+
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingState fullScreen label={t("dash.loading")} />;
   }
 
   if (error) {
-    return <div>Erro ao carregar dashboard.</div>;
+    return <ErrorState fullScreen onRetry={refetch} />;
   }
 
   return (
