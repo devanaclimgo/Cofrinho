@@ -40,15 +40,16 @@ function NotFoundInner() {
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const navigate = useNavigate();
+  const { t } = useI18n();
 
   return (
     <div className="flex min-h-dvh items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
+          {t("nf.error")}
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong. You can try again or head back home.
+          {t("nf.something.went.wrong")}
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
@@ -58,13 +59,13 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
             }}
             className="inline-flex h-10 items-center justify-center rounded-xl bg-primary px-4 text-sm font-medium text-primary-foreground transition hover:opacity-90"
           >
-            Try again
+            {t("nf.try.again")}
           </button>
           <a
             href="/"
             className="inline-flex h-10 items-center justify-center rounded-xl border border-border bg-card px-4 text-sm font-medium text-foreground transition hover:bg-muted"
           >
-            Go home
+            {t("nf.go.home")}
           </a>
         </div>
       </div>
