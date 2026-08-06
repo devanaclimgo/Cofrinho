@@ -319,6 +319,12 @@ export const translations = {
     "nf.something.went.wrong": "Algo deu errado. Você pode tentar novamente ou voltar para a página inicial.",
     "nf.try.again": "Tentar novamente",
     "nf.go.home": "Ir para a página inicial",
+
+    "error.title": "Ocorreu um erro",
+    "error.desc": "Algo deu errado. Tente novamente ou volte para o painel.",
+    "error.retry": "Tentar novamente",
+
+    "dash.loading": "Carregando seu painel...",
   },
   en: {
     "nav.features": "Features",
@@ -509,6 +515,12 @@ export const translations = {
     "nf.something.went.wrong": "Something went wrong. You can try again or head back home.",
     "nf.try.again": "Try again",
     "nf.go.home": "Go home",
+
+    "error.title": "An error occurred",
+    "error.desc": "Something went wrong. Please try again or go back to the dashboard.",
+    "error.retry": "Try again",
+
+    "dash.loading": "Loading your dashboard...",
   },
 } as const;
 
