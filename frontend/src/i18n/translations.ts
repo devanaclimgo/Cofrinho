@@ -315,6 +315,10 @@ export const translations = {
     "nf.desc": "O link pode estar quebrado ou a página foi movida.",
     "nf.back": "Voltar ao painel",
     "nf.home": "Ir para o início",
+    "nf.error": "Ocorreu um erro ao carregar a página.",
+    "nf.something.went.wrong": "Algo deu errado. Você pode tentar novamente ou voltar para a página inicial.",
+    "nf.try.again": "Tentar novamente",
+    "nf.go.home": "Ir para a página inicial",
   },
   en: {
     "nav.features": "Features",
@@ -501,6 +505,10 @@ export const translations = {
     "nf.desc": "The link may be broken or the page might have been moved.",
     "nf.back": "Back to Dashboard",
     "nf.home": "Go Home",
+    "nf.error": "An error occurred while loading the page.",
+    "nf.something.went.wrong": "Something went wrong. You can try again or head back home.",
+    "nf.try.again": "Try again",
+    "nf.go.home": "Go home",
   },
 } as const;
 
