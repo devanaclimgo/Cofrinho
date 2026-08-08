@@ -12,7 +12,7 @@ module FinancialAnalysis
           savings: user.goals.sum(:current_amount)
         },
         wallets: user.wallets.order(created_at: :desc),
-        transactions: user.transactions.order(date: :desc).limit(10),
+        transactions: user.transactions.order(transaction_date: :desc).limit(10),
         forecast: FutureProjection.call(user),
         top_category: most_used_category(user)
       }
