@@ -16,16 +16,25 @@ class Api::V1::OnboardingsController < ApplicationController
         )
       end
 
+      if user_params[:monthly_income].to_f.positive?
+        current_user.transactions.create!(
+          kind: :income,
+          amount: user_params[:monthly_income],
+          category: "Salário",
+          description: current_user.locale == "pt" ? "Renda inicial" : "Initial income",
+          transaction_date: Date.current
+        )
+      end
+
       current_user.goals.create!(goal_params) if goal_params[:name].present?
       current_user.update!(onboarding_completed: true)
     end
 
     render json: current_user.as_json(
-      only: [:id, :name, :email, :currency, :locale,:onboarding_completed]
+      only: [:id, :name, :email, :currency, :locale, :onboarding_completed]
     ), status: :ok
   rescue ActiveRecord::RecordInvalid => e
-    render json: { error: e.message }, status:
-    :unprocessable_entity
+    render json: { error: e.message }, status: :unprocessable_entity
   end
 
   private
