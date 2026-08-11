@@ -1,11 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   respond_to :json
 
-  protected
-
-  def sign_up(resource_name, resource)
-  end
-
   private
 
   def respond_with(resource, _opts = {})
@@ -14,8 +9,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
         message: "User created successfully"
       }, status: :created
     else
-      puts resource.errors.full_messages
-
       render json: {
         errors: resource.errors.full_messages
       }, status: :unprocessable_entity
