@@ -1,23 +1,19 @@
 class TransactionSerializer < ActiveModel::Serializer
+  attributes :id, :title, :category, :wallet, :amount, :type, :date
 
-  attributes(
-    :id,
-    :amount,
-    :category,
-    :description,
-    :kind,
-    :wallet_id,
-    :transaction_date,
-    :status,
-    :icon
-  )
+  def title
+    object.description
+  end
 
-  def icon
-    case object.category
-    when "food" then "shopping-cart"
-    when "transport" then "car"
-    when "salary" then "briefcase"
-    else "circle"
-    end
+  def wallet
+    object.wallet&.name
+  end
+
+  def type
+    object.kind
+  end
+
+  def date
+    object.transaction_date
   end
 end
