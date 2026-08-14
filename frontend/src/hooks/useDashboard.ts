@@ -6,12 +6,5 @@ export function useDashboard() {
   return useQuery<DashboardData>({
     queryKey: ["dashboard"],
     queryFn: getDashboard,
-    initialData: {
-      summary: { balance: 0, income: 0, expenses: 0, savings: 0 },
-      wallets: [],
-      transactions: [],
-      wishlist: [],
-      forecast: [],
-    },
   });
 }
