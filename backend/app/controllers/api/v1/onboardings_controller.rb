@@ -4,7 +4,6 @@ class Api::V1::OnboardingsController < ApplicationController
   def create
     ActiveRecord::Base.transaction do
       current_user.update!(user_params)
-      checking_wallet = current_user.wallets.create!(wallet_params)
 
       if card_params[:nickname].present?
         current_user.wallets.create!(
@@ -13,17 +12,6 @@ class Api::V1::OnboardingsController < ApplicationController
           last4: card_params[:last4],
           credit_limit: card_params[:limit],
           currency: current_user.currency
-        )
-      end
-
-      if user_params[:monthly_income].to_f.positive?
-        current_user.transactions.create!(
-          wallet: checking_wallet,
-          kind: :income,
-          amount: user_params[:monthly_income],
-          category: "Salário",
-          description: current_user.locale == "pt" ? "Renda inicial" : "Initial income",
-          transaction_date: Date.current
         )
       end
 
