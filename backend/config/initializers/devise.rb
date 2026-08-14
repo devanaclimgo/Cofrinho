@@ -42,6 +42,6 @@ Devise.setup do |config|
       ['DELETE', %r{^/delete_account$}]
     ]
 
-    jwt.expiration_time = 30.minutes.to_i
+    jwt.expiration_time = 60.minutes.to_i
   end
 end
