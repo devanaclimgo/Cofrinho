@@ -53,6 +53,10 @@ export default function DashboardPage() {
     return <ErrorState fullScreen onRetry={refetch} />;
   }
 
+  if (!data) {
+    return <LoadingState fullScreen label={t("dash.loading")} />;
+  }
+
   return (
     <div className="space-y-6">
       {/* Welcome + quick actions */}
@@ -73,7 +77,7 @@ export default function DashboardPage() {
             icon={Plus}
             label={t("dash.addIncome")}
             tone="success"
-            onClick={()=> navigate("/app/transactions/new?type=income")}
+            onClick={() => navigate("/app/transactions/new?type=income")}
           />
           <QuickAction
             icon={Minus}
@@ -407,7 +411,10 @@ function QuickAction({
     muted: "text-foreground",
   };
   return (
-    <button className="inline-flex h-10 items-center gap-2 rounded-xl border border-border bg-card px-3 text-sm font-medium transition hover:bg-muted" onClick={onClick}>
+    <button
+      className="inline-flex h-10 items-center gap-2 rounded-xl border border-border bg-card px-3 text-sm font-medium transition hover:bg-muted"
+      onClick={onClick}
+    >
       <Icon className={`h-4 w-4 ${t[tone]}`} /> {label}
     </button>
   );
