@@ -15,6 +15,8 @@ import {
   CreditCard,
   Banknote,
   Landmark,
+  Plus,
+  Minus,
 } from "lucide-react";
 import {
   AreaChart,
@@ -68,13 +70,13 @@ export default function DashboardPage() {
         </div>
         <div className="hidden gap-2 sm:flex">
           <QuickAction
-            icon={ArrowUpRight}
+            icon={Plus}
             label={t("dash.addIncome")}
             tone="success"
             onClick={()=> navigate("/app/transactions/new?type=income")}
           />
           <QuickAction
-            icon={ArrowDownRight}
+            icon={Minus}
             label={t("dash.addExpense")}
             tone="danger"
             onClick={() => navigate("/app/transactions/new?type=expense")}
@@ -99,29 +101,21 @@ export default function DashboardPage() {
         <StatCard
           label={t("dash.balance")}
           value={formatCurrency(data.summary.balance)}
-          delta="+12.4%"
-          deltaTone="up"
           icon={WalletIcon}
         />
         <StatCard
           label={t("dash.income")}
           value={formatCurrency(data.summary.income)}
-          delta="+3.1%"
-          deltaTone="up"
           icon={TrendingUp}
         />
         <StatCard
           label={t("dash.expenses")}
           value={formatCurrency(data.summary.expenses)}
-          delta="-1.8%"
-          deltaTone="down"
           icon={TrendingDown}
         />
         <StatCard
           label={t("dash.savings")}
           value={formatCurrency(data.summary.savings)}
-          delta="+8.2%"
-          deltaTone="up"
           icon={PiggyBank}
         />
       </div>
@@ -422,14 +416,10 @@ function QuickAction({
 function StatCard({
   label,
   value,
-  delta,
-  deltaTone,
   icon: Icon,
 }: {
   label: string;
   value: string;
-  delta: string;
-  deltaTone: "up" | "down";
   icon: any;
 }) {
   return (
@@ -444,18 +434,6 @@ function StatCard({
       </div>
       <div className="mt-3 text-2xl font-semibold tracking-tight animate-count-up">
         {value}
-      </div>
-      <div
-        className={`mt-1 inline-flex items-center gap-1 text-xs font-medium ${
-          deltaTone === "up" ? "text-success" : "text-destructive"
-        }`}
-      >
-        {deltaTone === "up" ? (
-          <TrendingUp className="h-3 w-3" />
-        ) : (
-          <TrendingDown className="h-3 w-3" />
-        )}
-        {delta}
       </div>
     </div>
   );
