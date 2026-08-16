@@ -6,10 +6,10 @@ module FinancialAnalysis
       {
         user: { name: user.name, email: user.email },
         summary: {
-          balance: user.wallets.sum(:balance),
+          balance: user.wallets.sum(:balance).to_f,
           income: income,
           expenses: expenses,
-          savings: user.goals.sum(:current_amount)
+          savings: user.goals.sum(:current_amount).to_f
         },
         wallets: user.wallets.order(created_at: :desc),
         transactions: user.transactions.order(transaction_date: :desc).limit(10),
@@ -20,14 +20,14 @@ module FinancialAnalysis
     end
 
     def self.balance_forecast(user, income, expenses)
-      balance = user.wallets.sum(:balance)
+      balance = user.wallets.sum(:balance).to_f
       monthly_net = income - expenses
 
       (1..12).map do |month|
         balance += monthly_net
         {
           m: (Date.current + month.months).strftime("%b"),
-          balance: balance
+          balance: balance.round(2)
         }
       end
     end
