@@ -211,6 +211,7 @@ export const translations = {
     "transactions.transfer.recurring": "Transferência recorrente",
     "transactions.transaction.recurring": "Transação recorrente",
     "transactions.recurring.description": "Repetir todo mês",
+    "transactions.confirmDelete": "Tem certeza que quer excluir essa transação?",
 
     "category.food": "Alimentação",
     "category.transport": "Transporte",
@@ -540,6 +541,7 @@ export const translations = {
     "transactions.transfer.recurring": "Recurring transfer",
     "transactions.transaction.recurring": "Recurring transaction",
     "transactions.recurring.description": "Repeat every month",
+    "transactions.confirmDelete": "Are you sure you want to delete this transaction?",
 
     "category.food": "Food",
     "category.transport": "Transport",
