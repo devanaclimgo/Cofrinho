@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useI18n } from "../../i18n/I18nContext";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
@@ -11,31 +11,88 @@ import {
 } from "../../components/ui/select";
 import { Badge } from "../../components/ui/badge";
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../../components/ui/dropdown-menu";
+import {
   ArrowDownRight,
   ArrowUpRight,
   Download,
   Filter,
+  MoreVertical,
+  Pencil,
   Plus,
   Search,
+  Trash2,
 } from "lucide-react";
 import { useState, useEffect } from "react";
-import { getTransactions } from "../../api/transactions";
+import { getTransactions, deleteTransaction } from "../../api/transactions";
 import type { TransactionResponse } from "../../lib/data";
-
-// TODO: Add data to the backend and fetch it from there instead of using mock data. For now, we are using mock data.
 
 export default function TransactionsPage() {
   const { t, formatCurrency, locale } = useI18n();
+  const navigate = useNavigate();
   const [transactions, setTransactions] = useState<TransactionResponse[]>([]);
   const [, setLoading] = useState(true);
+  const [deletingId, setDeletingId] = useState<number | null>(null);
 
   useEffect(() => {
     getTransactions()
-      .then((response) => {
-        setTransactions(response.data);
-      })
+      .then((response) => setTransactions(response.data))
       .finally(() => setLoading(false));
   }, []);
+
+  async function handleDelete(id: number) {
+    const confirmed = window.confirm(t("transactions.confirmDelete"));
+    if (!confirmed) return;
+
+    setDeletingId(id);
+    try {
+      await deleteTransaction(id);
+      setTransactions((prev) => prev.filter((tx) => tx.id !== id));
+    } catch (error) {
+      console.error(error);
+      window.alert(t("transactions.deleteFailed"));
+    } finally {
+      setDeletingId(null);
+    }
+  }
+
+  function handleEdit(id: number) {
+    navigate(`/app/transactions/${id}/edit`);
+  }
+
+  function renderActions(tx: TransactionResponse) {
+    return (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8 rounded-lg"
+            disabled={deletingId === tx.id}
+          >
+            <MoreVertical className="h-4 w-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuItem onClick={() => handleEdit(tx.id)}>
+            <Pencil className="mr-2 h-4 w-4" />
+            {locale === "pt" ? "Editar" : "Edit"}
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => handleDelete(tx.id)}
+            className="text-destructive focus:text-destructive"
+          >
+            <Trash2 className="mr-2 h-4 w-4" />
+            {locale === "pt" ? "Excluir" : "Delete"}
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -122,6 +179,7 @@ export default function TransactionsPage() {
               <th className="px-5 py-3 text-right font-medium">
                 {t("common.amount")}
               </th>
+              <th className="px-5 py-3 text-right font-medium" />
             </tr>
           </thead>
           <tbody>
@@ -177,6 +235,7 @@ export default function TransactionsPage() {
                   {tx.kind === "income" ? "+" : ""}
                   {formatCurrency(Math.abs(tx.amount))}
                 </td>
+                <td className="px-5 py-4 text-right">{renderActions(tx)}</td>
               </tr>
             ))}
           </tbody>
@@ -225,6 +284,7 @@ export default function TransactionsPage() {
                 )}
               </div>
             </div>
+            {renderActions(tx)}
           </div>
         ))}
       </div>
