@@ -20,6 +20,10 @@ export function getTransactions() {
   return api.get<TransactionResponse[]>("/api/v1/transactions");
 }
 
+export function getTransaction(id: string) {
+  return api.get<TransactionResponse>(`/api/v1/transactions/${id}`);
+}
+
 export function updateTransaction(
   id: string,
   transaction: Partial<TransactionPayload>,
