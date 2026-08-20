@@ -212,6 +212,7 @@ export const translations = {
     "transactions.transaction.recurring": "Transação recorrente",
     "transactions.recurring.description": "Repetir todo mês",
     "transactions.confirmDelete": "Tem certeza que quer excluir essa transação?",
+    "transactions.deleteFailed": "Não foi possível excluir a transação.",
 
     "category.food": "Alimentação",
     "category.transport": "Transporte",
@@ -542,6 +543,7 @@ export const translations = {
     "transactions.transaction.recurring": "Recurring transaction",
     "transactions.recurring.description": "Repeat every month",
     "transactions.confirmDelete": "Are you sure you want to delete this transaction?",
+    "transactions.deleteFailed": "Could not delete the transaction.",
 
     "category.food": "Food",
     "category.transport": "Transport",
