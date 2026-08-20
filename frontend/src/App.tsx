@@ -24,6 +24,7 @@ import NewWishlistPage from "./pages/app/NewWishlistPage";
 import NewWalletPage from "./pages/app/NewWalletPage";
 import NewReminderPage from "./pages/app/NewReminderPage";
 import NewGoalsPage from "./pages/app/NewGoalsPage";
+import EditTransactionPage from "./pages/app/EditTransactionsPage";
 
 export function App() {
   return (
@@ -39,6 +40,7 @@ export function App() {
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="transactions" element={<TransactionsPage />} />
           <Route path="transactions/new" element={<NewTransactionPage />} />
+          <Route path="transactions/:id/edit" element={<EditTransactionPage />} />
           <Route path="wallets" element={<WalletsPage />} />
           <Route path="wallets/new" element={<NewWalletPage />} />
           <Route path="wishlist" element={<WishlistPage />} />
