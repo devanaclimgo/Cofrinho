@@ -1,16 +1,21 @@
 import type { TransactionResponse } from "../lib/data";
 import { api } from "./axios";
 
+export type TransactionStatus = "completed" | "pending" | "scheduled";
+export type TransactionKind = "expense" | "income";
+
 export interface TransactionPayload {
   description: string;
   amount: number;
   category: string;
-  kind: "expense" | "income";
-  status?: "completed" | "pending" | "scheduled";
-  transaction_date: string;
   wallet_id: string;
-  card_id?: string;
+  kind: TransactionKind;
+  status: TransactionStatus;
+  transaction_date: string;
+  installments?: number;
 }
+
+type Id = number | string;
 
 export function createTransaction(transaction: TransactionPayload) {
   return api.post<TransactionResponse>("/api/v1/transactions", transaction);
@@ -20,12 +25,12 @@ export function getTransactions() {
   return api.get<TransactionResponse[]>("/api/v1/transactions");
 }
 
-export function getTransaction(id: string) {
+export function getTransaction(id: Id) {
   return api.get<TransactionResponse>(`/api/v1/transactions/${id}`);
 }
 
 export function updateTransaction(
-  id: string,
+  id: Id,
   transaction: Partial<TransactionPayload>,
 ) {
   return api.put<TransactionResponse>(
@@ -34,6 +39,6 @@ export function updateTransaction(
   );
 }
 
-export function deleteTransaction(id: string) {
+export function deleteTransaction(id: Id) {
   return api.delete<void>(`/api/v1/transactions/${id}`);
 }
