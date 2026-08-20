@@ -1,5 +1,5 @@
 class TransactionSerializer < ActiveModel::Serializer
-  attributes :id, :title, :category, :wallet, :amount, :type, :date
+    attributes :id, :description, :category, :wallet_id, :card_id, :amount, :kind, :status, :transaction_date
 
   def title
     object.description
