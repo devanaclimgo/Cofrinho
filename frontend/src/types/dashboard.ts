@@ -1,3 +1,5 @@
+import type { WishlistItem } from "./wishlist";
+
 export interface Wallet {
   id: number;
   name: string;
@@ -15,17 +17,6 @@ export interface Transaction {
   amount: number;
   type: "income" | "expense";
   date: string;
-}
-
-export interface WishlistItem {
-  id: string;
-  name: string;
-  price: number;
-  store: string;
-  desiredDate: string;
-  priority: "high" | "medium" | "low";
-  verdict: "buy" | "wait" | "no";
-  image: string;
 }
 
 export interface DashboardData {
