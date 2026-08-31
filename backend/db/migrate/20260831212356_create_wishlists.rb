@@ -7,7 +7,7 @@ class CreateWishlists < ActiveRecord::Migration[8.1]
       t.decimal :price, precision: 12, scale: 2, null: false
       t.string :image
       t.date :desired_date
-      t.string :verdict
+      t.string :priority
 
       t.timestamps
     end
