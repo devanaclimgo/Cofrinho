@@ -1,5 +1,6 @@
 class Api::V1::WishlistsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_wishlist, only: [:show, :update, :destroy]
 
   def index
     wishlists = current_user.wishlists.order(created_at: :desc)
@@ -7,8 +8,12 @@ class Api::V1::WishlistsController < ApplicationController
     render json: wishlists
   end
 
+  def show
+    render json: @wishlist
+  end
+
   def create
-    wishlist = current_user.wishlists.new(wishlist_params)
+    wishlist = current_user.wishlists.build(wishlist_params)
 
     if wishlist.save
       render json: wishlist, status: :created
@@ -18,32 +23,26 @@ class Api::V1::WishlistsController < ApplicationController
     end
   end
 
-  def show
-    wishlist = current_user.wishlists.find(params[:id])
-
-    render json: wishlist
-  end
-
   def update
-    wishlist = current_user.wishlists.find(params[:id])
-
-    if wishlist.update(wishlist_params)
-      render json: wishlist
+    if @wishlist.update(wishlist_params)
+      render json: @wishlist
     else
-      render json: { errors: wishlist.errors.full_messages },
+      render json: { errors: @wishlist.errors.full_messages },
              status: :unprocessable_entity
     end
   end
 
   def destroy
-    wishlist = current_user.wishlists.find(params[:id])
-
-    wishlist.destroy
+    @wishlist.destroy
 
     head :no_content
   end
 
   private
+
+  def set_wishlist
+    @wishlist = current_user.wishlists.find(params[:id])
+  end
 
   def wishlist_params
     params.require(:wishlist).permit(
@@ -52,7 +51,7 @@ class Api::V1::WishlistsController < ApplicationController
       :price,
       :image,
       :desired_date,
-      :verdict
+      :priority
     )
   end
 end
