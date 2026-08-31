@@ -58,24 +58,6 @@ export const goals: Goal[] = [
   { id: "g4", title: "New Car", target: 45000, current: 12300, targetDate: "2028-03", monthly: 1200, priority: "low", color: "#059669", emoji: "🚗" },
 ];
 
-export type WishItem = {
-  id: string;
-  name: string;
-  price: number;
-  store: string;
-  desiredDate: string;
-  priority: "high" | "medium" | "low";
-  verdict: "buy" | "wait" | "no";
-  image: string;
-};
-
-export const wishlist: WishItem[] = [
-  { id: "wi1", name: "Sony WH-1000XM6", price: 2799, store: "amazon.com.br", desiredDate: "2026-08", priority: "medium", verdict: "wait", image: "🎧" },
-  { id: "wi2", name: "iPad Air M3", price: 5499, store: "apple.com/br", desiredDate: "2026-09", priority: "high", verdict: "no", image: "📱" },
-  { id: "wi3", name: "Kindle Colorsoft", price: 1899, store: "amazon.com.br", desiredDate: "2026-07", priority: "low", verdict: "buy", image: "📚" },
-  { id: "wi4", name: "Herman Miller Chair", price: 8900, store: "hermanmiller.com", desiredDate: "2027-01", priority: "medium", verdict: "wait", image: "🪑" },
-];
-
 export type Notif = {
   id: string;
   title: string;
