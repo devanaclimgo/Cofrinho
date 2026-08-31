@@ -18,12 +18,14 @@ export interface Transaction {
 }
 
 export interface WishlistItem {
-  id: number;
+  id: string;
   name: string;
-  store: string;
   price: number;
-  image: string;
+  store: string;
+  desiredDate: string;
+  priority: "high" | "medium" | "low";
   verdict: "buy" | "wait" | "no";
+  image: string;
 }
 
 export interface DashboardData {
