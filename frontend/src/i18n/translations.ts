@@ -211,7 +211,8 @@ export const translations = {
     "transactions.transfer.recurring": "Transferência recorrente",
     "transactions.transaction.recurring": "Transação recorrente",
     "transactions.recurring.description": "Repetir todo mês",
-    "transactions.confirmDelete": "Tem certeza que quer excluir essa transação?",
+    "transactions.confirmDelete":
+      "Tem certeza que quer excluir essa transação?",
     "transactions.deleteFailed": "Não foi possível excluir a transação.",
 
     "category.food": "Alimentação",
@@ -272,11 +273,16 @@ export const translations = {
     "goals.title": "Metas financeiras",
     "goals.new": "Nova meta",
     "wishlist.title": "Lista de desejos",
+    "wishlist.subTitle": "O que você quer, quando faz sentido comprar",
     "wishlist.new": "Adicionar item",
     "wishlist.buyNow": "Pode comprar",
     "wishlist.wait": "Aguarde um pouco",
     "wishlist.notRec": "Não recomendado",
     "wishlist.run": "Simular",
+    "wishlist.load": "Não foi possível carregar sua wishlist.",
+    "wishlist.empty": "Sua wishlist está vazia",
+    "wishlist.desc":
+      "Adicione algo que você quer comprar e descubra quando faz sentido fazer essa compra.",
 
     "cal.title": "Calendário financeiro",
     "cal.add": "Novo lembrete",
@@ -297,7 +303,8 @@ export const translations = {
     "settings.deleteConfirmButton": "Sim, excluir minha conta",
     "settings.deleteCancelButton": "Não, manter minha conta",
     "settings.deleteSuccess": "Sua conta foi excluída com sucesso.",
-    "settings.deleteError": "Houve um erro ao excluir sua conta. Por favor, tente novamente mais tarde.",
+    "settings.deleteError":
+      "Houve um erro ao excluir sua conta. Por favor, tente novamente mais tarde.",
 
     "onb.welcome.title": "Bem-vindo ao Cofrinho",
     "onb.welcome.desc":
@@ -331,7 +338,8 @@ export const translations = {
     "nf.back": "Voltar ao painel",
     "nf.home": "Ir para o início",
     "nf.error": "Ocorreu um erro ao carregar a página.",
-    "nf.something.went.wrong": "Algo deu errado. Você pode tentar novamente ou voltar para a página inicial.",
+    "nf.something.went.wrong":
+      "Algo deu errado. Você pode tentar novamente ou voltar para a página inicial.",
     "nf.try.again": "Tentar novamente",
     "nf.go.home": "Ir para a página inicial",
 
@@ -428,17 +436,18 @@ export const translations = {
       "Let's set up your account in a few quick steps so you can start planning better.",
     "onboarding.welcome.start": "Let's get started",
     "onboarding.language.title": "Choose your language",
-    "onboarding.language.subtitle":
-      "You can change this later in settings.",
+    "onboarding.language.subtitle": "You can change this later in settings.",
     "onboarding.currency.title": "Select your currency",
-    "onboarding.currency.subtitle": "We'll use this currency throughout the app.",
+    "onboarding.currency.subtitle":
+      "We'll use this currency throughout the app.",
     "onboarding.wallet.title": "Create your first wallet",
     "onboarding.wallet.subtitle": "A wallet helps you organize your money.",
     "onboarding.wallet.name": "Wallet name",
     "onboarding.wallet.namePlaceholder": "E.g. Main account",
     "onboarding.wallet.type": "Type",
     "onboarding.balance.title": "What's your starting balance?",
-    "onboarding.balance.subtitle": "Tell us how much you have in this wallet now.",
+    "onboarding.balance.subtitle":
+      "Tell us how much you have in this wallet now.",
     "onboarding.card.title": "Add a card",
     "onboarding.card.subtitle": "Optional — you can add cards later.",
     "onboarding.card.number": "Last 4 digits",
@@ -459,15 +468,18 @@ export const translations = {
     "tour.skip": "Skip tour",
     "tour.restart": "Restart tour",
     "tour.dashboard.title": "This is your dashboard",
-    "tour.dashboard.desc": "See a complete overview of your finances in one place.",
+    "tour.dashboard.desc":
+      "See a complete overview of your finances in one place.",
     "tour.wallets.title": "Your wallets",
     "tour.wallets.desc": "Manage cards, cash, savings and investments.",
     "tour.simulator.title": "Purchase simulator",
-    "tour.simulator.desc": "The heart of Cofrinho: find out if you can afford something.",
+    "tour.simulator.desc":
+      "The heart of Cofrinho: find out if you can afford something.",
     "tour.wishlist.title": "Wishlist",
     "tour.wishlist.desc": "Save products and find the best time to buy them.",
     "tour.analytics.title": "Analytics",
-    "tour.analytics.desc": "Understand your financial habits with detailed charts.",
+    "tour.analytics.desc":
+      "Understand your financial habits with detailed charts.",
     "tour.goals.title": "Financial goals",
     "tour.goals.desc": "Set objectives and track your progress.",
 
@@ -493,7 +505,8 @@ export const translations = {
     "dashboard.recentTransactions": "Recent transactions",
     "dashboard.upcomingPurchases": "Upcoming purchases",
     "dashboard.monthlyForecast": "Monthly forecast",
-    "dashboard.forecastDesc": "Projection of your balance over the coming months",
+    "dashboard.forecastDesc":
+      "Projection of your balance over the coming months",
     "dashboard.vsLastMonth": "vs. last month",
 
     // Wallets
@@ -542,7 +555,8 @@ export const translations = {
     "transactions.transfer.recurring": "Recurring transfer",
     "transactions.transaction.recurring": "Recurring transaction",
     "transactions.recurring.description": "Repeat every month",
-    "transactions.confirmDelete": "Are you sure you want to delete this transaction?",
+    "transactions.confirmDelete":
+      "Are you sure you want to delete this transaction?",
     "transactions.deleteFailed": "Could not delete the transaction.",
 
     "category.food": "Food",
@@ -603,11 +617,16 @@ export const translations = {
     "goals.title": "Financial goals",
     "goals.new": "New goal",
     "wishlist.title": "Wishlist",
+    "wishlist.subTitle": "What you want, when it makes sense to buy",
     "wishlist.new": "Add item",
     "wishlist.buyNow": "Can buy now",
     "wishlist.wait": "Wait a bit",
     "wishlist.notRec": "Not recommended",
     "wishlist.run": "Run simulation",
+    "wishlist.load": "Could not load your wishlist.",
+    "wishlist.empty": "Your wishlist is empty",
+    "wishlist.desc":
+      "Add something you want to buy and find out when it makes sense to make the purchase.",
 
     "cal.title": "Financial calendar",
     "cal.add": "New reminder",
@@ -624,11 +643,13 @@ export const translations = {
     "settings.danger": "Danger zone",
     "settings.deleteDesc":
       "This will permanently delete your account and all data.",
-    "settings.deleteConfirm": "Are you sure you want to delete your account? This action cannot be undone.",
+    "settings.deleteConfirm":
+      "Are you sure you want to delete your account? This action cannot be undone.",
     "settings.deleteConfirmButton": "Yes, delete my account",
     "settings.deleteCancelButton": "No, keep my account",
     "settings.deleteSuccess": "Your account has been successfully deleted.",
-    "settings.deleteError": "There was an error deleting your account. Please try again later.",
+    "settings.deleteError":
+      "There was an error deleting your account. Please try again later.",
 
     "onb.welcome.title": "Welcome to Cofrinho",
     "onb.welcome.desc": "Let's set up your experience in under 2 minutes.",
@@ -661,12 +682,14 @@ export const translations = {
     "nf.back": "Back to Dashboard",
     "nf.home": "Go Home",
     "nf.error": "An error occurred while loading the page.",
-    "nf.something.went.wrong": "Something went wrong. You can try again or head back home.",
+    "nf.something.went.wrong":
+      "Something went wrong. You can try again or head back home.",
     "nf.try.again": "Try again",
     "nf.go.home": "Go home",
 
     "error.title": "An error occurred",
-    "error.desc": "Something went wrong. Please try again or go back to the dashboard.",
+    "error.desc":
+      "Something went wrong. Please try again or go back to the dashboard.",
     "error.retry": "Try again",
 
     "dash.loading": "Loading your dashboard...",
