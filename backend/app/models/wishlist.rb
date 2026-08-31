@@ -3,5 +3,5 @@ class Wishlist < ApplicationRecord
 
   validates :name, :price, :desired_date, presence: true
   validates :price, numericality: { greater_than: 0 }
-  validates :verdict, inclusion: { in: %w[buy wait no] }, allow_nil: true
+  validates :priority, inclusion: { in: %w[high medium low] }, allow_nil: true
 end
