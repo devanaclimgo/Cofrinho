@@ -1,20 +1,29 @@
-import type { WishlistItem } from "../types/wishlist";
 import { api } from "./axios";
+import type { WishlistItem, WishlistPayload } from "../types/wishlist";
 
-export function createWishlist(data: { name: string }) {
-  return api.post("/api/v1/wishlist", data);
+export function getWishlists() {
+  return api.get<WishlistItem[]>("/api/v1/wishlists");
 }
 
-export async function getWishlist() {
-  const { data } = await api.get<WishlistItem[]>("/api/v1/wishlist");
-
-  return data;
+export function getWishlist(id: number | string) {
+  return api.get<WishlistItem>(`/api/v1/wishlists/${id}`);
 }
 
-export function updateWishlist(id: string, data: { name: string }) {
-  return api.put(`/api/v1/wishlist/${id}`, data);
+export function createWishlist(wishlist: WishlistPayload) {
+  return api.post<WishlistItem>("/api/v1/wishlists", {
+    wishlist,
+  });
 }
 
-export function deleteWishlist(id: string) {
-  return api.delete(`/api/v1/wishlist/${id}`);
+export function updateWishlist(
+  id: number | string,
+  wishlist: Partial<WishlistPayload>,
+) {
+  return api.put<WishlistItem>(`/api/v1/wishlists/${id}`, {
+    wishlist,
+  });
+}
+
+export function deleteWishlist(id: number | string) {
+  return api.delete<void>(`/api/v1/wishlists/${id}`);
 }
