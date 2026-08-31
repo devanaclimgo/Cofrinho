@@ -1,12 +1,20 @@
+export type WishlistPriority = "high" | "medium" | "low";
+
 export interface WishlistItem {
-  id: string;
+  id: number;
   name: string;
-  description?: string;
-  targetAmount: number;
-  currentAmount: number;
-  imageUrl?: string;
+  price: number;
+  store: string | null;
+  desired_date: string;
+  priority: WishlistPriority;
+  image: string | null;
+}
+
+export interface WishlistPayload {
+  name: string;
+  price: number;
   store?: string;
-  desiredDate?: string;
-  price?: number;
-  verdict: "buy" | "wait" | "save";
+  desired_date: string;
+  priority?: WishlistPriority;
+  image?: string;
 }
