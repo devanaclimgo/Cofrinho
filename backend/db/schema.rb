@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_04_185747) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_31_212356) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -126,8 +126,23 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_04_185747) do
     t.index ["user_id"], name: "index_wallets_on_user_id"
   end
 
+  create_table "wishlists", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.date "desired_date"
+    t.string "image"
+    t.string "name", null: false
+    t.decimal "price", precision: 12, scale: 2, null: false
+    t.string "priority"
+    t.string "store"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id", "created_at"], name: "index_wishlists_on_user_id_and_created_at"
+    t.index ["user_id"], name: "index_wishlists_on_user_id"
+  end
+
   add_foreign_key "goals", "users"
   add_foreign_key "profiles", "users"
   add_foreign_key "transactions", "wallets"
   add_foreign_key "wallets", "users"
+  add_foreign_key "wishlists", "users"
 end
