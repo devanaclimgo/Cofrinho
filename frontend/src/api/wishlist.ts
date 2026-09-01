@@ -1,29 +1,24 @@
-import { api } from "./axios";
 import type { WishlistItem, WishlistPayload } from "../types/wishlist";
+import { api } from "./axios";
+
+type Id = number | string;
 
 export function getWishlists() {
   return api.get<WishlistItem[]>("/api/v1/wishlists");
 }
 
-export function getWishlist(id: number | string) {
+export function getWishlist(id: Id) {
   return api.get<WishlistItem>(`/api/v1/wishlists/${id}`);
 }
 
 export function createWishlist(wishlist: WishlistPayload) {
-  return api.post<WishlistItem>("/api/v1/wishlists", {
-    wishlist,
-  });
+  return api.post<WishlistItem>("/api/v1/wishlists", { wishlist });
 }
 
-export function updateWishlist(
-  id: number | string,
-  wishlist: Partial<WishlistPayload>,
-) {
-  return api.put<WishlistItem>(`/api/v1/wishlists/${id}`, {
-    wishlist,
-  });
+export function updateWishlist(id: Id, wishlist: Partial<WishlistPayload>) {
+  return api.put<WishlistItem>(`/api/v1/wishlists/${id}`, { wishlist });
 }
 
-export function deleteWishlist(id: number | string) {
+export function deleteWishlist(id: Id) {
   return api.delete<void>(`/api/v1/wishlists/${id}`);
 }
