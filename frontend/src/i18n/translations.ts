@@ -269,6 +269,10 @@ export const translations = {
     "sim.date": "Data desejada",
     "sim.run": "Simular compra",
     "sim.result": "Resultado da simulação",
+    "sim.describe":
+      "Descreva a compra e veremos o impacto nos próximos 6 meses.",
+    "sim.recommend":
+      "Recomendação: adie para outubro. Sua margem de segurança fica 42% maior.",
 
     "goals.title": "Metas financeiras",
     "goals.new": "Nova meta",
@@ -613,6 +617,10 @@ export const translations = {
     "sim.date": "Desired date",
     "sim.run": "Run simulation",
     "sim.result": "Simulation result",
+    "sim.describe":
+      "Describe the purchase and we'll show the impact for the next 6 months.",
+    "sim.recommend":
+      "Recommendation: postpone to October. Your safety margin will be 42% higher.",
 
     "goals.title": "Financial goals",
     "goals.new": "New goal",
