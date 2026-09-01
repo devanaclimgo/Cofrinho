@@ -1,20 +1,22 @@
-export type WishlistPriority = "high" | "medium" | "low";
+export type WishlistVerdict = "buy" | "wait" | "no";
 
 export interface WishlistItem {
   id: number;
   name: string;
-  price: number;
   store: string | null;
-  desired_date: string;
-  priority: WishlistPriority;
+  price: number;
   image: string | null;
+  desired_date: string;
+  verdict: WishlistVerdict | null;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface WishlistPayload {
   name: string;
-  price: number;
   store?: string;
-  desired_date: string;
-  priority?: WishlistPriority;
+  price: number;
   image?: string;
+  desired_date: string;
+  verdict?: WishlistVerdict;
 }
