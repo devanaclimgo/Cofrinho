@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { usePurchaseSimulation } from "../../hooks/useSimulation";
+import { useSearchParams } from "react-router-dom";
 
 // TODO: Add data to the backend and fetch it from there instead of using mock data. For now, we are using mock data.
 
@@ -46,13 +47,15 @@ const statusMap = {
 } as const;
 
 export default function SimulatorPage() {
-  const { t, locale } = useI18n();
+  const { t } = useI18n();
   const [ran, setRan] = useState(false);
   const simulation = usePurchaseSimulation();
-  const [product, setProduct] = useState("");
-  const [amount, setAmount] = useState("");
   const [installments, setInstallments] = useState("6");
+  const [paymentMethod] = useState("");
   const [wallet_id, setWalletId] = useState("");
+  const [searchParams] = useSearchParams();
+  const [product, setProduct] = useState(searchParams.get("product") ?? "");
+  const [amount, setAmount] = useState(searchParams.get("amount") ?? "");
 
   return (
     <div className="mx-auto max-w-4xl space-y-6">
@@ -61,9 +64,7 @@ export default function SimulatorPage() {
           {t("sim.title")}
         </h2>
         <p className="text-sm text-muted-foreground">
-          {locale === "pt"
-            ? "Descreva a compra e veremos o impacto nos próximos 6 meses."
-            : "Describe the purchase and we'll show the impact for the next 6 months."}
+          {t("sim.describe")}
         </p>
       </div>
 
@@ -109,8 +110,8 @@ export default function SimulatorPage() {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="credit">{t("sim.card")}</SelectItem>
-                <SelectItem value="cash">{t("sim.cash")}</SelectItem>
+                <SelectItem value={paymentMethod}>{t("sim.card")}</SelectItem>
+                <SelectItem value={paymentMethod}>{t("sim.cash")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -162,9 +163,7 @@ export default function SimulatorPage() {
           <div className="card-elevated flex items-start gap-3 p-5">
             <Info className="mt-0.5 h-4 w-4 text-primary" />
             <div className="text-sm text-foreground">
-              {locale === "pt"
-                ? "Recomendação: adie para outubro. Sua margem de segurança fica 42% maior."
-                : "Recommendation: postpone to October. Your safety margin will be 42% higher."}
+              {t("sim.recommend")}
             </div>
           </div>
         </div>
