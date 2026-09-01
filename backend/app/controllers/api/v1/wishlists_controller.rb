@@ -18,8 +18,9 @@ class Api::V1::WishlistsController < ApplicationController
     if wishlist.save
       render json: wishlist, status: :created
     else
-      render json: { errors: wishlist.errors.full_messages },
-             status: :unprocessable_entity
+      render json: {
+        errors: wishlist.errors.full_messages
+      }, status: :unprocessable_entity
     end
   end
 
@@ -27,8 +28,9 @@ class Api::V1::WishlistsController < ApplicationController
     if @wishlist.update(wishlist_params)
       render json: @wishlist
     else
-      render json: { errors: @wishlist.errors.full_messages },
-             status: :unprocessable_entity
+      render json: {
+        errors: @wishlist.errors.full_messages
+      }, status: :unprocessable_entity
     end
   end
 
@@ -51,7 +53,7 @@ class Api::V1::WishlistsController < ApplicationController
       :price,
       :image,
       :desired_date,
-      :priority
+      :verdict
     )
   end
 end
