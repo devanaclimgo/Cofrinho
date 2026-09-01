@@ -16,15 +16,17 @@ import { toast } from "sonner";
 
 const emojis = ["🎧", "📱", "📚", "🪑", "💻", "⌚", "📷", "🚲", "🎸", "🛋️"];
 
-// TODO: Add data to the backend and fetch it from there instead of using mock data. For now, we are using mock data.
-
 export default function NewWishlistPage() {
   const { t, locale, formatCurrency } = useI18n();
   const navigate = useNavigate();
   const pt = locale === "pt";
+
   const [emoji, setEmoji] = useState(emojis[0]);
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
+  const [store, setStore] = useState("");
+  const [desiredDate, setDesiredDate] = useState("");
+
   const priceN = Number(price.replace(",", ".")) || 0;
 
   return (
@@ -109,6 +111,8 @@ export default function NewWishlistPage() {
             <Label htmlFor="store">{pt ? "Loja / link" : "Store / link"}</Label>
             <Input
               id="store"
+              value={store}
+              onChange={(e) => setStore(e.target.value)}
               placeholder="amazon.com.br"
               className="h-11 rounded-xl"
             />
@@ -120,7 +124,8 @@ export default function NewWishlistPage() {
             <Input
               id="desired"
               type="month"
-              defaultValue="2026-09"
+              value={desiredDate}
+              onChange={(e) => setDesiredDate(e.target.value)}
               className="h-11 rounded-xl"
             />
           </div>
