@@ -221,7 +221,7 @@ export interface WishlistItem {
   price: number;
   storeUrl: string;
   desiredDate: string;
-  priority: "high" | "medium" | "low";
+  verdict: "high" | "medium" | "low";
   result: "canBuy" | "wait" | "notRecommended";
   image: string;
 }
@@ -233,7 +233,7 @@ export const wishlist: WishlistItem[] = [
     price: 9499,
     storeUrl: "apple.com",
     desiredDate: "2026-09-15",
-    priority: "high",
+    verdict: "high",
     result: "wait",
     image: "phone",
   },
@@ -243,7 +243,7 @@ export const wishlist: WishlistItem[] = [
     price: 8900,
     storeUrl: "hermanmiller.com",
     desiredDate: "2026-12-01",
-    priority: "medium",
+    verdict: "medium",
     result: "notRecommended",
     image: "armchair",
   },
@@ -253,7 +253,7 @@ export const wishlist: WishlistItem[] = [
     price: 2199,
     storeUrl: "sony.com",
     desiredDate: "2026-08-01",
-    priority: "medium",
+    verdict: "medium",
     result: "canBuy",
     image: "headphones",
   },
@@ -263,7 +263,7 @@ export const wishlist: WishlistItem[] = [
     price: 3400,
     storeUrl: "lg.com",
     desiredDate: "2026-10-20",
-    priority: "low",
+    verdict: "low",
     result: "wait",
     image: "monitor",
   },
@@ -273,7 +273,7 @@ export const wishlist: WishlistItem[] = [
     price: 1299,
     storeUrl: "keychron.com",
     desiredDate: "2026-08-10",
-    priority: "low",
+    verdict: "low",
     result: "canBuy",
     image: "keyboard",
   },
@@ -283,7 +283,7 @@ export const wishlist: WishlistItem[] = [
     price: 12000,
     storeUrl: "decolar.com",
     desiredDate: "2027-01-05",
-    priority: "high",
+    verdict: "high",
     result: "notRecommended",
     image: "plane",
   },
