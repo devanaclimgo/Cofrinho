@@ -29,7 +29,7 @@ import {
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { getTransactions, deleteTransaction } from "../../api/transactions";
-import type { TransactionResponse } from "../../lib/data";
+import type { TransactionResponse } from "../../types/transaction";
 
 export default function TransactionsPage() {
   const { t, formatCurrency, locale } = useI18n();
