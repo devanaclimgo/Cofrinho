@@ -1,5 +1,4 @@
-import type { TransactionResponse } from "../lib/data";
-import type { TransactionPayload } from "../types/transaction";
+import type { TransactionPayload, TransactionResponse } from "../types/transaction";
 import { api } from "./axios";
 
 type Id = number | string;
