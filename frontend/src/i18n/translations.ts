@@ -179,6 +179,8 @@ export const translations = {
     "wallets.limit": "Limite",
     "wallets.used": "utilizado",
     "wallets.available": "Disponível",
+    "wallets.confirmDelete": "Tem certeza que quer excluir esta carteira?",
+    "wallets.deleteFailed": "Não foi possível excluir a carteira.",
 
     // Transactions
     "transactions.title": "Transações",
@@ -527,6 +529,8 @@ export const translations = {
     "wallets.limit": "Limit",
     "wallets.used": "used",
     "wallets.available": "Available",
+    "wallets.confirmDelete": "Are you sure you want to delete this wallet?",
+    "wallets.deleteFailed": "Could not delete the wallet.",
 
     // Transactions
     "transactions.title": "Transactions",
