@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       resources :cards
       resources :onboardings, only: [:create]
       resources :wishlists
+      resources :categories, only: [:index, :create, :destroy]
 
       get "/dashboard",
       to:"dashboard#index"
