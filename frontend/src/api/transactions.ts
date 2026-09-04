@@ -1,19 +1,6 @@
 import type { TransactionResponse } from "../lib/data";
+import type { TransactionPayload } from "../types/transaction";
 import { api } from "./axios";
-
-export type TransactionStatus = "completed" | "pending" | "scheduled";
-export type TransactionKind = "expense" | "income";
-
-export interface TransactionPayload {
-  description: string;
-  amount: number;
-  category: string;
-  wallet_id: string;
-  kind: TransactionKind;
-  status: TransactionStatus;
-  transaction_date: string;
-  installments?: number;
-}
 
 type Id = number | string;
 
