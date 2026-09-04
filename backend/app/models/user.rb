@@ -16,4 +16,14 @@ class User < ApplicationRecord
   has_many :wishlists, dependent: :destroy
 
   has_one :profile, dependent: :destroy
+
+  after_create :seed_default_categories
+
+  DEFAULT_EXPENSE = %w[Food Rent Leisure Health Transport Shopping Bills Other]
+  DEFAULT_INCOME = %w[Salary Freelance Investments Refund Gift Other]
+
+  def seed_default_categories
+    DEFAULT_EXPENSE.each { |c| categories.create!(name: c, kind: "expense") }
+    DEFAULT_INCOME.each { |c| categories.create!(name: c, kind: "income") }
+  end
 end
