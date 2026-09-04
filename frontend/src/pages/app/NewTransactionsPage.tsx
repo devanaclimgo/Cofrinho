@@ -1,12 +1,9 @@
-import { useNavigate, useSearchParams, Link } from "react-router";
-import { useState } from "react";
+import { useNavigate, Link } from "react-router";
+import { useEffect, useState } from "react";
 import { useI18n } from "../../i18n/I18nContext";
-import { wallets } from "../../lib/mock-data";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
-import { Textarea } from "../../components/ui/textarea";
-import { Switch } from "../../components/ui/switch";
 import {
   Select,
   SelectContent,
@@ -14,31 +11,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../components/ui/select";
-import { ArrowDownRight, ArrowLeft, ArrowLeftRight, ArrowUpRight } from "lucide-react";
+import { ArrowDownRight, ArrowLeft, ArrowUpRight, Plus } from "lucide-react";
 import { toast } from "sonner";
-
-// TODO: Add data to the backend and fetch it from there instead of using mock data. For now, we are using mock data.
-
-type TxType = "expense" | "income" | "transfer";
-
-const expenseCats = [
-  "Food",
-  "Rent",
-  "Leisure",
-  "Health",
-  "Transport",
-  "Shopping",
-  "Bills",
-  "Other",
-];
-const incomeCats = [
-  "Salary",
-  "Freelance",
-  "Investments",
-  "Refund",
-  "Gift",
-  "Other",
-];
+import {
+  createTransaction,
+} from "../../api/transactions";
+import {
+  getCategories,
+  createCategory,
+  type Category,
+} from "../../api/categories";
+import { getWallets, type Wallet } from "../../api/wallets";
+import type { TransactionKind, TransactionStatus } from "../../types/transaction";
 
 const TYPE_CONFIG = {
   income: {
@@ -55,53 +39,86 @@ const TYPE_CONFIG = {
     label: { pt: "Despesa", en: "Expense" },
     sub: { pt: "Saída de dinheiro", en: "Money out" },
   },
-  transfer: {
-    icon: ArrowLeftRight,
-    tone: "text-primary",
-    activeBorder: "border-primary bg-primary/5",
-    label: { pt: "Transferência", en: "Transfer" },
-    sub: { pt: "Entre carteiras", en: "Between wallets" },
-  },
 } as const;
 
 export default function NewTransactionPage() {
   const { t, locale, formatCurrency } = useI18n();
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const pt = locale === "pt";
 
-  const initialType = searchParams.get("type");
-  const validType: TxType =
-    initialType === "income" || initialType === "transfer"
-      ? initialType
-      : "expense";
-
-  const [type, setType] = useState<TxType>(validType);
+  const [kind, setKind] = useState<TransactionKind>("expense");
   const [amount, setAmount] = useState("");
   const [title, setTitle] = useState("");
-  const [fromWallet, setFromWallet] = useState(wallets[0]?.name);
-  const [toWallet, setToWallet] = useState(wallets[1]?.name ?? wallets[0]?.name);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [categoryId, setCategoryId] = useState<string>("");
+  const [newCategoryName, setNewCategoryName] = useState("");
+  const [addingCategory, setAddingCategory] = useState(false);
+  const [wallets, setWallets] = useState<Wallet[]>([]);
+  const [walletId, setWalletId] = useState<string>("");
+  const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
+  const [status, setStatus] = useState<TransactionStatus>("completed");
+  const [saving, setSaving] = useState(false);
 
-  const pt = locale === "pt";
-  const isTransfer = type === "transfer";
-  const cats = type === "income" ? incomeCats : expenseCats;
+  useEffect(() => {
+    getWallets().then((res) => {
+      setWallets(res.data);
+      setWalletId(String(res.data[0]?.id ?? ""));
+    });
+  }, []);
+
+  useEffect(() => {
+    getCategories(kind).then((res) => {
+      setCategories(res.data);
+      setCategoryId(String(res.data[0]?.id ?? ""));
+    });
+  }, [kind]);
+
   const value = Number(amount.replace(",", ".")) || 0;
 
+  async function handleAddCategory() {
+    if (!newCategoryName.trim()) return;
+    const res = await createCategory({ name: newCategoryName.trim(), kind });
+    setCategories((prev) => [...prev, res.data]);
+    setCategoryId(String(res.data.id));
+    setNewCategoryName("");
+    setAddingCategory(false);
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setSaving(true);
+    try {
+      await createTransaction({
+        amount: value,
+        description: title,
+        category: Number(categoryId),
+        wallet_id: walletId,
+        kind,
+        status,
+        transaction_date: date,
+      });
+      const messages = {
+        expense: { pt: "Despesa adicionada", en: "Expense added" },
+        income: { pt: "Receita adicionada", en: "Income added" },
+      };
+      toast.success(messages[kind][pt ? "pt" : "en"], {
+        description: title || (pt ? "Transação salva" : "Transaction saved"),
+      });
+      navigate("/app/transactions");
+    } catch (error) {
+      console.error(error);
+      toast.error(
+        pt
+          ? "Não foi possível salvar a transação."
+          : "Could not save the transaction.",
+      );
+    } finally {
+      setSaving(false);
+    }
+  }
+
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        const messages = {
-          income: { pt: "Receita adicionada", en: "Income added" },
-          expense: { pt: "Despesa adicionada", en: "Expense added" },
-          transfer: { pt: "Transferência realizada", en: "Transfer completed" },
-        };
-        toast.success(messages[type][pt ? "pt" : "en"], {
-          description: title || (pt ? "Transação salva" : "Transaction saved"),
-        });
-        navigate("/app/transactions");
-      }}
-      className="mx-auto max-w-2xl space-y-6"
-    >
+    <form onSubmit={handleSubmit} className="mx-auto max-w-2xl space-y-6">
       <div className="flex items-center gap-3">
         <Button
           asChild
@@ -119,23 +136,23 @@ export default function NewTransactionPage() {
           </h2>
           <p className="text-sm text-muted-foreground">
             {pt
-              ? "Registre uma receita, despesa ou transferência"
-              : "Record an income, expense or transfer"}
+              ? "Registre uma receita ou despesa"
+              : "Record an income or expense"}
           </p>
         </div>
       </div>
 
-      <div className="card-elevated p-6 space-y-6">
-        <div className="grid grid-cols-3 gap-3">
-          {(Object.keys(TYPE_CONFIG) as TxType[]).map((k) => {
+      <div className="card-elevated space-y-6 p-6">
+        <div className="grid grid-cols-2 gap-3">
+          {(Object.keys(TYPE_CONFIG) as TransactionKind[]).map((k) => {
             const cfg = TYPE_CONFIG[k];
-            const active = type === k;
+            const active = kind === k;
             const Icon = cfg.icon;
             return (
               <button
                 type="button"
                 key={k}
-                onClick={() => setType(k)}
+                onClick={() => setKind(k)}
                 className={`flex flex-col items-center gap-2 rounded-2xl border p-4 text-center transition sm:flex-row sm:text-left ${
                   active ? cfg.activeBorder : "border-border hover:bg-muted/60"
                 }`}
@@ -169,11 +186,9 @@ export default function NewTransactionPage() {
             onChange={(e) => setAmount(e.target.value)}
             className="h-14 rounded-xl text-2xl font-semibold tracking-tight"
           />
-          {!isTransfer && (
-            <p className="text-xs text-muted-foreground">
-              {type === "income" ? "+" : "−"} {formatCurrency(Math.abs(value))}
-            </p>
-          )}
+          <p className="text-xs text-muted-foreground">
+            {kind === "income" ? "+" : "−"} {formatCurrency(Math.abs(value))}
+          </p>
         </div>
 
         <div className="grid gap-5 sm:grid-cols-2">
@@ -184,137 +199,104 @@ export default function NewTransactionPage() {
               required
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder={
-                isTransfer
-                  ? pt
-                    ? "Ex.: Reserva de emergência"
-                    : "e.g. Emergency fund"
-                  : pt
-                    ? "Ex.: Mercado"
-                    : "e.g. Groceries"
-              }
+              placeholder={pt ? "Ex.: Mercado" : "e.g. Groceries"}
               className="h-11 rounded-xl"
             />
           </div>
 
-          {isTransfer ? (
-            <>
-              <div className="space-y-2">
-                <Label>{pt ? "De" : "From"}</Label>
-                <Select value={fromWallet} onValueChange={setFromWallet}>
-                  <SelectTrigger className="h-11 rounded-xl">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {wallets.map((w) => (
-                      <SelectItem key={w.id} value={w.name}>
-                        {w.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <Label>{t("common.category")}</Label>
+              <button
+                type="button"
+                onClick={() => setAddingCategory((v) => !v)}
+                className="flex items-center gap-1 text-xs text-primary hover:underline"
+              >
+                <Plus className="h-3 w-3" />
+                {pt ? "Nova" : "New"}
+              </button>
+            </div>
+            {addingCategory ? (
+              <div className="flex gap-2">
+                <Input
+                  autoFocus
+                  value={newCategoryName}
+                  onChange={(e) => setNewCategoryName(e.target.value)}
+                  placeholder={pt ? "Nome da categoria" : "Category name"}
+                  className="h-11 rounded-xl"
+                />
+                <Button
+                  type="button"
+                  onClick={handleAddCategory}
+                  className="h-11 rounded-xl"
+                >
+                  {pt ? "Add" : "Add"}
+                </Button>
               </div>
-              <div className="space-y-2">
-                <Label>{pt ? "Para" : "To"}</Label>
-                <Select value={toWallet} onValueChange={setToWallet}>
-                  <SelectTrigger className="h-11 rounded-xl">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {wallets
-                      .filter((w) => w.name !== fromWallet)
-                      .map((w) => (
-                        <SelectItem key={w.id} value={w.name}>
-                          {w.name}
-                        </SelectItem>
-                      ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="space-y-2">
-                <Label>{t("common.category")}</Label>
-                <Select defaultValue={cats[0]}>
-                  <SelectTrigger className="h-11 rounded-xl">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {cats.map((c) => (
-                      <SelectItem key={c} value={c}>
-                        {c}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="space-y-2">
-                <Label>{t("common.wallet")}</Label>
-                <Select defaultValue={wallets[0].name}>
-                  <SelectTrigger className="h-11 rounded-xl">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {wallets.map((w) => (
-                      <SelectItem key={w.id} value={w.name}>
-                        {w.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            </>
-          )}
+            ) : (
+              <Select value={categoryId} onValueChange={setCategoryId}>
+                <SelectTrigger className="h-11 rounded-xl">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {categories.map((c) => (
+                    <SelectItem key={c.id} value={String(c.id)}>
+                      {c.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+          </div>
+
+          <div className="space-y-2">
+            <Label>{t("common.wallet")}</Label>
+            <Select value={walletId} onValueChange={setWalletId}>
+              <SelectTrigger className="h-11 rounded-xl">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {wallets.map((w) => (
+                  <SelectItem key={w.id} value={String(w.id)}>
+                    {w.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
 
           <div className="space-y-2">
             <Label htmlFor="date">{t("common.date")}</Label>
             <Input
               id="date"
               type="date"
-              defaultValue="2026-07-31"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
               className="h-11 rounded-xl"
             />
           </div>
           <div className="space-y-2">
             <Label>{t("common.status")}</Label>
-            <Select defaultValue="cleared">
+            <Select
+              value={status}
+              onValueChange={(v) => setStatus(v as TransactionStatus)}
+            >
               <SelectTrigger className="h-11 rounded-xl">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="cleared">
+                <SelectItem value="completed">
                   {t("transactions.completed")}
                 </SelectItem>
                 <SelectItem value="pending">
                   {t("transactions.pending")}
                 </SelectItem>
+                <SelectItem value="scheduled">
+                  {pt ? "Agendada" : "Scheduled"}
+                </SelectItem>
               </SelectContent>
             </Select>
           </div>
-          <div className="space-y-2 sm:col-span-2">
-            <Label htmlFor="notes">{t("transactions.obs")}</Label>
-            <Textarea
-              id="notes"
-              rows={3}
-              className="rounded-xl"
-              placeholder={t("transactions.opt")}
-            />
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between rounded-2xl bg-muted/50 p-4">
-          <div>
-            <div className="text-sm font-medium">
-              {isTransfer
-                ? t("transactions.transfer.recurring")
-                : t("transactions.transaction.recurring")}
-            </div>
-            <div className="text-xs text-muted-foreground">
-              {pt ? "Repetir todo mês" : "Repeat every month"}
-            </div>
-          </div>
-          <Switch />
         </div>
       </div>
 
@@ -322,8 +304,12 @@ export default function NewTransactionPage() {
         <Button asChild variant="outline" className="h-11 rounded-xl sm:w-40">
           <Link to="/app/transactions">{t("common.cancel")}</Link>
         </Button>
-        <Button type="submit" className="h-11 rounded-xl sm:w-48">
-          {t("common.save")}
+        <Button
+          type="submit"
+          disabled={saving}
+          className="h-11 rounded-xl sm:w-48"
+        >
+          {saving ? (pt ? "Salvando…" : "Saving…") : t("common.save")}
         </Button>
       </div>
     </form>
