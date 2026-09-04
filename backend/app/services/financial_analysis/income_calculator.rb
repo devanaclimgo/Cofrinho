@@ -1,12 +1,11 @@
 module FinancialAnalysis
   class IncomeCalculator
-    
-    def self.call(user)
+    def self.call(user, month: Date.current)
       user.transactions
-          .income
-          .average(:amount)
-          &.to_f || 0
+          .where(kind: "income", status: "completed")
+          .where(transaction_date: month.beginning_of_month..month.end_of_month)
+          .sum(:amount)
+          .to_f
     end
-
   end
 end
