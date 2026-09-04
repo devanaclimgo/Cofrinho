@@ -1,3 +1,4 @@
+import type { TransactionPayload } from "./transaction";
 import type { WishlistItem } from "./wishlist";
 
 export interface Wallet {
@@ -9,16 +10,6 @@ export interface Wallet {
   last4?: string;
 }
 
-export interface Transaction {
-  id: number;
-  title: string;
-  category: string;
-  wallet: string;
-  amount: number;
-  type: "income" | "expense";
-  date: string;
-}
-
 export interface DashboardData {
   summary: {
     balance: number;
@@ -27,7 +18,7 @@ export interface DashboardData {
     savings: number;
   };
   wallets: Wallet[];
-  transactions: Transaction[];
+  transactions: TransactionPayload[];
   wishlist: WishlistItem[];
   forecast: { m: string; balance: number }[];
 }
