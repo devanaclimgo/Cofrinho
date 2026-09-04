@@ -1,20 +1,45 @@
 class Transaction < ApplicationRecord
   belongs_to :user
-  belongs_to :card, optional: true
   belongs_to :wallet
+  belongs_to :category, optional: true
 
-  has_many :installments, 
-           foreign_key: :financial_transaction_id,
-           dependent: :destroy
+  before_validation :normalize_amount
 
-  enum :kind, {
-    expense: 0,
-    income: 1
-  }
+  after_create :apply_to_wallet_balance
+  after_update :reapply_to_wallet_balance, if: :saved_change_to_relevant_attrs?
+  after_destroy :revert_from_wallet_balance
 
-  enum :status, {
-    completed: 0,
-    pending: 1,
-    scheduled: 2
-  }
+  private
+
+  def signed_amount
+    kind == "income" ? amount.abs : -amount.abs
+  end
+
+  def normalize_amount
+    self.amount = amount.abs
+  end
+
+  def apply_to_wallet_balance
+    wallet.increment!(:balance, signed_amount)
+  end
+
+  def revert_from_wallet_balance
+    wallet.increment!(:balance, -signed_amount)
+  end
+
+  def reapply_to_wallet_balance
+    old_wallet = Wallet.find(wallet_id_before_last_save) if wallet_id_before_last_save
+    old_signed = kind_before_last_save == "income" ? amount_before_last_save.abs : -amount_before_last_save.abs
+
+    if old_wallet && old_wallet != wallet
+      old_wallet.increment!(:balance, -old_signed)
+      wallet.increment!(:balance, signed_amount)
+    else
+      wallet.increment!(:balance, signed_amount - old_signed)
+    end
+  end
+
+  def saved_change_to_relevant_attrs?
+    saved_change_to_amount? || saved_change_to_kind? || saved_change_to_wallet_id?
+  end
 end
