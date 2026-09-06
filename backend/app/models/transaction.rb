@@ -28,11 +28,10 @@ class Transaction < ApplicationRecord
   end
 
   def reapply_to_wallet_balance
-    old_wallet = Wallet.find(wallet_id_before_last_save) if wallet_id_before_last_save
     old_signed = kind_before_last_save == "income" ? amount_before_last_save.abs : -amount_before_last_save.abs
 
-    if old_wallet && old_wallet != wallet
-      old_wallet.increment!(:balance, -old_signed)
+    if wallet_id_before_last_save && wallet_id_before_last_save != wallet_id
+      Wallet.find(wallet_id_before_last_save).increment!(:balance, -old_signed)
       wallet.increment!(:balance, signed_amount)
     else
       wallet.increment!(:balance, signed_amount - old_signed)
