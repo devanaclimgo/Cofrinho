@@ -1,15 +1,10 @@
 import { api } from "./axios";
+import type { Category, CategoryKind } from "../types/category";
 
-export type Category = {
-  id: number;
-  name: string;
-  kind: "income" | "expense";
-};
-
-export function getCategories(kind?: "income" | "expense") {
-  return api.get<Category[]>("/categories", { params: kind ? { kind } : {} });
+export function getCategories(kind?: CategoryKind) {
+  return api.get<Category[]>("/api/v1/categories", { params: kind ? { kind } : {} });
 }
 
-export function createCategory(data: { name: string; kind: "income" | "expense" }) {
-  return api.post<Category>("/categories", { category: data });
+export function createCategory(data: { name: string; kind: CategoryKind }) {
+  return api.post<Category>("/api/v1/categories", { category: data });
 }
