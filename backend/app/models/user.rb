@@ -14,16 +14,17 @@ class User < ApplicationRecord
   has_many :wallets, dependent: :destroy
   has_many :goals, dependent: :destroy
   has_many :wishlists, dependent: :destroy
-
-  has_one :profile, dependent: :destroy
+  has_many :categories, dependent: :destroy
 
   after_create :seed_default_categories
 
-  DEFAULT_EXPENSE = %w[Food Rent Leisure Health Transport Shopping Bills Other]
-  DEFAULT_INCOME = %w[Salary Freelance Investments Refund Gift Other]
+  DEFAULT_EXPENSE_CATEGORIES = %w[Food Rent Leisure Health Transport Shopping Bills Other]
+  DEFAULT_INCOME_CATEGORIES = %w[Salary Freelance Investments Refund Gift Other]
+
+  private
 
   def seed_default_categories
-    DEFAULT_EXPENSE.each { |c| categories.create!(name: c, kind: "expense") }
-    DEFAULT_INCOME.each { |c| categories.create!(name: c, kind: "income") }
+    DEFAULT_EXPENSE_CATEGORIES.each { |name| categories.create!(name: name, kind: "expense") }
+    DEFAULT_INCOME_CATEGORIES.each { |name| categories.create!(name: name, kind: "income") }
   end
 end
