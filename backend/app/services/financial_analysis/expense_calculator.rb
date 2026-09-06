@@ -1,5 +1,5 @@
 module FinancialAnalysis
-  class IncomeCalculator
+  class ExpenseCalculator
     def self.call(user, month: Date.current)
       user.transactions
           .where(kind: "expense", status: "completed")
