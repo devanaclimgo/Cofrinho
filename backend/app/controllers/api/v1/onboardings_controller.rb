@@ -3,42 +3,37 @@ class Api::V1::OnboardingsController < ApplicationController
 
   def create
     ActiveRecord::Base.transaction do
-      current_user.update!(currency: params[:user][:currency], locale: params[:user][:locale])
+      current_user.update!(user_params)
 
       wallet = current_user.wallets.create!(
-        name: params[:wallet][:name],
-        wallet_type: "checking",
-        balance: 0
+        wallet_params.merge(wallet_type: "debit", currency: current_user.currency)
       )
 
-      if params[:wallet][:balance].to_f > 0
+      if wallet_params[:balance].to_f > 0
         current_user.transactions.create!(
           wallet: wallet,
-          amount: params[:wallet][:balance],
+          amount: wallet_params[:balance],
           kind: "income",
           status: "completed",
-          category: initial_balance_category(current_user), # ou string "Saldo inicial"
+          category: initial_balance_category,
           description: I18n.t("transactions.initial_balance", default: "Saldo inicial"),
           transaction_date: Date.current
         )
       end
 
-      if params[:card].present?
+      if card_params.present?
         current_user.wallets.create!(
-          name: params[:card][:nickname],
+          name: card_params[:nickname],
           wallet_type: "credit",
-          last4: params[:card][:last4],
-          limit: params[:card][:limit],
-          balance: 0
+          last4: card_params[:last4],
+          limit: card_params[:limit],
+          balance: 0,
+          currency: current_user.currency
         )
       end
 
-      if params[:goal].present?
-        current_user.goals.create!(
-          name: params[:goal][:name],
-          target_amount: params[:goal][:target_amount],
-          target_date: params[:goal][:target_date]
-        )
+      if goal_params.present?
+        current_user.goals.create!(goal_params)
       end
     end
 
@@ -47,8 +42,8 @@ class Api::V1::OnboardingsController < ApplicationController
 
   private
 
-  def initial_balance_category(user)
-    user.categories.find_or_create_by!(name: "Saldo inicial", kind: "income")
+  def initial_balance_category
+    current_user.categories.find_or_create_by!(name: "Saldo inicial", kind: "income")
   end
 
   def user_params
@@ -57,16 +52,13 @@ class Api::V1::OnboardingsController < ApplicationController
 
   def wallet_params
     params.require(:wallet).permit(:name, :balance)
-          .merge(wallet_type: "checking", currency:
-          current_user.currency)
   end
 
   def card_params
-    params.fetch(:card, {}).permit(:nickname, :last4,:limit)
+    params.fetch(:card, {}).permit(:nickname, :last4, :limit)
   end
 
   def goal_params
-    params.fetch(:goal, {}).permit(:name,
-    :target_amount, :target_date)
+    params.fetch(:goal, {}).permit(:name, :target_amount, :target_date)
   end
 end
