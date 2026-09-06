@@ -20,8 +20,8 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { toast } from "sonner";
-
-// TODO: Add data to the backend and fetch it from there instead of using mock data. For now, we are using mock data.
+import { createWallet } from "../../api/wallets";
+import type { WalletType } from "../../types/wallet";
 
 const colors = [
   "#2563EB",
@@ -38,11 +38,15 @@ export default function NewWalletPage() {
   const { t, locale } = useI18n();
   const navigate = useNavigate();
   const pt = locale === "pt";
-  const [type, setType] = useState<
-    "credit" | "debit" | "cash" | "savings" | "investment"
-  >("credit");
+
+  const [type, setType] = useState<WalletType>("credit");
   const [color, setColor] = useState(colors[0]);
   const [name, setName] = useState("");
+  const [balance, setBalance] = useState("");
+  const [limit, setLimit] = useState("");
+  const [last4, setLast4] = useState("");
+  const [currency, setCurrency] = useState(pt ? "BRL" : "USD");
+  const [saving, setSaving] = useState(false);
 
   const types = [
     {
@@ -60,17 +64,39 @@ export default function NewWalletPage() {
     },
   ] as const;
 
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setSaving(true);
+    try {
+      await createWallet({
+        name,
+        wallet_type: type,
+        balance: Number(balance.replace(",", ".")) || 0,
+        limit:
+          type === "credit"
+            ? Number(limit.replace(",", ".")) || undefined
+            : undefined,
+        last4: last4 || undefined,
+        color,
+      });
+      toast.success(pt ? "Carteira criada" : "Wallet created", {
+        description: name,
+      });
+      navigate("/app/wallets");
+    } catch (error) {
+      console.error(error);
+      toast.error(
+        pt
+          ? "Não foi possível criar a carteira."
+          : "Could not create the wallet.",
+      );
+    } finally {
+      setSaving(false);
+    }
+  }
+
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        toast.success(pt ? "Carteira criada" : "Wallet created", {
-          description: name,
-        });
-        navigate("/app/wallets");
-      }}
-      className="mx-auto max-w-2xl space-y-6"
-    >
+    <form onSubmit={handleSubmit} className="mx-auto max-w-2xl space-y-6">
       <div className="flex items-center gap-3">
         <Button
           asChild
@@ -104,7 +130,7 @@ export default function NewWalletPage() {
         <div className="mt-6 text-xl font-semibold">
           {name || (pt ? "Nome da carteira" : "Wallet name")}
         </div>
-        <div className="mt-1 text-sm opacity-80">•••• 0000</div>
+        <div className="mt-1 text-sm opacity-80">•••• {last4 || "0000"}</div>
       </div>
 
       <div className="card-elevated space-y-6 p-6">
@@ -153,6 +179,8 @@ export default function NewWalletPage() {
               id="balance"
               inputMode="decimal"
               placeholder="0.00"
+              value={balance}
+              onChange={(e) => setBalance(e.target.value)}
               className="h-11 rounded-xl"
             />
           </div>
@@ -163,6 +191,8 @@ export default function NewWalletPage() {
                 id="limit"
                 inputMode="decimal"
                 placeholder="5000"
+                value={limit}
+                onChange={(e) => setLimit(e.target.value)}
                 className="h-11 rounded-xl"
               />
             </div>
@@ -177,13 +207,15 @@ export default function NewWalletPage() {
                 inputMode="numeric"
                 maxLength={4}
                 placeholder="1234"
+                value={last4}
+                onChange={(e) => setLast4(e.target.value)}
                 className="h-11 rounded-xl"
               />
             </div>
           )}
           <div className="space-y-2">
             <Label>{pt ? "Moeda" : "Currency"}</Label>
-            <Select defaultValue={pt ? "BRL" : "USD"}>
+            <Select value={currency} onValueChange={setCurrency}>
               <SelectTrigger className="h-11 rounded-xl">
                 <SelectValue />
               </SelectTrigger>
@@ -217,8 +249,12 @@ export default function NewWalletPage() {
         <Button asChild variant="outline" className="h-11 rounded-xl sm:w-40">
           <Link to="/app/wallets">{t("common.cancel")}</Link>
         </Button>
-        <Button type="submit" className="h-11 rounded-xl sm:w-48">
-          {t("common.save")}
+        <Button
+          type="submit"
+          disabled={saving}
+          className="h-11 rounded-xl sm:w-48"
+        >
+          {saving ? (pt ? "Salvando…" : "Saving…") : t("common.save")}
         </Button>
       </div>
     </form>
