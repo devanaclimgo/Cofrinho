@@ -1,6 +1,5 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useI18n } from "../../i18n/I18nContext";
-import { wallets } from "../../lib/mock-data";
 import { Button } from "../../components/ui/button";
 import {
   CreditCard,
@@ -9,10 +8,19 @@ import {
   Landmark,
   TrendingUp,
   Plus,
-  MoreHorizontal,
+  MoreVertical,
+  Pencil,
+  Trash2,
 } from "lucide-react";
-
-// TODO: Add data to the backend and fetch it from there instead of using mock data. For now, we are using mock data.
+import { useEffect, useState } from "react";
+import type { Wallet } from "../../types/wallet";
+import { getWallets, deleteWallet } from "../../api/wallets";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../../components/ui/dropdown-menu";
 
 const iconFor = (t: string) =>
   t === "credit"
@@ -27,6 +35,67 @@ const iconFor = (t: string) =>
 
 export default function WalletsPage() {
   const { t, formatCurrency, locale } = useI18n();
+  const navigate = useNavigate();
+  const [wallets, setWallets] = useState<Wallet[]>([]);
+  const [, setLoading] = useState(true);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+
+  useEffect(() => {
+    getWallets()
+      .then((response) => setWallets(response.data))
+      .finally(() => setLoading(false));
+  }, []);
+
+  async function handleDelete(id: string) {
+    const confirmed = window.confirm(t("wallets.confirmDelete"));
+    if (!confirmed) return;
+
+    setDeletingId(id);
+    try {
+      await deleteWallet(id);
+      setWallets((prev) => prev.filter((w) => w.id !== id));
+    } catch (error) {
+      console.error(error);
+      window.alert(t("wallets.deleteFailed"));
+    } finally {
+      setDeletingId(null);
+    }
+  }
+
+  function handleEdit(id: string) {
+    navigate(`/app/wallets/${id}/edit`);
+  }
+
+  function renderActions(w: Wallet) {
+    return (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8 rounded-lg"
+            disabled={deletingId === w.id}
+          >
+            <MoreVertical className="h-4 w-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuItem onClick={() => handleEdit(w.id)}>
+            <Pencil className="mr-2 h-4 w-4" />
+            {locale === "pt" ? "Editar" : "Edit"}
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => handleDelete(w.id)}
+            className="text-destructive focus:text-destructive"
+          >
+            <Trash2 className="mr-2 h-4 w-4" />
+            {locale === "pt" ? "Excluir" : "Delete"}
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    );
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex items-end justify-between gap-4">
@@ -50,7 +119,7 @@ export default function WalletsPage() {
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {wallets.map((w) => {
-          const Icon = iconFor(w.type);
+          const Icon = iconFor(w.wallet_type);
           const pct = w.limit ? Math.round((w.balance / w.limit) * 100) : null;
           return (
             <div
@@ -68,12 +137,8 @@ export default function WalletsPage() {
                 >
                   <Icon className="h-5 w-5" />
                 </span>
-                <button
-                  className="rounded-lg p-1 text-muted-foreground hover:bg-muted"
-                  aria-label="Options"
-                >
-                  <MoreHorizontal className="h-4 w-4" />
-                </button>
+
+                {renderActions(w)}
               </div>
               <div className="mt-6">
                 <div className="text-xs uppercase tracking-wider text-muted-foreground">
@@ -83,7 +148,7 @@ export default function WalletsPage() {
                   {formatCurrency(w.balance)}
                 </div>
                 <div className="text-xs text-muted-foreground">
-                  {w.type}
+                  {w.wallet_type}
                   {w.last4 ? ` · •• ${w.last4}` : ""}
                 </div>
               </div>
