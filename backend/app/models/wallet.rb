@@ -3,5 +3,5 @@ class Wallet < ApplicationRecord
   has_many :transactions, dependent: :nullify
 
   validates :name, presence: true
-  validates :wallet_type, inclusion: { in: %w[debit cash savings investment credit limit] }
+  validates :wallet_type, inclusion: { in: %w[debit cash savings investment credit] }
 end
