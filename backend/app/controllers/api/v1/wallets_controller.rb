@@ -42,7 +42,7 @@ class Api::V1::WalletsController < ApplicationController
 
   def wallet_params
     params.require(:wallet).permit(
-      :name, :wallet_type, :balance, :limit, :last4, :color
+      :name, :wallet_type, :balance, :credit_limit, :last4, :color
     )
   end
 end
