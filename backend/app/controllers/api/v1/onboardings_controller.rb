@@ -26,7 +26,7 @@ class Api::V1::OnboardingsController < ApplicationController
           name: card_params[:nickname],
           wallet_type: "credit",
           last4: card_params[:last4],
-          limit: card_params[:limit],
+          credit_limit: card_params[:limit],
           balance: 0,
           currency: current_user.currency
         )
