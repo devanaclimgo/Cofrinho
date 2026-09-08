@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_04_144408) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_08_144337) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -89,6 +89,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_04_144408) do
     t.decimal "amount", precision: 10, scale: 2
     t.bigint "card_id"
     t.string "category"
+    t.bigint "category_id"
     t.datetime "created_at", null: false
     t.string "description"
     t.string "icon"
@@ -99,6 +100,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_04_144408) do
     t.bigint "user_id", null: false
     t.bigint "wallet_id", null: false
     t.index ["card_id"], name: "index_transactions_on_card_id"
+    t.index ["category_id"], name: "index_transactions_on_category_id"
     t.index ["user_id"], name: "index_transactions_on_user_id"
     t.index ["wallet_id"], name: "index_transactions_on_wallet_id"
   end
@@ -153,6 +155,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_04_144408) do
   add_foreign_key "categories", "users"
   add_foreign_key "goals", "users"
   add_foreign_key "profiles", "users"
+  add_foreign_key "transactions", "categories"
   add_foreign_key "transactions", "wallets"
   add_foreign_key "wallets", "users"
   add_foreign_key "wishlists", "users"
