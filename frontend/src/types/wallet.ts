@@ -5,7 +5,7 @@ export type Wallet = {
   name: string;
   wallet_type: WalletType;
   balance: number;
-  limit?: number;
+  credit_limit?: number;
   used?: number;
   last4?: string;
   color?: string;
@@ -18,7 +18,7 @@ export const wallets: Wallet[] = [
     name: "Nubank",
     wallet_type: "credit",
     balance: 0,
-    limit: 8000,
+    credit_limit: 8000,
     used: 2340,
     color: "#8B5CF6",
     icon: "credit-card",
@@ -60,7 +60,7 @@ export const wallets: Wallet[] = [
     name: "Inter",
     wallet_type: "credit",
     balance: 0,
-    limit: 5000,
+    credit_limit: 5000,
     used: 780,
     color: "#F97316",
     icon: "credit-card",
