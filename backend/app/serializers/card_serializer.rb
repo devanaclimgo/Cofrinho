@@ -5,7 +5,7 @@ class CardSerializer
     :id,
     :name,
     :color,
-    :limit,
+    :credit_limit,
     :closing_day,
     :due_day
   )
