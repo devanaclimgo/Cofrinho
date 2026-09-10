@@ -314,35 +314,35 @@ export default function DashboardPage() {
           </div>
           <ul className="divide-y divide-border">
             {data.transactions.slice(0, 6).map((tx) => (
-              <li key={tx.id} className="flex items-center gap-3 py-3">
+              <li key={tx.description} className="flex items-center gap-3 py-3">
                 <span
                   className={`grid h-9 w-9 place-items-center rounded-lg ${
-                    tx.type === "income"
+                    tx.kind === "income"
                       ? "bg-success/10 text-success"
                       : "bg-destructive/10 text-destructive"
                   }`}
                 >
-                  {tx.type === "income" ? (
+                  {tx.kind === "income" ? (
                     <ArrowDownRight className="h-4 w-4" />
                   ) : (
                     <ArrowUpRight className="h-4 w-4" />
                   )}
                 </span>
                 <div className="min-w-0 flex-1">
-                  <div className="truncate text-sm font-medium">{tx.title}</div>
+                  <div className="truncate text-sm font-medium">{tx.description}</div>
                   <div className="truncate text-xs text-muted-foreground">
-                    {tx.category} · {tx.wallet}
+                    {tx.category_id} · {tx.wallet_id}
                   </div>
                 </div>
                 <div className="text-right">
                   <div
-                    className={`text-sm font-semibold ${tx.type === "income" ? "text-success" : "text-foreground"}`}
+                    className={`text-sm font-semibold ${tx.kind === "income" ? "text-success" : "text-foreground"}`}
                   >
-                    {tx.type === "income" ? "+" : ""}
+                    {tx.kind === "income" ? "+" : ""}
                     {formatCurrency(Math.abs(tx.amount))}
                   </div>
                   <div className="text-[11px] text-muted-foreground">
-                    {new Date(tx.date).toLocaleDateString(
+                    {new Date(tx.transaction_date).toLocaleDateString(
                       locale === "pt" ? "pt-BR" : "en-US",
                       { day: "2-digit", month: "short" },
                     )}
