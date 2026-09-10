@@ -14,16 +14,27 @@ import {
 } from "../../components/ui/select";
 import { ArrowDownRight, ArrowLeft, ArrowUpRight } from "lucide-react";
 import { toast } from "sonner";
-import {
-  createTransaction,
-  type TransactionKind,
-  type TransactionStatus,
-} from "../../api/transactions";
+import { createTransaction } from "../../api/transactions";
+import { type TransactionKind, type TransactionStatus } from "../../types/transaction";
 
 const expenseCats = [
-  "Food", "Rent", "Leisure", "Health", "Transport", "Shopping", "Bills", "Other",
+  "Food",
+  "Rent",
+  "Leisure",
+  "Health",
+  "Transport",
+  "Shopping",
+  "Bills",
+  "Other",
 ];
-const incomeCats = ["Salary", "Freelance", "Investments", "Refund", "Gift", "Other"];
+const incomeCats = [
+  "Salary",
+  "Freelance",
+  "Investments",
+  "Refund",
+  "Gift",
+  "Other",
+];
 
 const TYPE_CONFIG = {
   income: {
@@ -66,8 +77,8 @@ export default function NewTransactionPage() {
       await createTransaction({
         amount: value,
         description: title,
-        category,
         wallet_id: walletId,
+        category_id: cats.indexOf(category) + 1,
         kind,
         status,
         transaction_date: date,
@@ -82,7 +93,11 @@ export default function NewTransactionPage() {
       navigate("/app/transactions");
     } catch (error) {
       console.error(error);
-      toast.error(pt ? "Não foi possível salvar a transação." : "Could not save the transaction.");
+      toast.error(
+        pt
+          ? "Não foi possível salvar a transação."
+          : "Could not save the transaction.",
+      );
     } finally {
       setSaving(false);
     }
@@ -91,7 +106,12 @@ export default function NewTransactionPage() {
   return (
     <form onSubmit={handleSubmit} className="mx-auto max-w-2xl space-y-6">
       <div className="flex items-center gap-3">
-        <Button asChild variant="ghost" size="icon" className="h-9 w-9 rounded-xl">
+        <Button
+          asChild
+          variant="ghost"
+          size="icon"
+          className="h-9 w-9 rounded-xl"
+        >
           <Link to="/app/transactions" aria-label={t("common.cancel")}>
             <ArrowLeft className="h-4 w-4" />
           </Link>
@@ -101,7 +121,9 @@ export default function NewTransactionPage() {
             {pt ? "Nova transação" : "New transaction"}
           </h2>
           <p className="text-sm text-muted-foreground">
-            {pt ? "Registre uma receita ou despesa" : "Record an income or expense"}
+            {pt
+              ? "Registre uma receita ou despesa"
+              : "Record an income or expense"}
           </p>
         </div>
       </div>
@@ -124,12 +146,18 @@ export default function NewTransactionPage() {
                   active ? cfg.activeBorder : "border-border hover:bg-muted/60"
                 }`}
               >
-                <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-muted ${cfg.tone}`}>
+                <span
+                  className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-muted ${cfg.tone}`}
+                >
                   <Icon className="h-4 w-4" />
                 </span>
                 <span>
-                  <span className="block text-sm font-semibold">{cfg.label[pt ? "pt" : "en"]}</span>
-                  <span className="hidden text-xs text-muted-foreground sm:block">{cfg.sub[pt ? "pt" : "en"]}</span>
+                  <span className="block text-sm font-semibold">
+                    {cfg.label[pt ? "pt" : "en"]}
+                  </span>
+                  <span className="hidden text-xs text-muted-foreground sm:block">
+                    {cfg.sub[pt ? "pt" : "en"]}
+                  </span>
                 </span>
               </button>
             );
@@ -209,14 +237,23 @@ export default function NewTransactionPage() {
           </div>
           <div className="space-y-2">
             <Label>{t("common.status")}</Label>
-            <Select value={status} onValueChange={(v) => setStatus(v as TransactionStatus)}>
+            <Select
+              value={status}
+              onValueChange={(v) => setStatus(v as TransactionStatus)}
+            >
               <SelectTrigger className="h-11 rounded-xl">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="completed">{t("transactions.completed")}</SelectItem>
-                <SelectItem value="pending">{t("transactions.pending")}</SelectItem>
-                <SelectItem value="scheduled">{pt ? "Agendada" : "Scheduled"}</SelectItem>
+                <SelectItem value="completed">
+                  {t("transactions.completed")}
+                </SelectItem>
+                <SelectItem value="pending">
+                  {t("transactions.pending")}
+                </SelectItem>
+                <SelectItem value="scheduled">
+                  {pt ? "Agendada" : "Scheduled"}
+                </SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -227,7 +264,11 @@ export default function NewTransactionPage() {
         <Button asChild variant="outline" className="h-11 rounded-xl sm:w-40">
           <Link to="/app/transactions">{t("common.cancel")}</Link>
         </Button>
-        <Button type="submit" disabled={saving} className="h-11 rounded-xl sm:w-48">
+        <Button
+          type="submit"
+          disabled={saving}
+          className="h-11 rounded-xl sm:w-48"
+        >
           {saving ? (pt ? "Salvando…" : "Saving…") : t("common.save")}
         </Button>
       </div>
