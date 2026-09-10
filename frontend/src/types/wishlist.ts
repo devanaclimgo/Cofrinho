@@ -7,7 +7,7 @@ export interface WishlistItem {
   price: number;
   image: string | null;
   desired_date: string;
-  verdict: WishlistVerdict | null;
+  verdict: WishlistVerdict;
   created_at: string;
   updated_at: string;
 }
