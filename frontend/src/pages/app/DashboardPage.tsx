@@ -38,7 +38,6 @@ export default function DashboardPage() {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  // TODO: Add data to the backend and fetch it from there instead of using mock data. For now, we are using mock data.
   // TODO: Add a way to refresh the dashboard data.
   // TODO: Add a way to filter the dashboard data by date range.
 
