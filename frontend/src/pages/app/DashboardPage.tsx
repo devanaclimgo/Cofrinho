@@ -41,6 +41,12 @@ export default function DashboardPage() {
   // TODO: Add a way to refresh the dashboard data.
   // TODO: Add a way to filter the dashboard data by date range.
 
+  // TODO: Add a way to change the locale and currency on all values.
+  // TODO: test transactions (add, edit, delete) and see if the dashboard updates correctly.
+  // TODO: test wishlist (add, edit, delete) and see if the dashboard updates correctly.
+  // TODO: test wallets (add, edit, delete) and see if the dashboard updates correctly.
+  // TODO: test goals (add, edit, delete) and see if the dashboard updates correctly.
+
   const firstName = user?.name?.split(" ")[0];
 
   if (isLoading) {
