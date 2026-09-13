@@ -311,6 +311,12 @@ export const translations = {
     "settings.deleteSuccess": "Sua conta foi excluída com sucesso.",
     "settings.deleteError":
       "Houve um erro ao excluir sua conta. Por favor, tente novamente mais tarde.",
+    "settings.adjust": "Ajuste o Cofrinho ao seu jeito",
+    "settings.mode": "Claro, escuro ou automático",
+    "settings.recommend": "Recomendações de compra",
+    "settings.bills": "Contas próximas",
+    "settings.goals": "Progresso de metas",
+    "settings.reports": "Relatórios mensais",
 
     "onb.welcome.title": "Bem-vindo ao Cofrinho",
     "onb.welcome.desc":
@@ -662,6 +668,12 @@ export const translations = {
     "settings.deleteSuccess": "Your account has been successfully deleted.",
     "settings.deleteError":
       "There was an error deleting your account. Please try again later.",
+    "settings.adjust": "Tune Cofrinho to your taste",
+    "settings.mode": "Light, dark or system",
+    "settings.recommend": "Purchase recommendations",
+    "settings.bills": "Upcoming bills",
+    "settings.goals": "Goal progress",
+    "settings.reports": "Monthly reports",
 
     "onb.welcome.title": "Welcome to Cofrinho",
     "onb.welcome.desc": "Let's set up your experience in under 2 minutes.",
