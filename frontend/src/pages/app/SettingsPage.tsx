@@ -59,6 +59,7 @@ export default function SettingsPage() {
             <Label>{t("auth.name")}</Label>
             <Input
               defaultValue={user?.name}
+              disabled={loading}
               className="mt-1 h-11 rounded-xl"
             />
           </div>
@@ -66,6 +67,7 @@ export default function SettingsPage() {
             <Label>{t("auth.email")}</Label>
             <Input
               defaultValue={user?.email}
+              disabled={loading}
               className="mt-1 h-11 rounded-xl"
             />
           </div>
