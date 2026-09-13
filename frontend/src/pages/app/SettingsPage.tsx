@@ -65,7 +65,7 @@ export default function SettingsPage() {
           <div>
             <Label>{t("auth.email")}</Label>
             <Input
-              defaultValue="maria@example.com"
+              defaultValue={user?.email}
               className="mt-1 h-11 rounded-xl"
             />
           </div>
