@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { ThemeProvider } from "../../lib/ThemeContext";
+import { ThemeProvider } from "../../contexts/ThemeContext";
 import { I18nProvider, useI18n } from "../../i18n/I18nContext";
 
 export default function NotFoundComponent() {
