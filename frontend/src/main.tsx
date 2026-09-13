@@ -3,9 +3,9 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import "./style.css";
 import { App } from "./App";
-import { ThemeProvider } from "./lib/ThemeContext";
+import { ThemeProvider } from "./contexts/ThemeContext";
 import { I18nProvider } from "./i18n/I18nContext";
-import { AppStateProvider } from "./lib/AppStateContext";
+import { AppStateProvider } from "./contexts/AppStateContext";
 import { QueryProvider } from "./providers/QueryProvider";
 import { AuthProvider } from "./providers/AuthProvider";
 
