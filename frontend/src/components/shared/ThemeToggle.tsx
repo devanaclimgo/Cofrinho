@@ -1,4 +1,4 @@
-import { useTheme } from "../../lib/ThemeContext"
+import { useTheme } from "../../contexts/ThemeContext";
 import { Button } from "../../components/ui/button";
 import { Moon, Sun, Monitor } from "lucide-react";
 import {
@@ -13,8 +13,17 @@ export function ThemeToggle() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" aria-label="Toggle theme" className="h-9 w-9 rounded-xl">
-          {resolved === "dark" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+        <Button
+          variant="ghost"
+          size="icon"
+          aria-label="Toggle theme"
+          className="h-9 w-9 rounded-xl"
+        >
+          {resolved === "dark" ? (
+            <Moon className="h-4 w-4" />
+          ) : (
+            <Sun className="h-4 w-4" />
+          )}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-40 rounded-xl">
