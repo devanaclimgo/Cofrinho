@@ -11,11 +11,12 @@ import { useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
 
 export default function SettingsPage() {
-  const { t, locale } = useI18n();
+  const { t } = useI18n();
   const { deleteAccount } = useAuth();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const handleDeleteAccount = async () => {
     const confirmmDelete = window.confirm(t("settings.deleteConfirm"));
@@ -47,9 +48,7 @@ export default function SettingsPage() {
           {t("settings.title")}
         </h2>
         <p className="text-sm text-muted-foreground">
-          {locale === "pt"
-            ? "Ajuste o Cofrinho ao seu jeito"
-            : "Tune Cofrinho to your taste"}
+          {t("settings.adjust")}
         </p>
       </div>
 
@@ -59,7 +58,7 @@ export default function SettingsPage() {
           <div>
             <Label>{t("auth.name")}</Label>
             <Input
-              defaultValue="Maria Almeida"
+              defaultValue={user?.name}
               className="mt-1 h-11 rounded-xl"
             />
           </div>
@@ -90,9 +89,7 @@ export default function SettingsPage() {
           <div>
             <div className="text-sm font-medium">{t("settings.theme")}</div>
             <div className="text-xs text-muted-foreground">
-              {locale === "pt"
-                ? "Claro, escuro ou automático"
-                : "Light, dark or system"}
+              {t("settings.mode")}
             </div>
           </div>
           <ThemeToggle />
@@ -110,12 +107,10 @@ export default function SettingsPage() {
         <h3 className="text-sm font-semibold">{t("settings.notifications")}</h3>
         <div className="mt-4 space-y-3">
           {[
-            locale === "pt"
-              ? "Recomendações de compra"
-              : "Purchase recommendations",
-            locale === "pt" ? "Contas próximas" : "Upcoming bills",
-            locale === "pt" ? "Progresso de metas" : "Goal progress",
-            locale === "pt" ? "Relatórios mensais" : "Monthly reports",
+            t("settings.recommend"),
+            t("settings.bills"),
+            t("settings.goals"),
+            t("settings.reports"),
           ].map((l, i) => (
             <div
               key={l}
