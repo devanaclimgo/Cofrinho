@@ -17,6 +17,8 @@ export default function SettingsPage() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const { user } = useAuth();
+  const [name, setName] = useState(user?.name ?? "");
+  const [email, setEmail] = useState(user?.email ?? "");
 
   const handleDeleteAccount = async () => {
     const confirmmDelete = window.confirm(t("settings.deleteConfirm"));
@@ -47,9 +49,7 @@ export default function SettingsPage() {
         <h2 className="text-2xl font-semibold tracking-tight">
           {t("settings.title")}
         </h2>
-        <p className="text-sm text-muted-foreground">
-          {t("settings.adjust")}
-        </p>
+        <p className="text-sm text-muted-foreground">{t("settings.adjust")}</p>
       </div>
 
       <section className="card-elevated p-6">
@@ -58,7 +58,7 @@ export default function SettingsPage() {
           <div>
             <Label>{t("auth.name")}</Label>
             <Input
-              defaultValue={user?.name}
+              value={name} onChange={(e) => setName(e.target.value)}
               disabled={loading}
               className="mt-1 h-11 rounded-xl"
             />
@@ -66,7 +66,7 @@ export default function SettingsPage() {
           <div>
             <Label>{t("auth.email")}</Label>
             <Input
-              defaultValue={user?.email}
+              value={email} onChange={(e) => setEmail(e.target.value)}
               disabled={loading}
               className="mt-1 h-11 rounded-xl"
             />
