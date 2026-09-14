@@ -16,8 +16,6 @@ Rails.application.routes.draw do
   
   namespace :api do
     namespace :v1 do
-
-      resources :users, only: [:create, :update, :destroy]
       
       resources :transactions
       resources :cards
@@ -32,6 +30,7 @@ Rails.application.routes.draw do
       to: "simulations#create"
 
       get :me, to: "users#me"
+      patch :me, to: "users#update"
       delete :delete_account, to: "profiles#destroy"
     end
   end
