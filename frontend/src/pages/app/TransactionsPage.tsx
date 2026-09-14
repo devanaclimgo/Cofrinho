@@ -32,7 +32,7 @@ import { getTransactions, deleteTransaction } from "../../api/transactions";
 import type { TransactionResponse } from "../../types/transaction";
 
 export default function TransactionsPage() {
-  const { t, formatCurrency, locale } = useI18n();
+  const { t, formatCurrency } = useI18n();
   const navigate = useNavigate();
   const [transactions, setTransactions] = useState<TransactionResponse[]>([]);
   const [, setLoading] = useState(true);
@@ -80,14 +80,14 @@ export default function TransactionsPage() {
         <DropdownMenuContent align="end">
           <DropdownMenuItem onClick={() => handleEdit(tx.id)}>
             <Pencil className="mr-2 h-4 w-4" />
-            {locale === "pt" ? "Editar" : "Edit"}
+            {t("common.edit")}
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => handleDelete(tx.id)}
             className="text-destructive focus:text-destructive"
           >
             <Trash2 className="mr-2 h-4 w-4" />
-            {locale === "pt" ? "Excluir" : "Delete"}
+            {t("common.delete")}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -102,15 +102,13 @@ export default function TransactionsPage() {
             {t("sidebar.transactions")}
           </h2>
           <p className="text-sm text-muted-foreground">
-            {locale === "pt"
-              ? "Todas as suas movimentações em um só lugar"
-              : "All of your money movements in one place"}
+            {t("transactions.movement")}
           </p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" className="h-10 rounded-xl">
             <Download className="mr-2 h-4 w-4" />
-            Export
+            {t("common.export")}
           </Button>
           <Button asChild className="h-10 rounded-xl">
             <Link to="/app/transactions/new">
@@ -190,7 +188,7 @@ export default function TransactionsPage() {
               >
                 <td className="px-5 py-4 text-muted-foreground">
                   {new Date(tx.transaction_date).toLocaleDateString(
-                    locale === "pt" ? "pt-BR" : "en-US",
+                    t("common.pt-en"),
                     { day: "2-digit", month: "short" },
                   )}
                 </td>
@@ -279,7 +277,7 @@ export default function TransactionsPage() {
               </div>
               <div className="text-[11px] text-muted-foreground">
                 {new Date(tx.transaction_date).toLocaleDateString(
-                  locale === "pt" ? "pt-BR" : "en-US",
+                  t("common.pt-en"),
                   { day: "2-digit", month: "short" },
                 )}
               </div>
