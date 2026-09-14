@@ -216,6 +216,7 @@ export const translations = {
     "transactions.confirmDelete":
       "Tem certeza que quer excluir essa transação?",
     "transactions.deleteFailed": "Não foi possível excluir a transação.",
+    "transactions.movement": "Todas as suas movimentações em um só lugar",
 
     "category.food": "Alimentação",
     "category.transport": "Transporte",
@@ -344,6 +345,8 @@ export const translations = {
     "common.priority.high": "Alta",
     "common.priority.medium": "Média",
     "common.priority.low": "Baixa",
+    "common.pt-en": "pt-BR",
+    "common.export": "Exportar",
 
     "nf.title": "Parece que essa página sumiu.",
     "nf.desc": "O link pode estar quebrado ou a página foi movida.",
@@ -572,6 +575,7 @@ export const translations = {
     "transactions.confirmDelete":
       "Are you sure you want to delete this transaction?",
     "transactions.deleteFailed": "Could not delete the transaction.",
+    "transactions.movement": "All of your money movements in one place",
 
     "category.food": "Food",
     "category.transport": "Transport",
@@ -700,6 +704,8 @@ export const translations = {
     "common.priority.high": "High",
     "common.priority.medium": "Medium",
     "common.priority.low": "Low",
+    "common.pt-en": "en-US",
+    "common.export": "Export",
 
     "nf.title": "Looks like this page went missing.",
     "nf.desc": "The link may be broken or the page might have been moved.",
