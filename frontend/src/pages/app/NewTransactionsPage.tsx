@@ -19,10 +19,11 @@ import {
 import {
   getCategories,
   createCategory,
-  type Category,
 } from "../../api/categories";
-import { getWallets, type Wallet } from "../../api/wallets";
+import { getWallets } from "../../api/wallets";
 import type { TransactionKind, TransactionStatus } from "../../types/transaction";
+import type { Category } from "../../types/category";
+import type { Wallet } from "../../types/wallet";
 
 const TYPE_CONFIG = {
   income: {
@@ -91,7 +92,7 @@ export default function NewTransactionPage() {
       await createTransaction({
         amount: value,
         description: title,
-        category: Number(categoryId),
+        category_id: Number(categoryId),
         wallet_id: walletId,
         kind,
         status,
