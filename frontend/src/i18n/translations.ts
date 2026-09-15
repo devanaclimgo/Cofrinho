@@ -296,6 +296,7 @@ export const translations = {
     "notif.title": "Notificações",
     "notif.markAll": "Marcar tudo como lido",
     "notif.empty": "Você está em dia.",
+    "notif.viewAll": "Ver todas",
 
     "settings.title": "Configurações",
     "settings.profile": "Perfil",
@@ -655,6 +656,7 @@ export const translations = {
     "notif.title": "Notifications",
     "notif.markAll": "Mark all as read",
     "notif.empty": "You're all caught up.",
+    "notif.viewAll": "View all",
 
     "settings.title": "Settings",
     "settings.profile": "Profile",
