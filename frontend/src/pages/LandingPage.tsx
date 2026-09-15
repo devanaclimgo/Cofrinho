@@ -215,27 +215,21 @@ export default function Landing() {
           {[
             {
               q:
-                locale === "pt"
-                  ? "Nunca mais comprei por impulso."
-                  : "I never buy on impulse again.",
+                t("testimonials.quote1"),
               n: "Rafael M.",
-              r: locale === "pt" ? "Designer" : "Designer",
+              r: t("testimonials.designer"),
             },
             {
               q:
-                locale === "pt"
-                  ? "O simulador salvou minha viagem."
-                  : "The simulator saved my trip.",
+                t("testimonials.quote2"),
               n: "Ana P.",
-              r: locale === "pt" ? "Engenheira" : "Engineer",
+              r: t("testimonials.engineer"),
             },
             {
               q:
-                locale === "pt"
-                  ? "Finalmente entendo pra onde vai meu dinheiro."
-                  : "I finally understand where my money goes.",
+                t("testimonials.quote3"),
               n: "Kaio S.",
-              r: locale === "pt" ? "Estudante" : "Student",
+              r: t("testimonials.student"),
             },
           ].map((tst) => (
             <figure key={tst.n} className="card-elevated p-6">
@@ -271,33 +265,29 @@ export default function Landing() {
             name={t("pricing.free")}
             price={0}
             features={[
-              locale === "pt" ? "1 carteira" : "1 wallet",
-              locale === "pt"
-                ? "Transações ilimitadas"
-                : "Unlimited transactions",
-              locale === "pt" ? "Simulador básico" : "Basic simulator",
+              t("pricing.1wallet"),
+              t("pricing.unlimitedTransactions"),
+              t("pricing.basicSupport"),
             ]}
           />
           <PricingCard
             highlight
             name={t("pricing.pro")}
-            price={locale === "pt" ? 9.99 : 2}
+            price={t("pricing.value1")}
             features={[
-              locale === "pt" ? "Carteiras ilimitadas" : "Unlimited wallets",
-              locale === "pt"
-                ? "Simulador avançado com IA"
-                : "Advanced AI simulator",
-              locale === "pt" ? "Metas ilimitadas" : "Unlimited goals",
-              locale === "pt" ? "Análises detalhadas" : "Detailed analytics",
+              t("pricing.unlimitedWallets"),
+              t("pricing.advancedSimulator"),
+              t("pricing.unlimitedGoals"),
+              t("pricing.detailedAnalytics"),
             ]}
           />
           <PricingCard
             name={t("pricing.team")}
-            price={locale === "pt" ? 20.99 : 6}
+            price={t("pricing.value2")}
             features={[
-              locale === "pt" ? "Até 5 pessoas" : "Up to 5 people",
-              locale === "pt" ? "Carteiras compartilhadas" : "Shared wallets",
-              locale === "pt" ? "Relatórios familiares" : "Family reports",
+              t("pricing.upTo5People"),
+              t("pricing.sharedWallets"),
+              t("pricing.familyReports"),
             ]}
           />
         </div>
@@ -418,7 +408,7 @@ function PricingCard({
   highlight,
 }: {
   name: string;
-  price: number;
+  price: number | string;
   features: string[];
   highlight?: boolean;
 }) {
