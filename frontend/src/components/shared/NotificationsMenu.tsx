@@ -18,7 +18,7 @@ const iconMap: Record<string, any> = {
 };
 
 export function NotificationsMenu({ className = "" }: { className?: string }) {
-  const { t, locale } = useI18n();
+  const { t } = useI18n();
   const unread = notifications.filter((n) => !n.read).length;
   return (
     <Popover>
@@ -62,7 +62,7 @@ export function NotificationsMenu({ className = "" }: { className?: string }) {
         </ScrollArea>
         <div className="border-t border-border p-2">
           <Button asChild variant="ghost" className="h-9 w-full rounded-xl text-sm">
-            <Link to="/app/notifications">{locale === "pt" ? "Ver todas" : "View all"}</Link>
+            <Link to="/app/notifications">{t("notif.viewAll")}</Link>
           </Button>
         </div>
       </PopoverContent>
