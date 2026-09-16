@@ -128,15 +128,9 @@ export default function OnboardingPage() {
             >
               <ul className="mt-6 space-y-3 text-sm">
                 {[
-                  locale === "pt"
-                    ? "Simule qualquer compra antes de fazer"
-                    : "Simulate any purchase before you make it",
-                  locale === "pt"
-                    ? "Preveja seu saldo dos próximos meses"
-                    : "Forecast your balance for the next months",
-                  locale === "pt"
-                    ? "Organize metas e desejos com clareza"
-                    : "Organize goals and wishes with clarity",
+                  t("onboarding.welcome.list1"),
+                  t("onboarding.welcome.list2"),
+                  t("onboarding.welcome.list3"),
                 ].map((x) => (
                   <li key={x} className="flex items-start gap-2">
                     <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />{" "}
@@ -149,14 +143,8 @@ export default function OnboardingPage() {
           {step === 1 && (
             <StepPane
               emoji="🌍"
-              title={
-                locale === "pt" ? "Escolha seu idioma" : "Pick your language"
-              }
-              desc={
-                locale === "pt"
-                  ? "Você pode mudar depois"
-                  : "You can change it later"
-              }
+              title={t("onboarding.step1.title")}
+              desc={t("onboarding.step1.subtitle")}
             >
               <div className="mt-6 grid grid-cols-2 gap-3">
                 {(["pt", "en"] as const).map((l) => (
@@ -169,9 +157,9 @@ export default function OnboardingPage() {
                         : "border-border hover:bg-muted"
                     }`}
                   >
-                    <div className="text-2xl">{l === "pt" ? "🇧🇷" : "🇺🇸"}</div>
+                    <div className="text-2xl">{t("onboarding.flag")}</div>
                     <div className="mt-2 text-sm font-medium">
-                      {l === "pt" ? "Português (BR)" : "English (US)"}
+                      {t("onboarding.flag.subtitle")}
                     </div>
                   </button>
                 ))}
@@ -181,16 +169,8 @@ export default function OnboardingPage() {
           {step === 2 && (
             <StepPane
               emoji="💱"
-              title={
-                locale === "pt"
-                  ? "Sua moeda principal"
-                  : "Your primary currency"
-              }
-              desc={
-                locale === "pt"
-                  ? "Usada em toda a plataforma"
-                  : "Used across the platform"
-              }
+              title={t("onboarding.step2.title")}
+              desc={t("onboarding.step2.subtitle")}
             >
               <div className="mt-6 grid grid-cols-3 gap-3">
                 {(["BRL", "USD", "EUR"] as const).map((c) => (
@@ -219,19 +199,11 @@ export default function OnboardingPage() {
           {step === 3 && (
             <StepPane
               emoji="👛"
-              title={
-                locale === "pt"
-                  ? "Crie sua primeira carteira"
-                  : "Create your first wallet"
-              }
-              desc={
-                locale === "pt"
-                  ? "Uma conta ou meio de pagamento"
-                  : "An account or payment method"
-              }
+              title={t("onboarding.step3.title")}
+              desc={t("onboarding.step3.subtitle")}
             >
               <div className="mt-6 space-y-3">
-                <Label>{locale === "pt" ? "Nome" : "Name"}</Label>
+                <Label>{t("onboarding.step3.name")}</Label>
                 <Input
                   defaultValue="Conta principal"
                   className="h-11 rounded-xl"
@@ -244,12 +216,8 @@ export default function OnboardingPage() {
           {step === 4 && (
             <StepPane
               emoji="💰"
-              title={locale === "pt" ? "Saldo inicial" : "Initial balance"}
-              desc={
-                locale === "pt"
-                  ? "Quanto você tem hoje?"
-                  : "How much do you have today?"
-              }
+              title={t("onboarding.step4.title")}
+              desc={t("onboarding.step4.subtitle")}
             >
               <div className="mt-6">
                 <CurrencyInput
@@ -263,20 +231,12 @@ export default function OnboardingPage() {
           {step === 5 && (
             <StepPane
               emoji="💳"
-              title={
-                locale === "pt"
-                  ? "Adicione um cartão (opcional)"
-                  : "Add a card (optional)"
-              }
-              desc={
-                locale === "pt"
-                  ? "Para acompanhar seus gastos"
-                  : "So we can track your spend"
-              }
+              title={t("onboarding.step5.title")}
+              desc={t("onboarding.step5.subtitle")}
             >
               <div className="mt-6 space-y-3">
                 <div>
-                  <Label>{locale === "pt" ? "Apelido" : "Nickname"}</Label>
+                  <Label>{t("onboarding.step5.nickname")}</Label>
                   <Input
                     placeholder="Nubank"
                     className="mt-1 h-11 rounded-xl"
@@ -286,7 +246,7 @@ export default function OnboardingPage() {
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <Label>{locale === "pt" ? "Últimos 4" : "Last 4"}</Label>
+                    <Label>{t("onboarding.step5.number")}</Label>
                     <Input
                       placeholder="4821"
                       maxLength={4}
@@ -296,7 +256,7 @@ export default function OnboardingPage() {
                     />
                   </div>
                   <div>
-                    <Label>{locale === "pt" ? "Limite" : "Limit"}</Label>
+                    <Label>{t("onboarding.step5.limit")}</Label>
                     <CurrencyInput
                       currency="BRL"
                       value={cardLimit}
@@ -311,14 +271,8 @@ export default function OnboardingPage() {
           {step === 6 && (
             <StepPane
               emoji="📈"
-              title={
-                locale === "pt" ? "Sua renda mensal" : "Your monthly income"
-              }
-              desc={
-                locale === "pt"
-                  ? "Média das últimas semanas"
-                  : "Average of recent weeks"
-              }
+              title={t("onboarding.step6.title")}
+              desc={t("onboarding.step6.subtitle")}
             >
               <div className="mt-6">
                 <CurrencyInput
@@ -333,24 +287,14 @@ export default function OnboardingPage() {
           {step === 7 && (
             <StepPane
               emoji="🎯"
-              title={locale === "pt" ? "Sua primeira meta" : "Your first goal"}
-              desc={
-                locale === "pt"
-                  ? "Vamos ajudar a alcançar!"
-                  : "Let's help you get there!"
-              }
+              title={t("onboarding.step7.title")}
+              desc={t("onboarding.step7.subtitle")}
             >
               <div className="mt-6 space-y-3">
                 <div>
-                  <Label>
-                    {locale === "pt" ? "Nome da meta" : "Goal name"}
-                  </Label>
+                  <Label>{t("onboarding.step7.name")}</Label>
                   <Input
-                    placeholder={
-                      locale === "pt"
-                        ? "Reserva de emergência"
-                        : "Emergency fund"
-                    }
+                    placeholder={t("onboarding.step7.fund")}
                     className="mt-1 h-11 rounded-xl"
                     value={goalName}
                     onChange={(e) => setGoalName(e.target.value)}
@@ -358,7 +302,7 @@ export default function OnboardingPage() {
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <Label>{locale === "pt" ? "Valor alvo" : "Target"}</Label>
+                    <Label>{t("onboarding.step7.target")}</Label>
                     <CurrencyInput
                       currency="BRL"
                       value={goal}
@@ -367,9 +311,7 @@ export default function OnboardingPage() {
                     />
                   </div>
                   <div>
-                    <Label>
-                      {locale === "pt" ? "Até quando" : "Target date"}
-                    </Label>
+                    <Label>{t("onboarding.step7.targetDate")}</Label>
                     <Input
                       type="month"
                       className="mt-1 h-11 rounded-xl"
@@ -384,17 +326,11 @@ export default function OnboardingPage() {
           {step === 8 && (
             <StepPane
               emoji="🎉"
-              title={locale === "pt" ? "Tudo pronto!" : "All set!"}
-              desc={
-                locale === "pt"
-                  ? "Bem-vindo ao Cofrinho."
-                  : "Welcome to Cofrinho."
-              }
+              title={t("onboarding.step8.title")}
+              desc={t("onboarding.step8.subtitle")}
             >
               <div className="mt-6 rounded-2xl bg-primary/5 p-4 text-sm text-foreground">
-                {locale === "pt"
-                  ? "Vamos abrir seu painel e mostrar um rápido tour dos recursos."
-                  : "We'll open your dashboard and give you a quick tour of the features."}
+                {t("onboarding.step8.open")}
               </div>
             </StepPane>
           )}
@@ -418,9 +354,7 @@ export default function OnboardingPage() {
                 className="h-11 rounded-xl px-6"
               >
                 {submitting
-                  ? locale === "pt"
-                    ? "Salvando..."
-                    : "Saving..."
+                  ? t("onboarding.save")
                   : step === steps.length - 1
                     ? t("onb.finish")
                     : t("onb.next")}
