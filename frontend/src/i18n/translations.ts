@@ -194,8 +194,9 @@ export const translations = {
     "tour.goals.desc": "Defina objetivos e acompanhe seu progresso.",
 
     // Dashboard
-    "dashboard.greeting": "Olá",
+    "dashboard.greeting": "Bom dia,",
     "dashboard.subtitle": "Aqui está o resumo das suas finanças hoje.",
+    "dashboard.snapshot": "Aqui está seu resumo",
     "dashboard.balance": "Saldo atual",
     "dashboard.income": "Receita mensal",
     "dashboard.expenses": "Despesas mensais",
@@ -217,6 +218,12 @@ export const translations = {
     "dashboard.monthlyForecast": "Previsão mensal",
     "dashboard.forecastDesc": "Projeção do seu saldo nos próximos meses",
     "dashboard.vsLastMonth": "vs. mês anterior",
+    "dashboard.projection": "Projeção para os próximos 12 meses",
+    "dashboard.basedOn": "Baseado em 12 sinais",
+    "dashboard.emergencyFund": "Reserva de emergência",
+    "dashboard.spendControl": "Controle de gastos",
+    "dashboard.diversification": "Diversificação",
+    "dashboard.language": "pt-BR",
 
     // Wallets
     "wallets.title": "Carteiras",
@@ -606,8 +613,9 @@ export const translations = {
     "tour.goals.desc": "Set objectives and track your progress.",
 
     // Dashboard
-    "dashboard.greeting": "Hello",
+    "dashboard.greeting": "Good morning,",
     "dashboard.subtitle": "Here's a summary of your finances today.",
+    "dashboard.snapshot": "Here's your snapshot",
     "dashboard.balance": "Current balance",
     "dashboard.income": "Monthly income",
     "dashboard.expenses": "Monthly expenses",
@@ -630,6 +638,12 @@ export const translations = {
     "dashboard.forecastDesc":
       "Projection of your balance over the coming months",
     "dashboard.vsLastMonth": "vs. last month",
+    "dashboard.projection": "Projection for the next 12 months",
+    "dashboard.basedOn": "Based on 12 signals",
+    "dashboard.emergencyFund": "Emergency fund",
+    "dashboard.spendControl": "Spend control",
+    "dashboard.diversification": "Diversification",
+    "dashboard.language": "en-US",
 
     // Wallets
     "wallets.title": "Wallets",
