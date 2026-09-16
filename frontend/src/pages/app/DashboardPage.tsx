@@ -33,7 +33,7 @@ import LoadingState from "./LoadingState";
 import ErrorState from "./ErrorState";
 
 export default function DashboardPage() {
-  const { t, formatCurrency, locale } = useI18n();
+  const { t, formatCurrency } = useI18n();
   const { data, isLoading, error, refetch } = useDashboard();
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -67,13 +67,10 @@ export default function DashboardPage() {
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div>
           <p className="text-sm text-muted-foreground">
-            {locale === "pt"
-              ? `Bom dia, ${firstName}`
-              : `Good morning, ${firstName}`}{" "}
-            👋
+            {t("dashboard.greeting")} {firstName} 👋
           </p>
           <h2 className="mt-1 text-2xl font-semibold tracking-tight sm:text-3xl">
-            {locale === "pt" ? "Aqui está seu resumo" : "Here's your snapshot"}
+            {t("dashboard.snapshot")}
           </h2>
         </div>
         <div className="hidden gap-2 sm:flex">
@@ -135,9 +132,7 @@ export default function DashboardPage() {
             <div>
               <h3 className="text-sm font-semibold">{t("dash.forecast")}</h3>
               <p className="text-xs text-muted-foreground">
-                {locale === "pt"
-                  ? "Projeção para os próximos 12 meses"
-                  : "Projection for the next 12 months"}
+                {t("dashboard.projection")}
               </p>
             </div>
             <div className="flex gap-1 text-xs">
@@ -217,9 +212,7 @@ export default function DashboardPage() {
             <div>
               <h3 className="text-sm font-semibold">{t("dash.health")}</h3>
               <p className="text-xs text-muted-foreground">
-                {locale === "pt"
-                  ? "Baseado em 12 sinais"
-                  : "Based on 12 signals"}
+                {t("dashboard.basedOn")}
               </p>
             </div>
             <Activity className="h-4 w-4 text-primary" />
@@ -228,15 +221,15 @@ export default function DashboardPage() {
           <div className="mt-4 space-y-2">
             {[
               {
-                l: locale === "pt" ? "Reserva de emergência" : "Emergency fund",
+                l: t("dashboard.emergencyFund"),
                 v: 92,
               },
               {
-                l: locale === "pt" ? "Controle de gastos" : "Spend control",
+                l: t("dashboard.spendControl"),
                 v: 78,
               },
               {
-                l: locale === "pt" ? "Diversificação" : "Diversification",
+                l: t("dashboard.diversification"),
                 v: 88,
               },
             ].map((r) => (
@@ -348,7 +341,7 @@ export default function DashboardPage() {
                   </div>
                   <div className="text-[11px] text-muted-foreground">
                     {new Date(tx.transaction_date).toLocaleDateString(
-                      locale === "pt" ? "pt-BR" : "en-US",
+                      t("dashboard.language"),
                       { day: "2-digit", month: "short" },
                     )}
                   </div>
